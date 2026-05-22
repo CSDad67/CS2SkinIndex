@@ -128,6 +128,32 @@ h1 span{color:var(--accent)}
   .case-card-img-wrap{height:130px}
   .case-card-img{width:110px;height:110px}
 }
+
+/* Skin search */
+.search-section{margin-bottom:32px;padding:20px;background:var(--surface);border:1px solid var(--border)}
+.search-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:12px}
+.search-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.search-select{background:var(--surface2);border:1px solid var(--border);color:var(--text-bright);font-family:'Share Tech Mono',monospace;font-size:12px;padding:8px 12px;outline:none;cursor:pointer;flex:1;min-width:200px;transition:border-color .2s}
+.search-select:focus{border-color:var(--accent)}
+.search-select option{background:var(--surface2)}
+.search-input{background:var(--surface2);border:1px solid var(--border);color:var(--text-bright);font-family:'Share Tech Mono',monospace;font-size:12px;padding:8px 12px;outline:none;flex:2;min-width:200px;transition:border-color .2s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--text-dim)}
+.search-clear{font-family:'Share Tech Mono',monospace;font-size:11px;padding:8px 14px;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:pointer;transition:all .2s;letter-spacing:1px}
+.search-clear:hover{border-color:var(--red);color:var(--red)}
+.search-results{margin-top:14px;display:none}
+.search-results.visible{display:block}
+.search-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-height:70vh;overflow-y:auto;padding-right:4px}
+.search-result-card{background:var(--surface2);border:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .2s;cursor:pointer}
+.search-result-card:hover{border-color:var(--accent)}
+.search-result-img{width:64px;height:40px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.search-result-info{flex:1;min-width:0}
+.search-result-weapon{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px}
+.search-result-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-result-case{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--accent)}
+.search-result-rarity{font-family:'Share Tech Mono',monospace;font-size:9px;padding:1px 5px;margin-top:3px;display:inline-block}
+.search-count{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:10px}
+
 </style>
 </head>
 <body>
@@ -186,6 +212,23 @@ h1 span{color:var(--accent)}
 
   <!-- Toast -->
   <div class="toast" id="toast"></div>
+
+
+  <!-- SKIN SEARCH -->
+  <div class="search-section">
+    <div class="search-title">&#9658; SKIN SEARCH — BY NAME OR WEAPON TYPE</div>
+    <div class="search-row">
+      <select class="search-select" id="search-weapon" onchange="runSearch()">
+        <option value="">All Weapons</option>
+      </select>
+      <input class="search-input" id="search-name" type="text" placeholder="Search skin name... (e.g. Asiimov, Fade, Neon)" oninput="runSearch()" autocomplete="off">
+      <button class="search-clear" onclick="clearSearch()">CLEAR</button>
+    </div>
+    <div class="search-results" id="search-results">
+      <div class="search-count" id="search-count"></div>
+      <div class="search-results-grid" id="search-grid"></div>
+    </div>
+  </div>
 
   <!-- Case sections -->
   <div id="case-sections">
@@ -1817,94 +1860,65 @@ function filterCases(section, btn){
 }
 
 /* ── Price formatting ───────────────────────────────────────────────────── */
-function fmtPrice(raw){
-  if(!raw) return null;
-  // Steam returns "$1.23" or "1,234.56" — normalise
-  const n = parseFloat(String(raw).replace(/[^0-9.]/g,''));
-  if(isNaN(n)) return null;
-  return '$'+n.toFixed(2);
-}
 
-async function fetchSteamPrice(hash){
+/* ── Pricing — reads from hosted prices.json (updated by GitHub Actions) ─── */
+const PRICES_URL = 'https://csdad67.github.io/CS2SkinIndex/prices.json';
+
+let priceData = null;  // cached globally per page load
+
+async function loadPriceData(){
+  if(priceData) return priceData;
   try{
-    const r = await fetch(`https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hash)}`);
-    if(!r.ok) return null;
-    const d = await r.json();
-    return d.success ? fmtPrice(d.lowest_price||d.median_price) : null;
-  }catch{ return null; }
-}
-
-async function fetchSkinportBulk(){
-  try{
-    const r = await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{headers:{'Accept-Encoding':'br'}});
-    if(!r.ok) return {};
-    const data = await r.json();
-    const map = {};
-    data.forEach(i=>{ map[i.market_hash_name]=i; });
-    return map;
-  }catch{ return {}; }
-}
-
-function applyPrices(id, steam, sp){
-  const sel = document.getElementById('idx-steam-'+id);
-  const spl = document.getElementById('idx-sp-'+id);
-  if(sel){
-    sel.textContent = steam||'N/A';
-    sel.className   = 'case-price-val'+(steam?'':' no-price');
-  }
-  if(spl){
-    spl.textContent = sp||'N/A';
-    spl.className   = 'case-price-val'+(sp?'':' no-price');
+    const r = await fetch(PRICES_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    priceData = await r.json();
+    return priceData;
+  }catch(e){
+    console.warn('prices.json fetch failed:', e.message);
+    return null;
   }
 }
 
+function getSteamPrice(data, hash){
+  if(!data||!data.prices) return null;
+  const entry = data.prices[hash];
+  return entry ? entry.steam : null;
+}
+
+// For the master index — case-level prices only
 async function fetchAllPrices(){
   const btn = document.getElementById('fetch-btn');
   const ts  = document.getElementById('price-ts');
-  btn.disabled=true;
-  btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');
-  ts.textContent='Fetching...';
+  if(btn){ btn.disabled=true; btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','LOADING...'); }
+  if(ts) ts.textContent='Loading prices.json...';
 
-  // Loading state
-  PRICE_MAP.forEach(c=>{
-    const sel=document.getElementById('idx-steam-'+c.id);
-    const spl=document.getElementById('idx-sp-'+c.id);
-    if(sel){sel.textContent='...';sel.className='case-price-val loading';}
-    if(spl){spl.textContent='...';spl.className='case-price-val loading';}
+  // Reset all to loading
+  document.querySelectorAll('.case-price-val').forEach(el=>{
+    el.textContent='...'; el.className='case-price-val loading';
   });
 
-  const spMap  = await fetchSkinportBulk();
-  const cache  = {};
-  const now    = new Date().toISOString();
-
-  for(let i=0;i<PRICE_MAP.length;i++){
-    const c    = PRICE_MAP[i];
-    const spItem = spMap[c.hash];
-    const spPrice = spItem ? fmtPrice((spItem.min_price??spItem.suggested_price??0)/100) : null;
-    await new Promise(r=>setTimeout(r,i===0?0:280));
-    const steam = await fetchSteamPrice(c.hash);
-    applyPrices(c.id, steam, spPrice);
-    cache[c.id]={steam,skinport:spPrice};
+  const data = await loadPriceData();
+  if(!data){
+    if(ts) ts.textContent='Error loading prices.json';
+    if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
+    return;
   }
 
-  cache['_ts']=now;
-  setCache(PRICE_CACHE_KEY,cache);
-  ts.textContent=new Date(now).toLocaleString();
-  btn.disabled=false;
-  btn.innerHTML=btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
-  showToast('Prices updated for '+PRICE_MAP.length+' cases');
+  PRICE_MAP.forEach(c=>{
+    const steam = getSteamPrice(data, c.hash);
+    const sel=document.getElementById('idx-steam-'+c.id);
+    const spl=document.getElementById('idx-sp-'+c.id);
+    if(sel){ sel.textContent=steam||'N/A'; sel.className='case-price-val'+(steam?'':' no-price'); }
+    if(spl){ spl.textContent='—'; spl.className='case-price-val no-price'; }
+  });
+
+  const updated = data.updated ? new Date(data.updated).toLocaleString()+' (auto-updated)' : 'unknown';
+  if(ts) ts.textContent=updated;
+  if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
 }
 
-function loadCachedPrices(){
-  const cache=getCache(PRICE_CACHE_KEY);
-  if(!cache['_ts']) return;
-  PRICE_MAP.forEach(c=>{
-    const d=cache[c.id];
-    if(d) applyPrices(c.id,d.steam,d.skinport);
-  });
-  const ts=document.getElementById('price-ts');
-  if(ts) ts.textContent=new Date(cache['_ts']).toLocaleString()+' (cached)';
-}
+function loadCachedPrices(){ fetchAllPrices(); }
+
 
 /* ── New case detection ─────────────────────────────────────────────────── */
 async function checkForNewCases(){
@@ -2078,9 +2092,129 @@ function showToast(msg){
 }
 
 /* ── Init ───────────────────────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded',()=>{
-  loadCachedPrices();
-});
+
+
+/* ── Skin search ─────────────────────────────────────────────────────────── */
+let _skinDB = null;
+
+async function loadSkinDB(){
+  if(_skinDB) return _skinDB;
+  try{
+    const r = await fetch('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json');
+    const all = await r.json();
+    // Filter to skins that belong to our cases
+    const caseNames = new Set(INDEXED_CASES);
+    _skinDB = all.filter(s => (s.crates||[]).some(c => caseNames.has(c.name)));
+    return _skinDB;
+  }catch(e){ console.warn('skinDB:', e.message); return []; }
+}
+
+// Populate weapon dropdown from skinDB
+async function initSearch(){
+  const skins = await loadSkinDB();
+  const weapons = [...new Set(skins.map(s=>{
+    const p = s.name.split(' | ');
+    return p[0].replace('★ ','').replace('★','').trim();
+  }))].sort();
+  const sel = document.getElementById('search-weapon');
+  weapons.forEach(w=>{
+    const opt = document.createElement('option');
+    opt.value=w; opt.textContent=w; sel.appendChild(opt);
+  });
+}
+
+const RARITY_COLORS = {
+  'Covert':'#eb4b4b','Classified':'#d32ce6','Restricted':'#8847ff',
+  'Mil-Spec Grade':'#4b69ff','Industrial Grade':'#5e98d9','Consumer Grade':'#b0c3d9',
+  'Extraordinary':'#e4ae39',
+};
+
+async function runSearch(){
+  const weaponFilter = document.getElementById('search-weapon').value.toLowerCase();
+  const nameFilter   = document.getElementById('search-name').value.toLowerCase().trim();
+  const resultsDiv   = document.getElementById('search-results');
+  const grid         = document.getElementById('search-grid');
+  const countEl      = document.getElementById('search-count');
+
+  if(!weaponFilter && !nameFilter){ resultsDiv.classList.remove('visible'); return; }
+
+  const skins = await loadSkinDB();
+  const matches = skins.filter(s=>{
+    const parts  = s.name.split(' | ');
+    const weapon = (parts[0]||'').replace('★ ','').replace('★','').trim().toLowerCase();
+    const skin   = (parts[1]||'').toLowerCase();
+    const wOk    = !weaponFilter || weapon === weaponFilter;
+    const nOk    = !nameFilter   || skin.includes(nameFilter) || weapon.includes(nameFilter);
+    return wOk && nOk;
+  }).slice(0, 120); // cap at 120 results
+
+  countEl.textContent = matches.length === 0
+    ? 'No skins found'
+    : `${matches.length} skin${matches.length!==1?'s':''} found${matches.length===120?' (showing first 120)':''}`;
+
+  grid.innerHTML = matches.map(s=>{
+    const parts   = s.name.split(' | ');
+    const weapon  = parts[0].replace('★ ','').trim();
+    const skinName= parts[1]||'';
+    const rarity  = s.rarity?.name||'';
+    const color   = RARITY_COLORS[rarity]||'#888';
+    const caseName= s.crates?.[0]?.name||'Unknown';
+    const caseFile= getCaseFile(caseName);
+    const img     = s.image||'';
+    return `<div class="search-result-card" onclick="window.location.href='${caseFile}'">
+      <img class="search-result-img" src="${img}" alt="${s.name}" loading="lazy">
+      <div class="search-result-info">
+        <div class="search-result-weapon">${weapon}</div>
+        <div class="search-result-name">${skinName}</div>
+        <div class="search-result-case">&#128230; ${caseName}</div>
+        <span class="search-result-rarity" style="background:${color}22;color:${color}">${rarity.replace(' Grade','')}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  resultsDiv.classList.add('visible');
+}
+
+function clearSearch(){
+  document.getElementById('search-weapon').value='';
+  document.getElementById('search-name').value='';
+  document.getElementById('search-results').classList.remove('visible');
+}
+
+// Map case name to file
+function getCaseFile(caseName){
+  const map = {
+    'Fever Case':'CS2_FEV.html','Gallery Case':'CS2_GAL.html',
+    'Kilowatt Case':'CS2_KW.html','Revolution Case':'CS2_REV.html',
+    'Recoil Case':'CS2_RC.html','Dreams & Nightmares Case':'CS2_DN.html',
+    'Operation Riptide Case':'CS2_ORT.html','Snakebite Case':'CS2_SB.html',
+    'Operation Broken Fang Case':'CS2_OBF.html','Fracture Case':'CS2_FR.html',
+    'Prisma 2 Case':'CS2_P2.html','CS20 Case':'CS2_20.html',
+    'Shattered Web Case':'CS2_SW.html','Prisma Case':'CS2_PR.html',
+    'Danger Zone Case':'CS2_DZ.html','Horizon Case':'CS2_HZ.html',
+    'Clutch Case':'CS2_CL.html','Spectrum 2 Case':'CS2_S2.html',
+    'Operation Hydra Case':'CS2_OHY.html','Spectrum Case':'CS2_SP.html',
+    'Glove Case':'CS2_GL.html','Gamma 2 Case':'CS2_G2.html',
+    'Gamma Case':'CS2_GA.html','Chroma 3 Case':'CS2_C3.html',
+    'Operation Wildfire Case':'CS2_OWF.html','Shadow Case':'CS2_SH.html',
+    'Chroma 2 Case':'CS2_CH2.html','Falchion Case':'CS2_FA.html',
+    'Chroma Case':'CS2_CH.html','Revolver Case':'CS2_RV.html',
+    'Operation Phoenix Weapon Case':'CS2_OPH.html',
+    'Operation Vanguard Weapon Case':'CS2_OVG.html',
+    'eSports 2013 Case':'CS2_ES1.html','eSports 2013 Winter Case':'CS2_ES2.html',
+    'eSports 2014 Summer Case':'CS2_ES3.html',
+    'Operation Breakout Weapon Case':'CS2_OBR.html',
+    'Huntsman Weapon Case':'CS2_HW.html','Winter Offensive Weapon Case':'CS2_WO.html',
+    'CS:GO Weapon Case':'CS2_WC1.html','Operation Bravo Case':'CS2_OBV.html',
+    'CS:GO Weapon Case 2':'CS2_WC2.html','CS:GO Weapon Case 3':'CS2_WC3.html',
+    'Sealed Genesis Terminal':'CS2_GT.html','Sealed Dead Hand Terminal':'CS2_DHT.html',
+  };
+  return map[caseName] || 'cs2_master_index.html';
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', ()=>{ initSearch(); loadCachedPrices(); });
+
 </script>
 </body>
 </html>

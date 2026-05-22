@@ -1,0 +1,75 @@
+name: Update CS2 Prices
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours
+  workflow_dispatch:          # allow manual trigger from GitHub Actions UI
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch prices from Steam Market
+        env:
+          STEAM_DELAY_MS: 800   # ms between Steam API calls — stay under rate limit
+        run: |
+          python3 << 'PYEOF'
+          import json, time, urllib.request, urllib.parse, os, datetime
+
+          hashes = json.load(open('prices_config.json'))['hashes']
+          results = {}
+          delay   = int(os.environ.get('STEAM_DELAY_MS', 800)) / 1000
+
+          print(f"Fetching {len(hashes)} items from Steam Market...")
+
+          for i, h in enumerate(hashes):
+            encoded = urllib.parse.quote(h)
+            url = f"https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name={encoded}"
+            try:
+              with urllib.request.urlopen(url, timeout=10) as r:
+                d = json.loads(r.read())
+                if d.get('success'):
+                  price = d.get('lowest_price') or d.get('median_price')
+                  results[h] = {'steam': price, 'volume': d.get('volume')}
+                else:
+                  results[h] = {'steam': None}
+            except Exception as e:
+              results[h] = {'steam': None, 'error': str(e)[:50]}
+
+            if (i+1) % 50 == 0:
+              print(f"  {i+1}/{len(hashes)} done...")
+
+            time.sleep(delay)
+
+          output = {
+            'updated': datetime.datetime.utcnow().isoformat() + 'Z',
+            'source': 'Steam Community Market',
+            'currency': 'USD',
+            'count': len(results),
+            'prices': results,
+          }
+
+          with open('prices.json','w') as f:
+            json.dump(output, f, separators=(',',':'))
+
+          print(f"Done. {len(results)} prices saved to prices.json")
+          PYEOF
+
+      - name: Commit and push prices.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add prices.json
+          git diff --staged --quiet || git commit -m "Auto-update prices.json $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push

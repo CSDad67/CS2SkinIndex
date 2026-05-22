@@ -299,9 +299,9 @@ td{padding:9px 14px;vertical-align:middle}
   .num-cell{font-family:"Courier New",monospace;font-size:7pt;white-space:nowrap;text-align:center;color:#444}
   .wear-cell{font-family:"Courier New",monospace;font-size:7pt;white-space:nowrap;color:#444}
   .st-cell{text-align:center;font-size:7pt}.note-cell{font-size:7pt;color:#555}
-  .print-inv-row td{padding:0;border-bottom:.5pt solid #e0e0e0}
+  .print-inv-row td{padding:0;border-bottom:.5pt solid #e0e0e0;border-top:none}
   .print-inv-cell{padding:0}
-  .print-inv-inner{display:flex;flex-wrap:wrap;gap:4pt;padding:3pt 5pt;background:#fafafa}
+  .print-inv-inner{display:flex;flex-wrap:wrap;gap:4pt;padding:2pt 5pt 4pt 5pt;background:#fff8f0}
   .print-inv-inner:empty::before{content:'';display:none}
   /* OWNED-ONLY MODE: accent colour shift, never hide any skin rows */
   body.print-owned .pp-header{ border-bottom-color:#0077aa }
@@ -310,7 +310,7 @@ td{padding:9px 14px;vertical-align:middle}
   /* show the "not owned" label row only in owned mode */
   body.print-owned .print-inv-none{ display:table-row !important }
   .print-inv-none{ display:none }
-  .pchip{display:flex;align-items:center;gap:4pt;border:1pt solid #ddd;padding:1.5pt 5pt;background:#fff}
+  .pchip{display:flex;align-items:center;gap:4pt;border:1pt solid #ccc;padding:2pt 6pt;background:#fff}
   .pchip.pchip-st{border-color:#c8830a;background:#fffaf0}
   .pchip-type{font-size:6pt;font-weight:700;padding:0 3pt;color:#fff;background:#555}
   .pchip-type.pst{background:#c8830a}
@@ -2609,7 +2609,7 @@ function renderQrChips(id){
   el.innerHTML=entries.map(e=>{
     const parts=[];
     if(e.wear)    parts.push(`<span>${abbr(e.wear)}</span>`);
-    if(e.float)   parts.push(`<span>fl ${parseFloat(e.float).toFixed(4)}</span>`);
+    if(e.float)   parts.push(`<span>FL ${parseFloat(e.float).toFixed(4)}</span>`);
     if(e.pattern) parts.push(`<span>P${e.pattern}</span>`);
     const detail=parts.length ? parts.join('<span style="color:#2a4060;margin:0 2px">&middot;</span>')
                               : '<span style="color:#3a5070">&mdash;</span>';
@@ -2652,7 +2652,7 @@ function renderPrintRow(id){
     cell.innerHTML='<div class="print-inv-inner">'+entries.map(e=>{
       const parts=[];
       if(e.wear)    parts.push(abbr(e.wear));
-      if(e.float)   parts.push('fl '+parseFloat(e.float).toFixed(4));
+      if(e.float)   parts.push('FL '+parseFloat(e.float).toFixed(4));
       if(e.pattern) parts.push('P'+e.pattern);
       return `<div class="pchip${e.st?' pchip-st':''}">
         <span class="pchip-type${e.st?' pst':''}">${e.st?'ST&#x2122;':'STD'}</span>
@@ -2688,156 +2688,69 @@ function printOwned(){
 }
 
 
-/* ── Pricing ────────────────────────────────────────────────────────────── */
-const PRICE_MAP = [{"id": "ak_47___inheritance", "name": "AK-47 | Inheritance", "steam_hash": "AK-47 | Inheritance (Factory New)", "skinport_hash": "AK-47 | Inheritance (Factory New)", "has_st": true}, {"id": "awp___chrome_cannon", "name": "AWP | Chrome Cannon", "steam_hash": "AWP | Chrome Cannon (Factory New)", "skinport_hash": "AWP | Chrome Cannon (Factory New)", "has_st": true}, {"id": "m4a1_s___black_lotus", "name": "M4A1-S | Black Lotus", "steam_hash": "M4A1-S | Black Lotus (Factory New)", "skinport_hash": "M4A1-S | Black Lotus (Factory New)", "has_st": true}, {"id": "zeus_x27___olympus", "name": "Zeus x27 | Olympus", "steam_hash": "Zeus x27 | Olympus (Factory New)", "skinport_hash": "Zeus x27 | Olympus (Factory New)", "has_st": true}, {"id": "usp_s___jawbreaker", "name": "USP-S | Jawbreaker", "steam_hash": "USP-S | Jawbreaker (Factory New)", "skinport_hash": "USP-S | Jawbreaker (Factory New)", "has_st": true}, {"id": "five_seven___hybrid", "name": "Five-SeveN | Hybrid", "steam_hash": "Five-SeveN | Hybrid (Factory New)", "skinport_hash": "Five-SeveN | Hybrid (Factory New)", "has_st": true}, {"id": "glock_18___block_18", "name": "Glock-18 | Block-18", "steam_hash": "Glock-18 | Block-18 (Factory New)", "skinport_hash": "Glock-18 | Block-18 (Factory New)", "has_st": true}, {"id": "m4a4___etch_lord", "name": "M4A4 | Etch Lord", "steam_hash": "M4A4 | Etch Lord (Factory New)", "skinport_hash": "M4A4 | Etch Lord (Factory New)", "has_st": true}, {"id": "mp7___just_smile", "name": "MP7 | Just Smile", "steam_hash": "MP7 | Just Smile (Factory New)", "skinport_hash": "MP7 | Just Smile (Factory New)", "has_st": true}, {"id": "sawed_off___analog_input", "name": "Sawed-Off | Analog Input", "steam_hash": "Sawed-Off | Analog Input (Factory New)", "skinport_hash": "Sawed-Off | Analog Input (Factory New)", "has_st": true}, {"id": "dual_berettas___hideout", "name": "Dual Berettas | Hideout", "steam_hash": "Dual Berettas | Hideout (Factory New)", "skinport_hash": "Dual Berettas | Hideout (Factory New)", "has_st": true}, {"id": "mac_10___light_box", "name": "MAC-10 | Light Box", "steam_hash": "MAC-10 | Light Box (Factory New)", "skinport_hash": "MAC-10 | Light Box (Factory New)", "has_st": true}, {"id": "nova___dark_sigil", "name": "Nova | Dark Sigil", "steam_hash": "Nova | Dark Sigil (Factory New)", "skinport_hash": "Nova | Dark Sigil (Factory New)", "has_st": true}, {"id": "ssg_08___dezastre", "name": "SSG 08 | Dezastre", "steam_hash": "SSG 08 | Dezastre (Factory New)", "skinport_hash": "SSG 08 | Dezastre (Factory New)", "has_st": true}, {"id": "tec_9___slag", "name": "Tec-9 | Slag", "steam_hash": "Tec-9 | Slag (Factory New)", "skinport_hash": "Tec-9 | Slag (Factory New)", "has_st": true}, {"id": "ump_45___motorized", "name": "UMP-45 | Motorized", "steam_hash": "UMP-45 | Motorized (Factory New)", "skinport_hash": "UMP-45 | Motorized (Factory New)", "has_st": true}, {"id": "xm1014___irezumi", "name": "XM1014 | Irezumi", "steam_hash": "XM1014 | Irezumi (Factory New)", "skinport_hash": "XM1014 | Irezumi (Factory New)", "has_st": true}, {"id": "__kukri_knife___fade", "name": "\u2605 Kukri Knife | Fade", "steam_hash": "\u2605 Kukri Knife | Fade (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Fade (Factory New)", "has_st": true}, {"id": "__kukri_knife___slaughter", "name": "\u2605 Kukri Knife | Slaughter", "steam_hash": "\u2605 Kukri Knife | Slaughter (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Slaughter (Factory New)", "has_st": true}, {"id": "__kukri_knife___blue_steel", "name": "\u2605 Kukri Knife | Blue Steel", "steam_hash": "\u2605 Kukri Knife | Blue Steel (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Blue Steel (Factory New)", "has_st": true}, {"id": "__kukri_knife___stained", "name": "\u2605 Kukri Knife | Stained", "steam_hash": "\u2605 Kukri Knife | Stained (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Stained (Factory New)", "has_st": true}, {"id": "__kukri_knife___case_hardened", "name": "\u2605 Kukri Knife | Case Hardened", "steam_hash": "\u2605 Kukri Knife | Case Hardened (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Case Hardened (Factory New)", "has_st": true}, {"id": "__kukri_knife___forest_ddpat", "name": "\u2605 Kukri Knife | Forest DDPAT", "steam_hash": "\u2605 Kukri Knife | Forest DDPAT (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Forest DDPAT (Factory New)", "has_st": true}, {"id": "__kukri_knife___boreal_forest", "name": "\u2605 Kukri Knife | Boreal Forest", "steam_hash": "\u2605 Kukri Knife | Boreal Forest (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Boreal Forest (Factory New)", "has_st": true}, {"id": "__kukri_knife___crimson_web", "name": "\u2605 Kukri Knife | Crimson Web", "steam_hash": "\u2605 Kukri Knife | Crimson Web (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Crimson Web (Factory New)", "has_st": true}, {"id": "__kukri_knife___scorched", "name": "\u2605 Kukri Knife | Scorched", "steam_hash": "\u2605 Kukri Knife | Scorched (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Scorched (Factory New)", "has_st": true}, {"id": "__kukri_knife___safari_mesh", "name": "\u2605 Kukri Knife | Safari Mesh", "steam_hash": "\u2605 Kukri Knife | Safari Mesh (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Safari Mesh (Factory New)", "has_st": true}, {"id": "__kukri_knife___night_stripe", "name": "\u2605 Kukri Knife | Night Stripe", "steam_hash": "\u2605 Kukri Knife | Night Stripe (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Night Stripe (Factory New)", "has_st": true}, {"id": "__kukri_knife___urban_masked", "name": "\u2605 Kukri Knife | Urban Masked", "steam_hash": "\u2605 Kukri Knife | Urban Masked (Factory New)", "skinport_hash": "\u2605 Kukri Knife | Urban Masked (Factory New)", "has_st": true}, {"id": "__kukri_knife", "name": "\u2605 Kukri Knife", "steam_hash": "\u2605 Kukri Knife", "skinport_hash": "\u2605 Kukri Knife", "has_st": true}];
 
-// localStorage key for cached prices
-const PRICE_CACHE_KEY = 'cs2_kw_prices';
+/* ── Pricing — reads from hosted prices.json ────────────────────────────── */
+const PRICES_URL_GLOBAL = 'https://csdad67.github.io/CS2SkinIndex/prices.json';
+let _priceCache = null;
 
-function getPriceCache(){ try{ return JSON.parse(localStorage.getItem(PRICE_CACHE_KEY)||'{}'); }catch{ return {}; } }
-function setPriceCache(o){ try{ localStorage.setItem(PRICE_CACHE_KEY,JSON.stringify(o)); }catch{} }
-
-function fmtPrice(v){
-  if(v==null||v===undefined) return null;
-  return '$'+parseFloat(v).toFixed(2);
+async function loadPriceJSON(){
+  if(_priceCache) return _priceCache;
+  try{
+    const r = await fetch(PRICES_URL_GLOBAL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    _priceCache = await r.json();
+    return _priceCache;
+  }catch(e){ console.warn('prices.json:', e.message); return null; }
 }
 
-async function fetchSteamPrice(hashName){
-  const url = `https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hashName)}`;
-  try{
-    const r = await fetch(url);
-    if(!r.ok) return null;
-    const d = await r.json();
-    // lowest_price is the current lowest listing
-    return d.success ? (d.lowest_price || d.median_price || null) : null;
-  }catch{ return null; }
-}
-
-async function fetchSkinportPrices(){
-  // Skinport bulk endpoint — fetch all CS2 items at once
-  try{
-    const r = await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{
-      headers: { 'Accept-Encoding': 'br' }
-    });
-    if(!r.ok) return {};
-    const data = await r.json();
-    // Build a lookup map
-    const map = {};
-    data.forEach(item => {
-      map[item.market_hash_name] = item;
-    });
-    return map;
-  }catch{ return {}; }
+function getPrice(data, hash){
+  if(!data||!data.prices) return null;
+  return (data.prices[hash]||{}).steam || null;
 }
 
 async function fetchAllPrices(){
-  const btn = document.getElementById('fetch-prices-btn');
-  const ts  = document.getElementById('price-ts');
-  btn.disabled = true;
-  btn.innerHTML = btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');
-  ts.textContent = 'Fetching...';
+  const btn=document.getElementById('fetch-prices-btn');
+  const ts=document.getElementById('price-ts');
+  if(btn){ btn.disabled=true; btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','LOADING...'); }
+  if(ts) ts.textContent='Loading...';
 
-  // Set case price cells to loading
-  const csEl = document.getElementById('case-steam-price');
-  const cpEl = document.getElementById('case-skinport-price');
+  // Set case price cells loading
+  const csEl=document.getElementById('case-steam-price');
+  const cpEl=document.getElementById('case-skinport-price');
   if(csEl){ csEl.textContent='...'; csEl.className='case-price-value loading'; }
-  if(cpEl){ cpEl.textContent='...'; cpEl.className='case-price-value loading'; }
+  if(cpEl){ cpEl.textContent='—'; cpEl.className='case-price-value loading'; }
 
-  // Set all skin cards to loading
-  PRICE_MAP.forEach(s => {
-    const sel = document.getElementById('steam-price-'+s.id);
-    const spl = document.getElementById('skinport-price-'+s.id);
+  // Set skin cards loading
+  PRICE_MAP.forEach(s=>{
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
     if(sel){ sel.textContent='...'; sel.className='price-value loading'; }
-    if(spl){ spl.textContent='...'; spl.className='price-value loading'; }
+    if(spl){ spl.textContent='—'; spl.className='price-value'; }
   });
 
-  // Skinport bulk fetch (one request for all CS2 items)
-  const skinportMap = await fetchSkinportPrices();
-
-  function getSkinportPrice(hashName){
-    const item = skinportMap[hashName];
-    if(!item) return null;
-    if(item.min_price != null) return fmtPrice(item.min_price/100);
-    if(item.suggested_price != null) return fmtPrice(item.suggested_price/100);
-    return null;
-  }
-
-  const cache = {};
-  const now = new Date().toISOString();
+  const data = await loadPriceJSON();
 
   // Case price
-  const casesteamRaw = await fetchSteamPrice('Kilowatt Case');
-  const caseSp = getSkinportPrice('Kilowatt Case');
-  if(csEl){ if(casesteamRaw){ csEl.textContent=casesteamRaw; csEl.className='case-price-value'; }
-            else{ csEl.textContent='N/A'; csEl.className='case-price-value no-fn'; } }
-  if(cpEl){ if(caseSp){ cpEl.textContent=caseSp; cpEl.className='case-price-value'; }
-            else{ cpEl.textContent='N/A'; cpEl.className='case-price-value no-fn'; } }
-  cache['_case'] = { steam: casesteamRaw, skinport: caseSp };
+  const casePrice = getPrice(data, CASE_HASH);
+  if(csEl){ csEl.textContent=casePrice||'N/A'; csEl.className='case-price-value'+(casePrice?'':' no-fn'); }
+  if(cpEl){ cpEl.textContent='—'; cpEl.className='case-price-value no-fn'; }
 
-  // Skin prices (staggered to avoid Steam rate limiting)
-  for(let i=0; i<PRICE_MAP.length; i++){
-    const s = PRICE_MAP[i];
-    const steamEl    = document.getElementById('steam-price-'+s.id);
-    const skinportEl = document.getElementById('skinport-price-'+s.id);
-
-    const spPrice    = getSkinportPrice(s.skinport_hash);
-    await new Promise(r=>setTimeout(r, 300));
-    const steamRaw   = await fetchSteamPrice(s.steam_hash);
-
-    if(steamEl){
-      if(steamRaw){ steamEl.textContent=steamRaw; steamEl.className='price-value'; }
-      else{ steamEl.textContent='N/A'; steamEl.className='price-value no-fn'; }
-    }
-    if(skinportEl){
-      if(spPrice){ skinportEl.textContent=spPrice; skinportEl.className='price-value'; }
-      else{ skinportEl.textContent='N/A'; skinportEl.className='price-value no-fn'; }
-    }
-    cache[s.id] = { steam: steamRaw, skinport: spPrice };
-  }
-
-  cache['_ts'] = now;
-  setPriceCache(cache);
-  document.getElementById('price-ts').textContent = new Date(now).toLocaleString();
-  btn.disabled = false;
-  btn.innerHTML = btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
-}
-
-function loadCachedPrices(){
-  const cache = getPriceCache();
-  if(!cache['_ts']) return;
-
-  // Restore case prices
-  const csEl = document.getElementById('case-steam-price');
-  const cpEl = document.getElementById('case-skinport-price');
-  const cc   = cache['_case'];
-  if(cc && csEl){
-    if(cc.steam){ csEl.textContent=cc.steam; csEl.className='case-price-value'; }
-    else{ csEl.textContent='N/A'; csEl.className='case-price-value no-fn'; }
-  }
-  if(cc && cpEl){
-    if(cc.skinport){ cpEl.textContent=cc.skinport; cpEl.className='case-price-value'; }
-    else{ cpEl.textContent='N/A'; cpEl.className='case-price-value no-fn'; }
-  }
-
-  // Restore skin prices
-  PRICE_MAP.forEach(s => {
-    const c = cache[s.id];
-    if(!c) return;
-    const steamEl    = document.getElementById('steam-price-'+s.id);
-    const skinportEl = document.getElementById('skinport-price-'+s.id);
-    if(steamEl){
-      if(c.steam){ steamEl.textContent=c.steam; steamEl.className='price-value'; }
-      else{ steamEl.textContent='N/A'; steamEl.className='price-value no-fn'; }
-    }
-    if(skinportEl){
-      if(c.skinport){ skinportEl.textContent=c.skinport; skinportEl.className='price-value'; }
-      else{ skinportEl.textContent='N/A'; skinportEl.className='price-value no-fn'; }
-    }
+  // Skin prices
+  PRICE_MAP.forEach(s=>{
+    const steam = getPrice(data, s.steam_hash);
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent=steam||'N/A'; sel.className='price-value'+(steam?'':' no-fn'); }
+    if(spl){ spl.textContent='—'; spl.className='price-value no-fn'; }
   });
 
-  const ts = document.getElementById('price-ts');
-  if(ts) ts.textContent = new Date(cache['_ts']).toLocaleString() + ' (cached)';
+  const updated = data ? (data.updated ? new Date(data.updated).toLocaleString()+' (auto-updated)' : 'unavailable') : 'Error loading prices';
+  if(ts) ts.textContent=updated;
+  if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
 }
+
+function loadCachedPrices(){ fetchAllPrices(); }
+
 
 /* Init */
 document.addEventListener('DOMContentLoaded',()=>{
