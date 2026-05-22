@@ -154,6 +154,49 @@ h1 span{color:var(--accent)}
 .search-result-rarity{font-family:'Share Tech Mono',monospace;font-size:9px;padding:1px 5px;margin-top:3px;display:inline-block}
 .search-count{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:10px}
 
+
+/* Wishlist print */
+@media print {
+  body.print-wishlist #print-wishlist-panel{ display:block !important }
+  body.print-wishlist .container > *:not(#print-wishlist-panel){ display:none !important }
+  #print-wishlist-panel{ display:none }
+  #print-wishlist-panel{
+    font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;
+    color:#111;background:#fff;width:100%;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .pwl-header{border-bottom:2.5pt solid #cc1133;padding-bottom:6pt;margin-bottom:12pt;}
+  .pwl-header h1{font-size:20pt;font-weight:900;color:#111;margin:0 0 3pt;letter-spacing:.5pt;}
+  .pwl-header h1 span{color:#cc1133}
+  .pwl-meta{font-size:7.5pt;color:#555;display:flex;flex-wrap:wrap;gap:10pt;margin-top:4pt}
+  .pwl-meta strong{color:#111}
+  .pwl-section-title{
+    font-size:9pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;
+    margin:10pt 0 4pt;padding:3pt 6pt;
+    border-left:4pt solid #cc1133;background:#fff0f3;page-break-after:avoid;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .pwl-table{width:100%;border-collapse:collapse;page-break-inside:auto;}
+  .pwl-table thead{display:table-header-group}
+  .pwl-table thead tr{background:#330010 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pwl-table thead th{background:#330010 !important;color:#fff !important;
+    font-size:7pt;font-weight:700;letter-spacing:.8pt;padding:4pt 5pt;text-align:left;border:none;}
+  .pwl-table tbody tr{page-break-inside:avoid}
+  .pwl-table tbody tr:nth-child(even){background:#fff5f7 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pwl-table td{padding:4pt 5pt;vertical-align:middle;border-bottom:.5pt solid #eedddd;font-size:7.8pt;}
+  .pwl-img{width:52pt;padding:2pt 3pt}.pwl-img img{width:50pt;height:30pt;object-fit:contain}
+  .pwl-weapon{font-weight:700;color:#333;white-space:nowrap;width:70pt}
+  .pwl-name{font-weight:700}
+  .pwl-case{font-size:7pt;color:#888}
+  .pwl-rarity{font-size:7pt;font-weight:700;white-space:nowrap}
+  .pwl-type{font-size:7pt;font-weight:700;white-space:nowrap}
+  .pwl-type.std{color:#0066aa}.pwl-type.st{color:#c8830a}
+  .pwl-float{font-family:"Courier New",monospace;font-size:7pt;color:#555}
+  .pwl-footer{margin-top:14pt;padding-top:5pt;border-top:.75pt solid #bbb;
+    font-size:7pt;color:#888;display:flex;justify-content:space-between}
+}
+@media screen { #print-wishlist-panel{ display:none } }
+
 </style>
 </head>
 <body>
@@ -201,6 +244,14 @@ h1 span{color:var(--accent)}
       </svg>
       CHECK FOR NEW CASES
     </button>
+    <button class="action-btn" id="wishlist-print-btn"
+        style="border-color:#ff4d6d;color:#ff4d6d"
+        onclick="printWishlist()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      PRINT WISHLIST
+    </button>
     <div class="price-timestamp">PRICING: <span id="price-ts">NOT YET FETCHED</span></div>
   </div>
 
@@ -209,6 +260,10 @@ h1 span{color:var(--accent)}
     <div class="new-case-alert-title">&#9670; NEW CASES DETECTED</div>
     <div id="new-case-list"></div>
   </div>
+
+
+  <!-- WISHLIST PRINT PANEL (hidden on screen, shown when printing wishlist) -->
+  <div id="print-wishlist-panel"></div>
 
   <!-- Toast -->
   <div class="toast" id="toast"></div>
@@ -2214,6 +2269,90 @@ function getCaseFile(caseName){
 
 // Init on load
 document.addEventListener('DOMContentLoaded', ()=>{ initSearch(); loadCachedPrices(); });
+
+
+/* ── Wishlist print (master index) ─────────────────────────────────────── */
+const WISH_KEY_MI = 'cs2_global_wishlist';
+function getMIWishlist(){ try{ return JSON.parse(localStorage.getItem(WISH_KEY_MI)||'[]'); }catch{ return []; } }
+
+function printWishlist(){
+  const items = getMIWishlist();
+  const panel = document.getElementById('print-wishlist-panel');
+
+  const rarity_colors = {
+    'Covert':'#cc2222','Classified':'#9b1fba','Restricted':'#5533cc',
+    'Mil-Spec Grade':'#2244cc','Industrial Grade':'#4477aa',
+    'Consumer Grade':'#667788','Extraordinary':'#996600',
+  };
+
+  if(items.length === 0){
+    panel.innerHTML = `<div class="pwl-header"><h1>CS2 Skin <span>Wishlist</span></h1>
+      <div class="pwl-meta"><span>Your wishlist is empty. Visit individual case pages and tick the WISHLIST checkboxes on any skin card.</span></div></div>`;
+    document.body.classList.add('print-wishlist');
+    window.print();
+    document.body.classList.remove('print-wishlist');
+    return;
+  }
+
+  // Group by case
+  const byCase = {};
+  items.forEach(item => {
+    const c = item.caseName || 'Unknown Case';
+    if(!byCase[c]) byCase[c] = [];
+    byCase[c].push(item);
+  });
+
+  const now = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const stdCount = items.filter(i=>!i.isSt).length;
+  const stCount  = items.filter(i=>i.isSt).length;
+
+  let sectionsHtml = '';
+  for(const [caseName, caseItems] of Object.entries(byCase)){
+    const rows = caseItems.map(item => {
+      const color = rarity_colors[item.rarity] || '#555';
+      const typeClass = item.isSt ? 'st' : 'std';
+      const typeLabel = item.isSt ? 'StatTrak™' : 'Standard';
+      return `<tr>
+        <td class="pwl-img"><img src="${item.img||''}" alt="${item.skinName||''}"></td>
+        <td class="pwl-weapon">${item.weapon||''}</td>
+        <td class="pwl-name">${item.skinName||''}</td>
+        <td class="pwl-rarity" style="color:${color}">${(item.rarity||'').replace(' Grade','')}</td>
+        <td class="pwl-type ${typeClass}">${typeLabel}</td>
+        <td class="pwl-float">${item.floatMin||'—'} – ${item.floatMax||'—'}</td>
+        <td class="pwl-case">${caseName}</td>
+      </tr>`;
+    }).join('');
+    sectionsHtml += `
+    <div class="pwl-section-title">${caseName} &mdash; ${caseItems.length} skin${caseItems.length!==1?'s':''}</div>
+    <table class="pwl-table">
+      <thead><tr>
+        <th>IMG</th><th>WEAPON</th><th>SKIN NAME</th><th>RARITY</th>
+        <th>TYPE</th><th>FLOAT RANGE</th><th>CASE</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  }
+
+  panel.innerHTML = `
+    <div class="pwl-header">
+      <h1>CS2 Skin <span>Wishlist</span></h1>
+      <div class="pwl-meta">
+        <span><strong>Total items:</strong> ${items.length}</span>
+        <span><strong>Standard:</strong> ${stdCount} &nbsp;|&nbsp; <strong>StatTrak™:</strong> ${stCount}</span>
+        <span><strong>Cases covered:</strong> ${Object.keys(byCase).length}</span>
+        <span><strong>Printed:</strong> ${now}</span>
+      </div>
+    </div>
+    ${sectionsHtml}
+    <div class="pwl-footer">
+      <span>CS2 Master Skin Index &mdash; Wishlist Report</span>
+      <span>csdad67.github.io/CS2SkinIndex</span>
+    </div>`;
+
+  document.body.classList.add('print-wishlist');
+  window.print();
+  document.body.classList.remove('print-wishlist');
+}
 
 </script>
 </body>

@@ -326,6 +326,21 @@ td{padding:9px 14px;vertical-align:middle}
     letter-spacing:.5pt;font-style:italic}
 }
 @media screen{#print-panel{display:none}}
+
+/* Wishlist strip */
+.wish-strip{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--border);background:var(--surface2);}
+.wish-check{flex:1;display:flex;align-items:center;gap:7px;padding:6px 12px;cursor:pointer;transition:background .15s;user-select:none;border-right:1px solid var(--border);}
+.wish-check:last-child{border-right:none}
+.wish-check:hover{background:rgba(255,100,100,.06)}
+.wish-check input[type=checkbox]{accent-color:#ff4d6d;width:13px;height:13px;cursor:pointer;flex-shrink:0;}
+.wish-check.wish-std label,.wish-check.wish-st label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text-dim);cursor:pointer;}
+.wish-check.wish-std.active{background:rgba(255,77,109,.08);}
+.wish-check.wish-std.active label{color:#ff4d6d;}
+.wish-check.wish-st.active{background:rgba(240,165,0,.08);}
+.wish-check.wish-st.active label{color:var(--st-color);}
+.skin-card.is-wishlisted{border-color:rgba(255,77,109,.45);}
+.skin-card.is-wishlisted.is-wishlisted-st{border-color:rgba(240,165,0,.45);}
+
 </style>
 </head>
 <body>
@@ -743,6 +758,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-ak_47___inheritance">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-ak_47___inheritance"><div class="wish-check wish-std" id="wish-std-wrap-ak_47___inheritance"><input type="checkbox" id="wish-std-ak_47___inheritance" onchange="toggleWish('ak_47___inheritance',false,this.checked)"><label for="wish-std-ak_47___inheritance">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-ak_47___inheritance"><input type="checkbox" id="wish-st-ak_47___inheritance" onchange="toggleWish('ak_47___inheritance',true,this.checked)"><label for="wish-st-ak_47___inheritance">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiNQ0OKheqdoLPGaAFicyOl-pK8xGH_nwUt1sGrSz9ivcHKQOAcjXMYkRu5Yuxe4lYCyZOq25VSM2oMT02yg2UxBSEgA" alt="AK-47 | Inheritance" loading="lazy">
         <div class="rarity-label">COVERT</div>
@@ -786,6 +802,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-awp___chrome_cannon">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-awp___chrome_cannon"><div class="wish-check wish-std" id="wish-std-wrap-awp___chrome_cannon"><input type="checkbox" id="wish-std-awp___chrome_cannon" onchange="toggleWish('awp___chrome_cannon',false,this.checked)"><label for="wish-std-awp___chrome_cannon">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-awp___chrome_cannon"><input type="checkbox" id="wish-st-awp___chrome_cannon" onchange="toggleWish('awp___chrome_cannon',true,this.checked)"><label for="wish-st-awp___chrome_cannon">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_DVL0OarZbRoMvWXMWuZxuZi_uM6SXngxR5-smTXw4ugIi6RbVcpXsN1ELUDtxPrktOyNL7h4g2P2tpbjXKpKIbjbD4" alt="AWP | Chrome Cannon" loading="lazy">
         <div class="rarity-label">COVERT</div>
@@ -837,6 +854,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-m4a1_s___black_lotus">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-m4a1_s___black_lotus"><div class="wish-check wish-std" id="wish-std-wrap-m4a1_s___black_lotus"><input type="checkbox" id="wish-std-m4a1_s___black_lotus" onchange="toggleWish('m4a1_s___black_lotus',false,this.checked)"><label for="wish-std-m4a1_s___black_lotus">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-m4a1_s___black_lotus"><input type="checkbox" id="wish-st-m4a1_s___black_lotus" onchange="toggleWish('m4a1_s___black_lotus',true,this.checked)"><label for="wish-st-m4a1_s___black_lotus">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_3HDzaD_ux6seJicCW8gQg0jDGMnYftb3-eOgEpDcFyQuMMtRG8kIbhMuK051ba2IMQyH6r3yof5ilv4bwLWfU7uvqA7qRNHGA" alt="M4A1-S | Black Lotus" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -880,6 +898,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-zeus_x27___olympus">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-zeus_x27___olympus"><div class="wish-check wish-std" id="wish-std-wrap-zeus_x27___olympus"><input type="checkbox" id="wish-std-zeus_x27___olympus" onchange="toggleWish('zeus_x27___olympus',false,this.checked)"><label for="wish-std-zeus_x27___olympus">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-zeus_x27___olympus"><input type="checkbox" id="wish-st-zeus_x27___olympus" onchange="toggleWish('zeus_x27___olympus',true,this.checked)"><label for="wish-st-zeus_x27___olympus">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLln4Xl7x1B6ue9V7BlNf6XC3WvxuFyj-1gSCGn2xl2sm7XnI6hdC-XPAcmXsF2RLIP4xbslty2NLvqswePjYlEySn33S9XrnE8cYTqlUY" alt="Zeus x27 | Olympus" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -923,6 +942,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-usp_s___jawbreaker">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-usp_s___jawbreaker"><div class="wish-check wish-std" id="wish-std-wrap-usp_s___jawbreaker"><input type="checkbox" id="wish-std-usp_s___jawbreaker" onchange="toggleWish('usp_s___jawbreaker',false,this.checked)"><label for="wish-std-usp_s___jawbreaker">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-usp_s___jawbreaker"><input type="checkbox" id="wish-st-usp_s___jawbreaker" onchange="toggleWish('usp_s___jawbreaker',true,this.checked)"><label for="wish-st-usp_s___jawbreaker">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViUzulxqd5lRi67gVMl62nUyd2scnOVPAcgA5J2TOFY5xLrlN22YbzgsQaI2IlHyiWojnwa8G81tErOD-_J" alt="USP-S | Jawbreaker" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -974,6 +994,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-five_seven___hybrid">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-five_seven___hybrid"><div class="wish-check wish-std" id="wish-std-wrap-five_seven___hybrid"><input type="checkbox" id="wish-std-five_seven___hybrid" onchange="toggleWish('five_seven___hybrid',false,this.checked)"><label for="wish-std-five_seven___hybrid">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-five_seven___hybrid"><input type="checkbox" id="wish-st-five_seven___hybrid" onchange="toggleWish('five_seven___hybrid',true,this.checked)"><label for="wish-st-five_seven___hybrid">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRbq17JeOWGGKe_uZvsvNgSxa_nBovp3OBmd6oJXyeaQ9yCsZxEOICsUO7kdK0Y-qxtFCN2YsQnCv7i39N7ixp_a9cBsh2vVQD" alt="Five-SeveN | Hybrid" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1017,6 +1038,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-glock_18___block_18">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-glock_18___block_18"><div class="wish-check wish-std" id="wish-std-wrap-glock_18___block_18"><input type="checkbox" id="wish-std-glock_18___block_18" onchange="toggleWish('glock_18___block_18',false,this.checked)"><label for="wish-std-glock_18___block_18">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-glock_18___block_18"><input type="checkbox" id="wish-st-glock_18___block_18" onchange="toggleWish('glock_18___block_18',true,this.checked)"><label for="wish-st-glock_18___block_18">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c4_2tY5tvMvmQBVidzuByouhoQRa_nBovp3PXzov9cyjDbwckXMMkF7IIthOwwNDmY-rq4AzfjItMyH_9iC0YuC04_a9cBk5_kH3q" alt="Glock-18 | Block-18" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1060,6 +1082,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-m4a4___etch_lord">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-m4a4___etch_lord"><div class="wish-check wish-std" id="wish-std-wrap-m4a4___etch_lord"><input type="checkbox" id="wish-std-m4a4___etch_lord" onchange="toggleWish('m4a4___etch_lord',false,this.checked)"><label for="wish-std-m4a4___etch_lord">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-m4a4___etch_lord"><input type="checkbox" id="wish-st-m4a4___etch_lord" onchange="toggleWish('m4a4___etch_lord',true,this.checked)"><label for="wish-st-m4a4___etch_lord">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwi8P7qaRe6psK_WRB3OV_uJ_t-l9AXjnw0Qh5GqGn9b_dH3Cbg4nCcAhRLIM4BW7mtXmM7jjtAXai40WmHngznQeK6EUrpc" alt="M4A4 | Etch Lord" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1103,6 +1126,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-mp7___just_smile">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-mp7___just_smile"><div class="wish-check wish-std" id="wish-std-wrap-mp7___just_smile"><input type="checkbox" id="wish-std-mp7___just_smile" onchange="toggleWish('mp7___just_smile',false,this.checked)"><label for="wish-std-mp7___just_smile">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-mp7___just_smile"><input type="checkbox" id="wish-st-mp7___just_smile" onchange="toggleWish('mp7___just_smile',true,this.checked)"><label for="wish-st-mp7___just_smile">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsHf8DIM0Pi7e7BSM_2aAmKvzedxuPUnHXrkzU4i4z-Dno6sci3BaQApDpN4R-cCthnqx4W2MunhtgCI3d0QmzK-0H0MYFOvtA" alt="MP7 | Just Smile" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1146,6 +1170,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-sawed_off___analog_input">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-sawed_off___analog_input"><div class="wish-check wish-std" id="wish-std-wrap-sawed_off___analog_input"><input type="checkbox" id="wish-std-sawed_off___analog_input" onchange="toggleWish('sawed_off___analog_input',false,this.checked)"><label for="wish-std-sawed_off___analog_input">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-sawed_off___analog_input"><input type="checkbox" id="wish-st-sawed_off___analog_input" onchange="toggleWish('sawed_off___analog_input',true,this.checked)"><label for="wish-st-sawed_off___analog_input">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi" alt="Sawed-Off | Analog Input" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1197,6 +1222,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-dual_berettas___hideout">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-dual_berettas___hideout"><div class="wish-check wish-std" id="wish-std-wrap-dual_berettas___hideout"><input type="checkbox" id="wish-std-dual_berettas___hideout" onchange="toggleWish('dual_berettas___hideout',false,this.checked)"><label for="wish-std-dual_berettas___hideout">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-dual_berettas___hideout"><input type="checkbox" id="wish-st-dual_berettas___hideout" onchange="toggleWish('dual_berettas___hideout',true,this.checked)"><label for="wish-st-dual_berettas___hideout">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL0kp_0-B1f-vOiV6ZoMvWHGmaD_uJzpOloQxa0hxQpjDGMnYftb3-WbQ92WcZ4EeFZs0TtxIfvZr_m7wXW2I0TySv93ywd5yxu5-0FAPE7uvqA-FxXgtE" alt="Dual Berettas | Hideout" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1240,6 +1266,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-mac_10___light_box">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-mac_10___light_box"><div class="wish-check wish-std" id="wish-std-wrap-mac_10___light_box"><input type="checkbox" id="wish-std-mac_10___light_box" onchange="toggleWish('mac_10___light_box',false,this.checked)"><label for="wish-std-mac_10___light_box">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-mac_10___light_box"><input type="checkbox" id="wish-st-mac_10___light_box" onchange="toggleWish('mac_10___light_box',true,this.checked)"><label for="wish-st-mac_10___light_box">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1W7vH_OJtkLPyGHW6fz9F6ueZhW2e2lBsk4WvXw974diiSblV1DMBxRrEJu0PrwNy1Mruw4gKK3d0TynmskGoXuUBgCcQQ" alt="MAC-10 | Light Box" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1283,6 +1310,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-nova___dark_sigil">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-nova___dark_sigil"><div class="wish-check wish-std" id="wish-std-wrap-nova___dark_sigil"><input type="checkbox" id="wish-std-nova___dark_sigil" onchange="toggleWish('nova___dark_sigil',false,this.checked)"><label for="wish-std-nova___dark_sigil">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-nova___dark_sigil"><input type="checkbox" id="wish-st-nova___dark_sigil" onchange="toggleWish('nova___dark_sigil',true,this.checked)"><label for="wish-st-nova___dark_sigil">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwixU-fORbLZsK_uSHFicyOl-pK8xG3q1lk0l4m2HmI6odXiRbwF1CJchQbEI4RK8kNPiMb-24A3W3YoX02yg2YjfpjSA" alt="Nova | Dark Sigil" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1326,6 +1354,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-ssg_08___dezastre">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-ssg_08___dezastre"><div class="wish-check wish-std" id="wish-std-wrap-ssg_08___dezastre"><input type="checkbox" id="wish-std-ssg_08___dezastre" onchange="toggleWish('ssg_08___dezastre',false,this.checked)"><label for="wish-std-ssg_08___dezastre">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-ssg_08___dezastre"><input type="checkbox" id="wish-st-ssg_08___dezastre" onchange="toggleWish('ssg_08___dezastre',true,this.checked)"><label for="wish-st-ssg_08___dezastre">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1I_PX-MJtpJeqSHXOCxNF6ueZhW2exwEp2tmmEw9epdCjCalQhX5ImQOZbtRixxNTgN-u24AHb2okTmX2vkGoXuacR7BX3" alt="SSG 08 | Dezastre" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1369,6 +1398,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-tec_9___slag">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-tec_9___slag"><div class="wish-check wish-std" id="wish-std-wrap-tec_9___slag"><input type="checkbox" id="wish-std-tec_9___slag" onchange="toggleWish('tec_9___slag',false,this.checked)"><label for="wish-std-tec_9___slag">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-tec_9___slag"><input type="checkbox" id="wish-st-tec_9___slag" onchange="toggleWish('tec_9___slag',true,this.checked)"><label for="wish-st-tec_9___slag">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wjZe7KuRYrFjK-mSHGOvxOBxue9sSju6mxoYvzSCkpu3eHPFZwMkWZBzR-cDsEbpm9DvY-yx51fajd8WyXn4hntBvX465OkBVL1lpPMDDuBGag" alt="Tec-9 | Slag" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1412,6 +1442,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-ump_45___motorized">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-ump_45___motorized"><div class="wish-check wish-std" id="wish-std-wrap-ump_45___motorized"><input type="checkbox" id="wish-std-ump_45___motorized" onchange="toggleWish('ump_45___motorized',false,this.checked)"><label for="wish-std-ump_45___motorized">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-ump_45___motorized"><input type="checkbox" id="wish-st-ump_45___motorized" onchange="toggleWish('ump_45___motorized',true,this.checked)"><label for="wish-st-ump_45___motorized">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1O4uL6PZtsM-OWA2WcxOpJte9uRie2qhEutDWR1N2gcy7DalAhCMd3QucO5EPukN2yN-iw5QyN2IkRzSr6iXtO6StrsL0cEf1y62CUsqE" alt="UMP-45 | Motorized" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1455,6 +1486,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-xm1014___irezumi">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-xm1014___irezumi"><div class="wish-check wish-std" id="wish-std-wrap-xm1014___irezumi"><input type="checkbox" id="wish-std-xm1014___irezumi" onchange="toggleWish('xm1014___irezumi',false,this.checked)"><label for="wish-std-xm1014___irezumi">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-xm1014___irezumi"><input type="checkbox" id="wish-st-xm1014___irezumi" onchange="toggleWish('xm1014___irezumi',true,this.checked)"><label for="wish-st-xm1014___irezumi">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLpk8ewrHZk9___OPU5H_mBC32FzOdJvOhuRz39k0h14juBztapc3-fPVIjWZomFucMtxe9m9zmNOjltQ2N2dgTnCr_3zQJsHjkNdtnHQ" alt="XM1014 | Irezumi" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1510,6 +1542,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skins-grid">
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___fade">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___fade"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___fade"><input type="checkbox" id="wish-std-__kukri_knife___fade" onchange="toggleWish('__kukri_knife___fade',false,this.checked)"><label for="wish-std-__kukri_knife___fade">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___fade"><input type="checkbox" id="wish-st-__kukri_knife___fade" onchange="toggleWish('__kukri_knife___fade',true,this.checked)"><label for="wish-st-__kukri_knife___fade">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsIc-VD2OV_uJ_t-l9AXyyzEohsGvVn4moIi-VO1N2CJR1E-UD4BXtkIXhMe2x7lbej4tEnyzgznQeN9c5PgA" alt="★ Kukri Knife | Fade" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1553,6 +1586,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___slaughter">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___slaughter"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___slaughter"><input type="checkbox" id="wish-std-__kukri_knife___slaughter" onchange="toggleWish('__kukri_knife___slaughter',false,this.checked)"><label for="wish-std-__kukri_knife___slaughter">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___slaughter"><input type="checkbox" id="wish-st-__kukri_knife___slaughter" onchange="toggleWish('__kukri_knife___slaughter',true,this.checked)"><label for="wish-st-__kukri_knife___slaughter">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsLc-JC2WCwNF6ueZhW2fmwkwj62TWmdyuc3nEOFB1Csd5ReFZtUTpxtXvYb_k4waPj4wXxXitkGoXuVwivb-T" alt="★ Kukri Knife | Slaughter" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1596,6 +1630,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___blue_steel">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___blue_steel"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___blue_steel"><input type="checkbox" id="wish-std-__kukri_knife___blue_steel" onchange="toggleWish('__kukri_knife___blue_steel',false,this.checked)"><label for="wish-std-__kukri_knife___blue_steel">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___blue_steel"><input type="checkbox" id="wish-st-__kukri_knife___blue_steel" onchange="toggleWish('__kukri_knife___blue_steel',true,this.checked)"><label for="wish-st-__kukri_knife___blue_steel">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsMc-RAnKVxdF6ueZhW2exzE0h62nVyd6qeXjEbgF0X8EiEbZesRS_wIXkPujq7wPWjNpDyn6vkGoXudm1ivk1" alt="★ Kukri Knife | Blue Steel" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1639,6 +1674,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___stained">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___stained"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___stained"><input type="checkbox" id="wish-std-__kukri_knife___stained" onchange="toggleWish('__kukri_knife___stained',false,this.checked)"><label for="wish-std-__kukri_knife___stained">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___stained"><input type="checkbox" id="wish-st-__kukri_knife___stained" onchange="toggleWish('__kukri_knife___stained',true,this.checked)"><label for="wish-st-__kukri_knife___stained">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsMc-VAXWTxOpJvOhuRz39lkgl52TXzdiscH2TOgAkX8QiRuFftxW6kNW1Yrzr7wOK2YkWxXr43zQJsHia9a0bCA" alt="★ Kukri Knife | Stained" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1682,6 +1718,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___case_hardened">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___case_hardened"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___case_hardened"><input type="checkbox" id="wish-std-__kukri_knife___case_hardened" onchange="toggleWish('__kukri_knife___case_hardened',false,this.checked)"><label for="wish-std-__kukri_knife___case_hardened">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___case_hardened"><input type="checkbox" id="wish-st-__kukri_knife___case_hardened" onchange="toggleWish('__kukri_knife___case_hardened',true,this.checked)"><label for="wish-st-__kukri_knife___case_hardened">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsMc-cB2uVxdF6ueZhW2fizRsk4G_dzY39eCrCaA51W8QlF-ZZtRK6m4XlPunn71TbjY0QzimokGoXuR84GhWV" alt="★ Kukri Knife | Case Hardened" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1725,6 +1762,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___forest_ddpat">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___forest_ddpat"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___forest_ddpat"><input type="checkbox" id="wish-std-__kukri_knife___forest_ddpat" onchange="toggleWish('__kukri_knife___forest_ddpat',false,this.checked)"><label for="wish-std-__kukri_knife___forest_ddpat">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___forest_ddpat"><input type="checkbox" id="wish-st-__kukri_knife___forest_ddpat" onchange="toggleWish('__kukri_knife___forest_ddpat',true,this.checked)"><label for="wish-st-__kukri_knife___forest_ddpat">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtlOc-XCneR1dF6ueZhW2eyw0wk4TuDnI6pdS7BOAcnWMFyEbNYtEa6x9HjPurj4lHajYIWny6vkGoXuZN4gz37" alt="★ Kukri Knife | Forest DDPAT" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1768,6 +1806,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___boreal_forest">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___boreal_forest"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___boreal_forest"><input type="checkbox" id="wish-std-__kukri_knife___boreal_forest" onchange="toggleWish('__kukri_knife___boreal_forest',false,this.checked)"><label for="wish-std-__kukri_knife___boreal_forest">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___boreal_forest"><input type="checkbox" id="wish-st-__kukri_knife___boreal_forest" onchange="toggleWish('__kukri_knife___boreal_forest',true,this.checked)"><label for="wish-st-__kukri_knife___boreal_forest">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtlOc-VAXWV0vpJsu57Sii_qhEutDWR1N2vIH7Dbw8jXMZwTecNsEPsmoKzP-Kx5QHZ2YtAniyoi3kb6yht5-ocEf1yVn7b_ls" alt="★ Kukri Knife | Boreal Forest" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1811,6 +1850,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___crimson_web">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___crimson_web"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___crimson_web"><input type="checkbox" id="wish-std-__kukri_knife___crimson_web" onchange="toggleWish('__kukri_knife___crimson_web',false,this.checked)"><label for="wish-std-__kukri_knife___crimson_web">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___crimson_web"><input type="checkbox" id="wish-st-__kukri_knife___crimson_web" onchange="toggleWish('__kukri_knife___crimson_web',true,this.checked)"><label for="wish-st-__kukri_knife___crimson_web">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtlOc-EC2WD_uJ_t-l9AS-3x0x15m2Hw4z9eS-QbgQnA5ElFu8OtBfqwIK2NLjg4gbciN8UzirgznQebo7XmtM" alt="★ Kukri Knife | Crimson Web" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1854,6 +1894,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___scorched">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___scorched"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___scorched"><input type="checkbox" id="wish-std-__kukri_knife___scorched" onchange="toggleWish('__kukri_knife___scorched',false,this.checked)"><label for="wish-std-__kukri_knife___scorched">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___scorched"><input type="checkbox" id="wish-st-__kukri_knife___scorched" onchange="toggleWish('__kukri_knife___scorched',true,this.checked)"><label for="wish-st-__kukri_knife___scorched">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-XD3eAzetJvOhuRz39kUpw42zRnoz7InOeOAd2XpQiQ7Ve5xixm9HhMe3l5wCI2YxHxS_2iDQJsHhKp4l7vg" alt="★ Kukri Knife | Scorched" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1897,6 +1938,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___safari_mesh">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___safari_mesh"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___safari_mesh"><input type="checkbox" id="wish-std-__kukri_knife___safari_mesh" onchange="toggleWish('__kukri_knife___safari_mesh',false,this.checked)"><label for="wish-std-__kukri_knife___safari_mesh">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___safari_mesh"><input type="checkbox" id="wish-st-__kukri_knife___safari_mesh" onchange="toggleWish('__kukri_knife___safari_mesh',true,this.checked)"><label for="wish-st-__kukri_knife___safari_mesh">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-eC3SY_vp3vt5lRi67gVMit2vVyt-sc3qSalUjAsR1QOQLthKwk9HhYri34gzXg4wXmHmvjiNA8G81tJ681NhB" alt="★ Kukri Knife | Safari Mesh" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1940,6 +1982,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___night_stripe">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___night_stripe"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___night_stripe"><input type="checkbox" id="wish-std-__kukri_knife___night_stripe" onchange="toggleWish('__kukri_knife___night_stripe',false,this.checked)"><label for="wish-std-__kukri_knife___night_stripe">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___night_stripe"><input type="checkbox" id="wish-st-__kukri_knife___night_stripe" onchange="toggleWish('__kukri_knife___night_stripe',true,this.checked)"><label for="wish-st-__kukri_knife___night_stripe">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-dB2CY1f1iouh5Sha_nBovp3OHz9ahIynFPQUoDZZ2TbINtRK8lYXuM-nksQbago1FyS_23CNB5ihu_a9cBvtwqC7R" alt="★ Kukri Knife | Night Stripe" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -1983,6 +2026,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife___urban_masked">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife___urban_masked"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife___urban_masked"><input type="checkbox" id="wish-std-__kukri_knife___urban_masked" onchange="toggleWish('__kukri_knife___urban_masked',false,this.checked)"><label for="wish-std-__kukri_knife___urban_masked">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife___urban_masked"><input type="checkbox" id="wish-st-__kukri_knife___urban_masked" onchange="toggleWish('__kukri_knife___urban_masked',true,this.checked)"><label for="wish-st-__kukri_knife___urban_masked">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-HD3eV_vtksuBncCW6khUz_W2GmdupJ3mfPA8jW5ZwR-QN4UKxmtOyN7y25lfW2YtNziX8jCtN7Xp1o7FVXby906g" alt="★ Kukri Knife | Urban Masked" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -2026,6 +2070,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__kukri_knife">
       <div class="rarity-bar"></div>
+      <div class="wish-strip" id="wish-strip-__kukri_knife"><div class="wish-check wish-std" id="wish-std-wrap-__kukri_knife"><input type="checkbox" id="wish-std-__kukri_knife" onchange="toggleWish('__kukri_knife',false,this.checked)"><label for="wish-std-__kukri_knife">WISHLIST STD</label></div><div class="wish-check wish-st" id="wish-st-wrap-__kukri_knife"><input type="checkbox" id="wish-st-__kukri_knife" onchange="toggleWish('__kukri_knife',true,this.checked)"><label for="wish-st-__kukri_knife">WISHLIST ST&#x2122;</label></div></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2lfa9_Kb6VXmPGwuogsbNvSyi3zR4jsTnQztyqdS6QP1IoXpoiEeAC5Be5l9CxKaq8sIvgdE5J" alt="★ Kukri Knife" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
@@ -2754,6 +2799,7 @@ function loadCachedPrices(){ fetchAllPrices(); }
 
 /* Init */
 document.addEventListener('DOMContentLoaded',()=>{
+  initWishlist();
   loadCachedPrices();
   SKIN_IDS.forEach(([id])=>{
     updateBadge(id);
@@ -2762,6 +2808,45 @@ document.addEventListener('DOMContentLoaded',()=>{
     renderPrintRow(id);  // sets owned-hide / no-entries classes from localStorage
   });
 });
+
+const WISH_KEY_GLOBAL = 'cs2_global_wishlist';
+const CASE_NAME_WL    = "Kilowatt Case";
+const SKIN_DATA_WL    = [{"id": "ak_47___inheritance", "weapon": "AK-47", "skinName": "Inheritance", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiNQ0OKheqdoLPGaAFicyOl-pK8xGH_nwUt1sGrSz9ivcHKQOAcjXMYkRu5Yuxe4lYCyZOq25VSM2oMT02yg2UxBSEgA", "floatMin": "0", "floatMax": "0.797346", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "awp___chrome_cannon", "weapon": "AWP", "skinName": "Chrome Cannon", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_DVL0OarZbRoMvWXMWuZxuZi_uM6SXngxR5-smTXw4ugIi6RbVcpXsN1ELUDtxPrktOyNL7h4g2P2tpbjXKpKIbjbD4", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "m4a1_s___black_lotus", "weapon": "M4A1-S", "skinName": "Black Lotus", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_3HDzaD_ux6seJicCW8gQg0jDGMnYftb3-eOgEpDcFyQuMMtRG8kIbhMuK051ba2IMQyH6r3yof5ilv4bwLWfU7uvqA7qRNHGA", "floatMin": "0", "floatMax": "0.7", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "zeus_x27___olympus", "weapon": "Zeus x27", "skinName": "Olympus", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLln4Xl7x1B6ue9V7BlNf6XC3WvxuFyj-1gSCGn2xl2sm7XnI6hdC-XPAcmXsF2RLIP4xbslty2NLvqswePjYlEySn33S9XrnE8cYTqlUY", "floatMin": "0", "floatMax": "0.67", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "usp_s___jawbreaker", "weapon": "USP-S", "skinName": "Jawbreaker", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViUzulxqd5lRi67gVMl62nUyd2scnOVPAcgA5J2TOFY5xLrlN22YbzgsQaI2IlHyiWojnwa8G81tErOD-_J", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "five_seven___hybrid", "weapon": "Five-SeveN", "skinName": "Hybrid", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRbq17JeOWGGKe_uZvsvNgSxa_nBovp3OBmd6oJXyeaQ9yCsZxEOICsUO7kdK0Y-qxtFCN2YsQnCv7i39N7ixp_a9cBsh2vVQD", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "glock_18___block_18", "weapon": "Glock-18", "skinName": "Block-18", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c4_2tY5tvMvmQBVidzuByouhoQRa_nBovp3PXzov9cyjDbwckXMMkF7IIthOwwNDmY-rq4AzfjItMyH_9iC0YuC04_a9cBk5_kH3q", "floatMin": "0", "floatMax": "0.671875", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "m4a4___etch_lord", "weapon": "M4A4", "skinName": "Etch Lord", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwi8P7qaRe6psK_WRB3OV_uJ_t-l9AXjnw0Qh5GqGn9b_dH3Cbg4nCcAhRLIM4BW7mtXmM7jjtAXai40WmHngznQeK6EUrpc", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "mp7___just_smile", "weapon": "MP7", "skinName": "Just Smile", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsHf8DIM0Pi7e7BSM_2aAmKvzedxuPUnHXrkzU4i4z-Dno6sci3BaQApDpN4R-cCthnqx4W2MunhtgCI3d0QmzK-0H0MYFOvtA", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "sawed_off___analog_input", "weapon": "Sawed-Off", "skinName": "Analog Input", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiXwONzot5lRi67gVN3tWTdyNipdCiQPwdxCJV2RuBY4xa_wILgMLu37leK3otMzHmo3H5J8G81tFoL-ETi", "floatMin": "0", "floatMax": "0.61886", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "dual_berettas___hideout", "weapon": "Dual Berettas", "skinName": "Hideout", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL0kp_0-B1f-vOiV6ZoMvWHGmaD_uJzpOloQxa0hxQpjDGMnYftb3-WbQ92WcZ4EeFZs0TtxIfvZr_m7wXW2I0TySv93ywd5yxu5-0FAPE7uvqA-FxXgtE", "floatMin": "0", "floatMax": "0.698529", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "mac_10___light_box", "weapon": "MAC-10", "skinName": "Light Box", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1W7vH_OJtkLPyGHW6fz9F6ueZhW2e2lBsk4WvXw974diiSblV1DMBxRrEJu0PrwNy1Mruw4gKK3d0TynmskGoXuUBgCcQQ", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "nova___dark_sigil", "weapon": "Nova", "skinName": "Dark Sigil", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwixU-fORbLZsK_uSHFicyOl-pK8xG3q1lk0l4m2HmI6odXiRbwF1CJchQbEI4RK8kNPiMb-24A3W3YoX02yg2YjfpjSA", "floatMin": "0", "floatMax": "0.698529", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "ssg_08___dezastre", "weapon": "SSG 08", "skinName": "Dezastre", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1I_PX-MJtpJeqSHXOCxNF6ueZhW2exwEp2tmmEw9epdCjCalQhX5ImQOZbtRixxNTgN-u24AHb2okTmX2vkGoXuacR7BX3", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "tec_9___slag", "weapon": "Tec-9", "skinName": "Slag", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wjZe7KuRYrFjK-mSHGOvxOBxue9sSju6mxoYvzSCkpu3eHPFZwMkWZBzR-cDsEbpm9DvY-yx51fajd8WyXn4hntBvX465OkBVL1lpPMDDuBGag", "floatMin": "0", "floatMax": "0.9", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "ump_45___motorized", "weapon": "UMP-45", "skinName": "Motorized", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1O4uL6PZtsM-OWA2WcxOpJte9uRie2qhEutDWR1N2gcy7DalAhCMd3QucO5EPukN2yN-iw5QyN2IkRzSr6iXtO6StrsL0cEf1y62CUsqE", "floatMin": "0", "floatMax": "0.801418", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "xm1014___irezumi", "weapon": "XM1014", "skinName": "Irezumi", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLpk8ewrHZk9___OPU5H_mBC32FzOdJvOhuRz39k0h14juBztapc3-fPVIjWZomFucMtxe9m9zmNOjltQ2N2dgTnCr_3zQJsHjkNdtnHQ", "floatMin": "0", "floatMax": "0.799353", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___fade", "weapon": "Kukri Knife", "skinName": "Fade", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsIc-VD2OV_uJ_t-l9AXyyzEohsGvVn4moIi-VO1N2CJR1E-UD4BXtkIXhMe2x7lbej4tEnyzgznQeN9c5PgA", "floatMin": "0", "floatMax": "0.08", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___slaughter", "weapon": "Kukri Knife", "skinName": "Slaughter", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsLc-JC2WCwNF6ueZhW2fmwkwj62TWmdyuc3nEOFB1Csd5ReFZtUTpxtXvYb_k4waPj4wXxXitkGoXuVwivb-T", "floatMin": "0.01", "floatMax": "0.26", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___blue_steel", "weapon": "Kukri Knife", "skinName": "Blue Steel", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsMc-RAnKVxdF6ueZhW2exzE0h62nVyd6qeXjEbgF0X8EiEbZesRS_wIXkPujq7wPWjNpDyn6vkGoXudm1ivk1", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___stained", "weapon": "Kukri Knife", "skinName": "Stained", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsMc-VAXWTxOpJvOhuRz39lkgl52TXzdiscH2TOgAkX8QiRuFftxW6kNW1Yrzr7wOK2YkWxXr43zQJsHia9a0bCA", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___case_hardened", "weapon": "Kukri Knife", "skinName": "Case Hardened", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtsMc-cB2uVxdF6ueZhW2fizRsk4G_dzY39eCrCaA51W8QlF-ZZtRK6m4XlPunn71TbjY0QzimokGoXuR84GhWV", "floatMin": "0", "floatMax": "1", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___forest_ddpat", "weapon": "Kukri Knife", "skinName": "Forest DDPAT", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtlOc-XCneR1dF6ueZhW2eyw0wk4TuDnI6pdS7BOAcnWMFyEbNYtEa6x9HjPurj4lHajYIWny6vkGoXuZN4gz37", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___boreal_forest", "weapon": "Kukri Knife", "skinName": "Boreal Forest", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtlOc-VAXWV0vpJsu57Sii_qhEutDWR1N2vIH7Dbw8jXMZwTecNsEPsmoKzP-Kx5QHZ2YtAniyoi3kb6yht5-ocEf1yVn7b_ls", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___crimson_web", "weapon": "Kukri Knife", "skinName": "Crimson Web", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZtlOc-EC2WD_uJ_t-l9AS-3x0x15m2Hw4z9eS-QbgQnA5ElFu8OtBfqwIK2NLjg4gbciN8UzirgznQebo7XmtM", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___scorched", "weapon": "Kukri Knife", "skinName": "Scorched", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-XD3eAzetJvOhuRz39kUpw42zRnoz7InOeOAd2XpQiQ7Ve5xixm9HhMe3l5wCI2YxHxS_2iDQJsHhKp4l7vg", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___safari_mesh", "weapon": "Kukri Knife", "skinName": "Safari Mesh", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-eC3SY_vp3vt5lRi67gVMit2vVyt-sc3qSalUjAsR1QOQLthKwk9HhYri34gzXg4wXmHmvjiNA8G81tJ681NhB", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___night_stripe", "weapon": "Kukri Knife", "skinName": "Night Stripe", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-dB2CY1f1iouh5Sha_nBovp3OHz9ahIynFPQUoDZZ2TbINtRK8lYXuM-nksQbago1FyS_23CNB5ihu_a9cBvtwqC7R", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife___urban_masked", "weapon": "Kukri Knife", "skinName": "Urban Masked", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q-vm8YZt-MM-HD3eV_vtksuBncCW6khUz_W2GmdupJ3mfPA8jW5ZwR-QN4UKxmtOyN7y25lfW2YtNziX8jCtN7Xp1o7FVXby906g", "floatMin": "0.06", "floatMax": "0.8", "isSt": false, "caseName": "Kilowatt Case"}, {"id": "__kukri_knife", "weapon": "Kukri Knife", "skinName": "", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2lfa9_Kb6VXmPGwuogsbNvSyi3zR4jsTnQztyqdS6QP1IoXpoiEeAC5Be5l9CxKaq8sIvgdE5J", "floatMin": "N/A", "floatMax": "N/A", "isSt": false, "caseName": "Kilowatt Case"}];
+
+function getWL(){ try{ return JSON.parse(localStorage.getItem(WISH_KEY_GLOBAL)||'[]'); }catch{ return []; } }
+function setWL(a){ try{ localStorage.setItem(WISH_KEY_GLOBAL,JSON.stringify(a)); }catch{} }
+
+function toggleWish(skinId, isSt, checked){
+  let list = getWL();
+  list = list.filter(i => !(i.id===skinId && i.isSt===isSt));
+  if(checked){
+    const meta = SKIN_DATA_WL.find(s=>s.id===skinId) || {};
+    list.push({ id:skinId, isSt, caseName:CASE_NAME_WL, ...meta });
+  }
+  setWL(list); updateWishCard(skinId);
+}
+
+function updateWishCard(skinId){
+  const list = getWL();
+  const stdOn = list.some(i=>i.id===skinId && !i.isSt);
+  const stOn  = list.some(i=>i.id===skinId && i.isSt);
+  const stdCb=document.getElementById('wish-std-'+skinId);
+  const stCb=document.getElementById('wish-st-'+skinId);
+  if(stdCb) stdCb.checked=stdOn;
+  if(stCb)  stCb.checked=stOn;
+  const stdWrap=document.getElementById('wish-std-wrap-'+skinId);
+  const stWrap=document.getElementById('wish-st-wrap-'+skinId);
+  if(stdWrap) stdWrap.classList.toggle('active',stdOn);
+  if(stWrap)  stWrap.classList.toggle('active',stOn);
+  const card=document.getElementById('card-'+skinId);
+  if(card){
+    card.classList.toggle('is-wishlisted',stdOn||stOn);
+    card.classList.toggle('is-wishlisted-st',stOn&&!stdOn);
+  }
+}
+
+function initWishlist(){ SKIN_DATA_WL.forEach(s=>updateWishCard(s.id)); }
+
 </script>
 </body>
 </html>
