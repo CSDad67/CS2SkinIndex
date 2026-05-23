@@ -4562,7 +4562,7 @@ function renderQrChips(id){
   el.innerHTML=entries.map(e=>{
     const parts=[];
     if(e.wear)parts.push(`<span>${abbr(e.wear)}</span>`);
-    if(e.float)parts.push(`<span>fl ${parseFloat(e.float).toFixed(4)}</span>`);
+    if(e.float)parts.push(`<span>FL ${parseFloat(e.float).toFixed(4)}</span>`);
     if(e.pattern)parts.push(`<span>P${e.pattern}</span>`);
     const detail=parts.length?parts.join('<span style="color:#2a4060;margin:0 2px">&middot;</span>'):'<span style="color:#3a5070">&mdash;</span>';
     return `<div class="inv-chip${e.st?' chip-st':''}"><span class="chip-type ${e.st?'st':'std'}">${e.st?'ST&#x2122;':'STD'}</span><span class="chip-detail">${detail}</span></div>`;
@@ -4583,7 +4583,7 @@ function renderPrintRow(id){
     cell.innerHTML='<div class="print-inv-inner">'+entries.map(e=>{
       const parts=[];
       if(e.wear)parts.push(abbr(e.wear));
-      if(e.float)parts.push('fl '+parseFloat(e.float).toFixed(4));
+      if(e.float)parts.push('FL '+parseFloat(e.float).toFixed(4));
       if(e.pattern)parts.push('P'+e.pattern);
       return `<div class="pchip${e.st?' pchip-st':''}"><span class="pchip-type${e.st?' pst':''}">${e.st?'ST&#x2122;':'STD'}</span><span class="pchip-detail">${parts.join(' &middot; ')||'&mdash;'}</span></div>`;
     }).join('')+'</div>';
@@ -4606,60 +4606,66 @@ function printOwned(){
 }
 
 /* Pricing */
-function fmtPrice(raw){if(!raw)return null;const n=parseFloat(String(raw).replace(/[^0-9.]/g,''));return isNaN(n)?null:'$'+n.toFixed(2);}
-async function fetchSteamPrice(hash){
-  try{const r=await fetch(`https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hash)}`);if(!r.ok)return null;const d=await r.json();return d.success?fmtPrice(d.lowest_price||d.median_price):null;}catch{return null;}
+
+/* -- Pricing: reads from hosted prices.json -- */
+const PRICES_JSON_URL = 'https://csdad67.github.io/CS2SkinIndex/prices.json';
+let _priceData = null;
+
+async function loadPriceJSON(){
+  if(_priceData) return _priceData;
+  try{
+    const r = await fetch(PRICES_JSON_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    _priceData = await r.json();
+    return _priceData;
+  }catch(e){ console.warn('prices.json:', e.message); return null; }
 }
-async function fetchSkinportBulk(){
-  try{const r=await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{headers:{'Accept-Encoding':'br'}});if(!r.ok)return{};const data=await r.json();const map={};data.forEach(i=>{map[i.market_hash_name]=i;});return map;}catch{return{};}
+
+function getPriceFromData(data, hash){
+  if(!data||!data.prices) return null;
+  const entry = data.prices[hash];
+  return (entry && entry.steam) ? entry.steam : null;
 }
+
 async function fetchAllPrices(){
-  const btn=document.getElementById('fetch-prices-btn'),ts=document.getElementById('price-ts');
-  btn.disabled=true;btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');ts.textContent='Fetching...';
-  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
-  if(csEl){csEl.textContent='...';csEl.className='case-price-value loading';}
-  if(cpEl){cpEl.textContent='...';cpEl.className='case-price-value loading';}
-  PRICE_MAP.forEach(s=>{
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent='...';sel.className='price-value loading';}
-    if(spl){spl.textContent='...';spl.className='price-value loading';}
-  });
-  const spMap=await fetchSkinportBulk();
-  function getSp(hash){const item=spMap[hash];if(!item)return null;return fmtPrice((item.min_price??item.suggested_price??0)/100);}
-  const cache={},now=new Date().toISOString();
-  const casesteam=await fetchSteamPrice(CASE_HASH),caseSp=getSp(CASE_HASH);
-  if(csEl){csEl.textContent=casesteam||'N/A';csEl.className='case-price-value'+(casesteam?'':' no-fn');}
-  if(cpEl){cpEl.textContent=caseSp||'N/A';cpEl.className='case-price-value'+(caseSp?'':' no-fn');}
-  cache['_case']={steam:casesteam,skinport:caseSp};
-  for(let i=0;i<PRICE_MAP.length;i++){
-    const s=PRICE_MAP[i];
-    const spPrice=getSp(s.skinport_hash);
-    await new Promise(r=>setTimeout(r,280));
-    const steam=await fetchSteamPrice(s.steam_hash);
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent=steam||'N/A';sel.className='price-value'+(steam?'':' no-fn');}
-    if(spl){spl.textContent=spPrice||'N/A';spl.className='price-value'+(spPrice?'':' no-fn');}
-    cache[s.id]={steam,skinport:spPrice};
-  }
-  cache['_ts']=now;setStore(PRICE_KEY,cache);
-  ts.textContent=new Date(now).toLocaleString();
-  btn.disabled=false;btn.innerHTML=btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
-}
-function loadCachedPrices(){
-  const cache=getStore(PRICE_KEY);if(!cache['_ts'])return;
-  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
-  const cc=cache['_case'];
-  if(cc&&csEl){csEl.textContent=cc.steam||'N/A';csEl.className='case-price-value'+(cc.steam?'':' no-fn');}
-  if(cc&&cpEl){cpEl.textContent=cc.skinport||'N/A';cpEl.className='case-price-value'+(cc.skinport?'':' no-fn');}
-  PRICE_MAP.forEach(s=>{
-    const c=cache[s.id];if(!c)return;
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent=c.steam||'N/A';sel.className='price-value'+(c.steam?'':' no-fn');}
-    if(spl){spl.textContent=c.skinport||'N/A';spl.className='price-value'+(c.skinport?'':' no-fn');}
-  });
+  const btn=document.getElementById('fetch-prices-btn');
   const ts=document.getElementById('price-ts');
-  if(ts)ts.textContent=new Date(cache['_ts']).toLocaleString()+' (cached)';
+  if(btn){ btn.disabled=true; btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','LOADING...'); }
+  if(ts) ts.textContent='Loading prices.json...';
+
+  const csEl=document.getElementById('case-steam-price');
+  const cpEl=document.getElementById('case-skinport-price');
+  if(csEl){ csEl.textContent='...'; csEl.className='case-price-value loading'; }
+  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value loading'; }
+  PRICE_MAP.forEach(s=>{
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent='...'; sel.className='price-value loading'; }
+    if(spl){ spl.textContent='--'; spl.className='price-value'; }
+  });
+
+  const data = await loadPriceJSON();
+
+  const casePrice = getPriceFromData(data, CASE_HASH);
+  if(csEl){ csEl.textContent=casePrice||'N/A'; csEl.className='case-price-value'+(casePrice?'':' no-fn'); }
+  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value no-fn'; }
+
+  PRICE_MAP.forEach(s=>{
+    const steam = getPriceFromData(data, s.steam_hash);
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent=steam||'N/A'; sel.className='price-value'+(steam?'':' no-fn'); }
+    if(spl){ spl.textContent='--'; spl.className='price-value no-fn'; }
+  });
+
+  let updated = 'Error loading prices.json';
+  if(data) updated = data.updated ? new Date(data.updated).toLocaleString()+' (prices.json)' : 'prices.json loaded';
+  if(ts) ts.textContent=updated;
+  if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
 }
+
+function loadCachedPrices(){ fetchAllPrices(); }
+
 
 /* Init */
 document.addEventListener('DOMContentLoaded',()=>{

@@ -176,6 +176,16 @@ td{padding:9px 14px;vertical-align:middle}
 .nav-link:hover{background:rgba(240,165,0,.07);border-color:var(--accent)}
 
 /* Print */
+
+.wish-btn-wrap{padding:6px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.wish-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;
+  padding:5px 12px;background:transparent;border:1px solid var(--border2);
+  color:var(--text-dim);cursor:pointer;transition:all .2s;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:6px;}
+.wish-btn:hover{border-color:#ff4d6d;color:#ff4d6d;background:rgba(255,77,109,.07);}
+.wish-btn.wishlisted{border-color:#ff4d6d;background:rgba(255,77,109,.1);color:var(--text-dim);}
+.wish-btn.wishlisted .wish-heart{color:#ff4d6d;}
+.skin-card.is-wishlisted{border-color:rgba(255,77,109,.5);}
 @media print{
   @page{size:letter portrait;margin:.55in .5in .6in .5in}
   body{background:#fff !important;color:#111 !important}
@@ -865,6 +875,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-ak_47___neon_revolution">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ak_47___neon_revolution"><button class="wish-btn" id="wish-btn-ak_47___neon_revolution" onclick="toggleWish('ak_47___neon_revolution')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSIf6SHGSY2NF6ueZhW2e3w0524mjQzomreXqVbAAhWJF3RuZfuxC5x920Yurh7gONjY0RxHr4kGoXuT5bpI-V" alt="AK-47 | Neon Revolution" loading="lazy">
         <div class="rarity-label">COVERT</div>
@@ -908,6 +919,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-famas___roll_cage">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-famas___roll_cage"><button class="wish-btn" id="wish-btn-famas___roll_cage" onclick="toggleWish('famas___roll_cage')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2oaalsM8-BD2uc2NF6ueZhW2exzUhz4WjWmNqpdy-UbwJxDJtxReEMtRGwloflP7m04wfXi94QyXj9kGoXuV3JhaXD" alt="FAMAS | Roll Cage" loading="lazy">
         <div class="rarity-label">COVERT</div>
@@ -958,6 +970,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-aug___syd_mead">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-aug___syd_mead"><button class="wish-btn" id="wish-btn-aug___syd_mead" onclick="toggleWish('aug___syd_mead')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwi5Hf-jFk7uepV7d0JM-eC2aU_uJ_t-l9AX_rkU9-5j_Ry42qcnuQbw5zCcMhQrINtRO-xIHvY-Ow4gPY2Y4UmSngznQeqqNNbYw" alt="AUG | Syd Mead" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -1001,6 +1014,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-mp9___airlock">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-mp9___airlock"><button class="wish-btn" id="wish-btn-mp9___airlock" onclick="toggleWish('mp9___airlock')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f_jdk4uL3V6psMvOaHVicyOl-pK8xGXq2xE536m7dnI2vdS6WagZ2CMFyFrNcsBjuw4G1Ne23tQGN3olH02yg2ZxyeudA" alt="MP9 | Airlock" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -1044,6 +1058,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-tec_9___fuel_injector">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-tec_9___fuel_injector"><button class="wish-btn" id="wish-btn-tec_9___fuel_injector" onclick="toggleWish('tec_9___fuel_injector')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wiVI0Oara_1SM-WDC3WTye9kt-RtcCW6khUz_Wvcy9qgdCnEPQ8hApBzRrQJ4RW7moDgMLzktFDZiI5HnyWr3ChN5yp1o7FVg4hNKG8" alt="Tec-9 | Fuel Injector" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -1094,6 +1109,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-desert_eagle___directive">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-desert_eagle___directive"><button class="wish-btn" id="wish-btn-desert_eagle___directive" onclick="toggleWish('desert_eagle___directive')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7uORbKF-JeKHMWKRxuJzj-JmQTqnlB8rtgKJk4jxNWXGPQ9yA8Z0R7FbtBi7w9S2M7_msgCIid1CmH6viH5I7ilr4-oEUKst5OSJ2LTZlHwR" alt="Desert Eagle | Directive" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1137,6 +1153,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-glock_18___weasel">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-glock_18___weasel"><button class="wish-btn" id="wish-btn-glock_18___weasel" onclick="toggleWish('glock_18___weasel')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK6HLMXCVwP1zvN5lRi67gVN_4j7Qzdj8dimQblQkX8YkTeNe5Bmxkd2zNr_j5QbdjthCzX-qjylI8G81tDMJpR5Y" alt="Glock-18 | Weasel" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1180,6 +1197,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-mag_7___petroglyph">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-mag_7___petroglyph"><button class="wish-btn" id="wish-btn-mag_7___petroglyph" onclick="toggleWish('mag_7___petroglyph')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5G3wiFO0P-vb_NSNOKaDGac_uJ_t-l9AXm1kUQl4TzcytqpeSjFagMkW5AiQbZYsEG_mtTnN-jq4AWLidpNnC3gznQeOK4te4s" alt="MAG-7 | Petroglyph" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1223,6 +1241,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-scar_20___powercore">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-scar_20___powercore"><button class="wish-btn" id="wish-btn-scar_20___powercore" onclick="toggleWish('scar_20___powercore')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLinZfyr3Jk6OGRe6dsMqLDMXef1utks-57Sha_nBovp3OAzd2qIy_DPVMkXMEiE7UL5ES-l9yyP76wswWP3Y1Nyyn2i35L6S5s_a9cBj_cXeyl" alt="SCAR-20 | Powercore" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1266,6 +1285,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-sg_553___triarch">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-sg_553___triarch"><button class="wish-btn" id="wish-btn-sg_553___triarch" onclick="toggleWish('sg_553___triarch')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLimcO1qx1Y-s29b_E4ds-HHG6R0-1-j-1gSCGn20Qk6m3UmY77IHOeOlNxCJQmQbYMuhC6mtaxP-K0sQLYi94RzC_8iH5XrnE8WPSRipg" alt="SG 553 | Triarch" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -1316,6 +1336,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-cz75_auto___imprint">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-cz75_auto___imprint"><button class="wish-btn" id="wish-btn-cz75_auto___imprint" onclick="toggleWish('cz75_auto___imprint')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLyhMG1_B1c_M2tcvM4H-SBC2aU_uJ_t-l9AX_ql0kksWTVyYupJC7FOAUiAptxQudbs0KxkNK1MLzl4wOPjIsWyCngznQeZTDWXeo" alt="CZ75-Auto | Imprint" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1359,6 +1380,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-five_seven___scumbria">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-five_seven___scumbria"><button class="wish-btn" id="wish-btn-five_seven___scumbria" onclick="toggleWish('five_seven___scumbria')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRabVSJvmFC1iDxPhzvt56TDy-lw8usgKJk4jxNWXBP1JzAppxQ-UN5hm_mtLgZbjn5wPdi49Bnyqr3SJPvChq4-tWB6Ak5OSJ2BFWlPNZ" alt="Five-SeveN | Scumbria" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1402,6 +1424,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-g3sg1___ventilator">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-g3sg1___ventilator"><button class="wish-btn" id="wish-btn-g3sg1___ventilator" onclick="toggleWish('g3sg1___ventilator')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2zYXnrB1c_M2pO7dqcc-FC2mEyOJ3pO57cCW6khUz_W_Rwo36cC6SagZzDZZyQbMN5kTtwNC0Mb60sg3cjo8UnHn4j3hPuid1o7FVSaKTKS0" alt="G3SG1 | Ventilator" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1445,6 +1468,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-negev___dazzle">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-negev___dazzle"><button class="wish-btn" id="wish-btn-negev___dazzle" onclick="toggleWish('negev___dazzle')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_m5Hl6x1T9s2gbaNoNs-XD32KzetJvOhuRz39xxxzsmWEz9v9I3zFaQQiA5pzE7YLt0WwwdHkZrjktQXeg4gXyXj62zQJsHixNFIgjA" alt="Negev | Dazzle" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1488,6 +1512,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-p90___grim">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-p90___grim"><button class="wish-btn" id="wish-btn-p90___grim" onclick="toggleWish('p90___grim')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhx8bf_jdk_6v-V6N_Kf2eMWuZxuZi_rA9GHDrlh8h6m7dw4qpciiUOgQkAsF2ELYPsBjploe2P7ngsQaIjN5bjXKpNUOMolU" alt="P90 | Grim" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1531,6 +1556,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-ump_45___briefing">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ump_45___briefing"><button class="wish-btn" id="wish-btn-ump_45___briefing" onclick="toggleWish('ump_45___briefing')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1Y-s27ZbQ5dc-eC3OCyPpzouBWQyC0nQlp627XyNigJHjBOwIiXMNyQuUKsRKwktK2Zu_j5FOKi9lCzHmtjCNKvDErvbgMSlL6rA" alt="UMP-45 | Briefing" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1574,6 +1600,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-xm1014___slipstream">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-xm1014___slipstream"><button class="wish-btn" id="wish-btn-xm1014___slipstream" onclick="toggleWish('xm1014___slipstream')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLpk8ewrHZk5-uRcKk8cKHHMWGCwO1ise1WTSWmkCIrujqNjsGrdn-WZw51ApR5FO4K5xDuk9O0Zunm5lGIio4Rnn2rjyhA7Cw_se1WT-N7rYJQ1fMT" alt="XM1014 | Slipstream" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1629,12 +1656,13 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skins-grid">
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__bayonet___gamma_doppler" onclick="toggleWish('__bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zJfAJH4dmklYyPqPr1Ibndk2JL7cFOhuDG_Zi73VG2qUQ_am36LNKWcwM2Ml3X_FS8wL3vhMC0vJXOn3ZkuSAl7HiOmwv3308XDHXucw" alt="★ Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1672,12 +1700,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__bayonet___gamma_doppler" onclick="toggleWish('__bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhh2jDGMnYftb3KfOlVxDpt5RbRf5ES8kdfhZenq7lPc3tgQySj5hyNL53k9troLUvI7uvqAwkE80cI" alt="★ Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1715,12 +1744,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__bayonet___gamma_doppler" onclick="toggleWish('__bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhh1jDGMnYftby7FbARxDZUkF7NfsUK5lYbmZO3ktAWKj40Qznn_intPvX1i5e4DVfI7uvqAz_bVj6c" alt="★ Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1758,12 +1788,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__bayonet___gamma_doppler" onclick="toggleWish('__bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhh0jDGMnYftb3ifPQd2ApZ3Redb5xG-mtzkNuPr5ADXg4tGm33_23hLvCZrt-9XV_Y7uvqA1Mz9WrE" alt="★ Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1801,12 +1832,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__bayonet___gamma_doppler" onclick="toggleWish('__bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhhzjDGMnYftb3_CO1ciCJYhEOID4UW_kNayPuPktVbZg9pBmC_8jC5PvStp5L1QWPY7uvqA1BNTDgI" alt="★ Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1844,12 +1876,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___freehand">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___freehand"><button class="wish-btn" id="wish-btn-__bayonet___freehand" onclick="toggleWish('__bayonet___freehand')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6lsMvuWCliF0dF6ueZhW2e1zUh36zuEnteqeSqTOlUnXMYhFOcDuxfpkIblM-zj4gSLi45EniSqkGoXuTHKXCgo" alt="★ Bayonet | Freehand" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Freehand</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1887,12 +1920,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___lore">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___lore"><button class="wish-btn" id="wish-btn-__bayonet___lore" onclick="toggleWish('__bayonet___lore')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0PG7V6ZsOf-dC3OvzeFktd5lRi67gVMj5GnXzt__JH-SawdyDJF1ROcCu0K5xNOxZeqx5AOI2oNGnnn23ylJ8G81tNZRAs3w" alt="★ Bayonet | Lore" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Lore</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1930,12 +1964,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___black_laminate">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___black_laminate"><button class="wish-btn" id="wish-btn-__bayonet___black_laminate" onclick="toggleWish('__bayonet___black_laminate')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0PG7V6ZsOf-dC3Ov0vp5vuR-Tjq7qhEutDWR1Nr6IHuXOgMkWcQiQ7YK5hG7wYfgYuOx5gSN2YNCyHn-2Cof5i5isL0cEf1yJefVwLI" alt="★ Bayonet | Black Laminate" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Black Laminate</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1973,12 +2008,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___autotronic">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___autotronic"><button class="wish-btn" id="wish-btn-__bayonet___autotronic" onclick="toggleWish('__bayonet___autotronic')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0PW9V6ZsOf-dC3OvwPtiv_V7QCe6liIrujqNjsGodirBZlckD5B1FLMDtka7m9DuZL7i4ADf39lNxSqqjXgc5ihstrkAT-N7rfe3-Xhk" alt="★ Bayonet | Autotronic" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Autotronic</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2016,12 +2052,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__bayonet___bright_water">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__bayonet___bright_water"><button class="wish-btn" id="wish-btn-__bayonet___bright_water" onclick="toggleWish('__bayonet___bright_water')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0Pq3V6tuJfGdMWyeyOhzj-1gSCGn20hz5DuAyIquJXmWaAMoW5QmE7YI4UG5xNOxN-3m4AHb3tlDmyiojHlXrnE80X-NDyA" alt="★ Bayonet | Bright Water" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Bayonet</div>
+        <div class="skin-weapon">&#9733; Bayonet</div>
         <div class="skin-name">Bright Water</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2059,12 +2096,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__flip_knife___gamma_doppler" onclick="toggleWish('__flip_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_WeC3WRzepJveB7TSW2nAcitwKJk4jxNWWWPVdzA5pyQeQCsEG9wNXiYey3sQbcjIhMzi73jy4duCprt-5QWKoh5OSJ2FqzBf3_" alt="★ Flip Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2102,12 +2140,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__flip_knife___gamma_doppler" onclick="toggleWish('__flip_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_eSA2qR_up5oPFlSjuMhRUmoDjUpYPwJiPTcAQmD5YkQbVf4US-kIaxNO7ktAGMiooWnn-v3CxOv3pv5r5QUKMn_6HJz1aWfAqhZnY" alt="★ Flip Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2145,12 +2184,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__flip_knife___gamma_doppler" onclick="toggleWish('__flip_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYQJD4eOxlY2GlsjwPKvBmm5D19V5i_rEp7P5gVO8v11qNW72cdeRcwE3YAzZ-QK_lO7qgcC4uJqcy3E3s3Uq4yrczEO_00tFcKUx0hSF2xj1" alt="★ Flip Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2188,12 +2228,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__flip_knife___gamma_doppler" onclick="toggleWish('__flip_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_eSA2qR_up5oPFlSjuMhRUmoDjWpYPwJiPTcAUjCcQhFuRcuhawlIC0ZujqtAKL3oxCmyj723tAv3pr4u5TUfUnrq3Jz1aWLj9dSwc" alt="★ Flip Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2231,12 +2272,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__flip_knife___gamma_doppler" onclick="toggleWish('__flip_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_eSA2qR_up5oPFlSjuMhRUmoDjRpYPwJiPTcFN2XJshE-ZfuhS-w9PgMuuxtQTZ2YoRzXj_3Ssf6ntp6rxWUass-KDJz1aW7hm8L5o" alt="★ Flip Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2274,12 +2316,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___freehand">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___freehand"><button class="wish-btn" id="wish-btn-__flip_knife___freehand" onclick="toggleWish('__flip_knife___freehand')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_2SHGyVxdFjoN5lRi67gVMk4Wzdm4r7cCiWPwUjXpt2QrZZ5ESxktLiNbmx4VPdiogTyi_42CxO8G81tO8hlF8A" alt="★ Flip Knife | Freehand" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Freehand</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2317,12 +2360,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___lore">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___lore"><button class="wish-btn" id="wish-btn-__flip_knife___lore" onclick="toggleWish('__flip_knife___lore')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6d4H_afB3evzeFktd5lRi67gVMi4jjSy937In2fbA4gXptyROJetBK9ldLjPuPi5gyKjINMyCX23Soa8G81tMSuH9C0" alt="★ Flip Knife | Lore" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Lore</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2360,12 +2404,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___black_laminate">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___black_laminate"><button class="wish-btn" id="wish-btn-__flip_knife___black_laminate" onclick="toggleWish('__flip_knife___black_laminate')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6d4H_afB3ev0vp5vuR-Tjq7qhEutDWR1NqheHqUOAMlXpR0FOVZ4Ba8wIW2P7u35VPX2Y9Azn6s2ihB7S5v5uccEf1yNTyJJU8" alt="★ Flip Knife | Black Laminate" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Black Laminate</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2403,12 +2448,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___autotronic">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___autotronic"><button class="wish-btn" id="wish-btn-__flip_knife___autotronic" onclick="toggleWish('__flip_knife___autotronic')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6N-H_afB3evwPtiv_V7QCe6liIrujqNjsGrdn-faFMpXJd0TO4ItEKxm92xNurrsQCNiI9Fzy_43y0f63s5t-gCT-N7rYkKXYid" alt="★ Flip Knife | Autotronic" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Autotronic</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2446,12 +2492,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__flip_knife___bright_water">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__flip_knife___bright_water"><button class="wish-btn" id="wish-btn-__flip_knife___bright_water" onclick="toggleWish('__flip_knife___bright_water')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6x0H_-QC2ae_uV4uedscCW6khUz_WyHy4usJS7EOlJxWMMlFrMMsxKxmobnZr_i4leNgohCxCT_iHwfuH11o7FV6J7t-P8" alt="★ Flip Knife | Bright Water" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Flip Knife</div>
+        <div class="skin-weapon">&#9733; Flip Knife</div>
         <div class="skin-name">Bright Water</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2489,12 +2536,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__gut_knife___gamma_doppler" onclick="toggleWish('__gut_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJf2WHGacxdF7sfNrQyy6jxgjjDGMnYftby-ROwEmXMciQeUDt0Prkt3hMeKwsQKP2ogRzyWqiy4b6So_5-YBU6Q7uvqAIJUtHr4" alt="★ Gut Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2532,12 +2580,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__gut_knife___gamma_doppler" onclick="toggleWish('__gut_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tmy6lob-KT-JbwN0WZR2Re5fuxXswdKxP-Kx5Qzdj9hCnn6qiyIb5yc45-1QA6Ut_LqX0V-_N17M0A" alt="★ Gut Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2575,12 +2624,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__gut_knife___gamma_doppler" onclick="toggleWish('__gut_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tm-6lob-KT-JOwEgDcN2EOEDsBnumtG1N-nr7wHc2ItAySStiC8auC9p5-1XVKUk87qX0V8XtbYmPA" alt="★ Gut Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2618,12 +2668,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__gut_knife___gamma_doppler" onclick="toggleWish('__gut_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tm66lob-KT-JOAIiWZRwR-NZ5hO5lde2NOrl4QyM3YtDySSoi39J6iZrtrpRAvYm-bqX0V-vZngSFg" alt="★ Gut Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2661,12 +2712,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___gamma_doppler"><button class="wish-btn" id="wish-btn-__gut_knife___gamma_doppler" onclick="toggleWish('__gut_knife___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tmm6lob-KT-JbANxW5okTLMPuhmwmtO2N7-z71bdjNpMm3-s23wb7Cc-4OtRB_Ug_LqX0V_Ys9LWqg" alt="★ Gut Knife | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2704,12 +2756,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___freehand">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___freehand"><button class="wish-btn" id="wish-btn-__gut_knife___freehand" onclick="toggleWish('__gut_knife___freehand')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSLfGBBWKU_vtmj-1gSCGn20tw6jndyNmoIn3FbAQoCMEkTOYJsRTql4fkPriw5gyIjoxAyCj9hy1XrnE8qMFnbCI" alt="★ Gut Knife | Freehand" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Freehand</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2747,12 +2800,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___lore">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___lore"><button class="wish-btn" id="wish-btn-__gut_knife___lore" onclick="toggleWish('__gut_knife___lore')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRa7FSJ-WHMWuf0-tJvOhuRz39zU5-4mzUyI2ud32RaQ8lXJB2FuUI40S4kofgM-7hslaPgtpBnHj-iDQJsHjij6hzng" alt="★ Gut Knife | Lore" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Lore</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2790,12 +2844,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___black_laminate">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___black_laminate"><button class="wish-btn" id="wish-btn-__gut_knife___black_laminate" onclick="toggleWish('__gut_knife___black_laminate')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRa7FSJ-WHMXSEzuBzp-B6Rxa_nBovp3PRn96tIynBPFJxA5RzROYOtxHpwIWzP7zitQXe2owWySWojisa7S46_a9cBlypMIP0" alt="★ Gut Knife | Black Laminate" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Black Laminate</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2833,12 +2888,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___autotronic">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___autotronic"><button class="wish-btn" id="wish-btn-__gut_knife___autotronic" onclick="toggleWish('__gut_knife___autotronic')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRb7dSJ-WHMWaF1eFiou5nRiqMmRQguynLy46odXPFZw9xD5dyFOUDuhPslNXkNOLj71Db3o4Rn3j7hy8YvCZu4_FCD_SSdjZ6vg" alt="★ Gut Knife | Autotronic" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Autotronic</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2876,12 +2932,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__gut_knife___bright_water">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__gut_knife___bright_water"><button class="wish-btn" id="wish-btn-__gut_knife___bright_water" onclick="toggleWish('__gut_knife___bright_water')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRYL1SL_OWD2mvyuB_tuRWQyC0nQlp4TiDntmtIiqeblAmDsB2QLMNukSxwNDkZOrg4wbajItNzXn4in9LvDErvbi4dh8COQ" alt="★ Gut Knife | Bright Water" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Gut Knife</div>
+        <div class="skin-weapon">&#9733; Gut Knife</div>
         <div class="skin-name">Bright Water</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2919,12 +2976,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___gamma_doppler"><button class="wish-btn" id="wish-btn-__karambit___gamma_doppler" onclick="toggleWish('__karambit___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iVzOtkse1tcCSyhx8rtjSfn4vGLSLANkI-X8MjTLFYskTsw9bnZOuwsgSIj4sTniz-2i5A7yY6tbwGV6Nx-qGEjxaBb-MuPavopw" alt="★ Karambit | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -2962,12 +3020,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___gamma_doppler"><button class="wish-btn" id="wish-btn-__karambit___gamma_doppler" onclick="toggleWish('__karambit___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iXwON7sd5tQDmjmRg1jC2Nm5z8cBTLN1F4TowkROZctEXqxNO2Nevn4QzZ2I9Mz3r62C9L634_5uhTWKEh_fKD2w7HL_RjthCBcAWy" alt="★ Karambit | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3005,12 +3064,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___gamma_doppler"><button class="wish-btn" id="wish-btn-__karambit___gamma_doppler" onclick="toggleWish('__karambit___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iXwON7sd5tQDmjmRg1jC2Nm5z8cxTLN1F4ToxzRbQMukK6k4HnZe3k4gPW34hFmCWrjCgd5yk55-1RBfB0rq2D2w7FL_RjtjtuH2jv" alt="★ Karambit | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3048,12 +3108,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___gamma_doppler"><button class="wish-btn" id="wish-btn-__karambit___gamma_doppler" onclick="toggleWish('__karambit___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJlY20kPb5PrrukmRB-Ml0mNbR_Y3mjQeLpxo7Oy3tIteQJwc7aAnW_VK3wu27g8DtvsjLzSdksnIk4izYlha-0x8ebrZnguveFwtRKpxn8A" alt="★ Karambit | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3091,12 +3152,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___gamma_doppler"><button class="wish-btn" id="wish-btn-__karambit___gamma_doppler" onclick="toggleWish('__karambit___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iXwON7sd5tQDmjmRg1jC2Nm5z8dRTLN1F4ToxwQLNZ5xa-xNDuNu_ktgCN2YtNn36thypAuidrsb4BUqMj_qPfiwCTL_Rjtpd8Mt3S" alt="★ Karambit | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3134,12 +3196,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___freehand">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___freehand"><button class="wish-btn" id="wish-btn-__karambit___freehand" onclick="toggleWish('__karambit___freehand')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1idwPx9teVWWjmMkxQptgKJk4jxNWXCOlJ2CZpyEeBbuxbrltXkMbzlsgTXit1NyST9hiJBu3ptsesLAPJ35OSJ2AmQpzvF" alt="★ Karambit | Freehand" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Freehand</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3177,12 +3240,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___lore">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___lore"><button class="wish-btn" id="wish-btn-__karambit___lore" onclick="toggleWish('__karambit___lore')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-QG1ibwPx3vd5lQDu2qhEutDWR1IqrIHLCZlUmDJYlTLFb50HuwdyxPu2w4lCKjI5HniT2jS1PuCxj5e0cEf1y9ZCADXU" alt="★ Karambit | Lore" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Lore</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3220,12 +3284,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___black_laminate">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___black_laminate"><button class="wish-btn" id="wish-btn-__karambit___black_laminate" onclick="toggleWish('__karambit___black_laminate')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-QG1ibwPx3vd56Wya9kAomoDW6lob-KT-JbwIlWcYmQ-UM40LrldXkZO6wslONiN0UmCT52iIdui8-5LlUAqUn-LqX0V8xd7EU5Q" alt="★ Karambit | Black Laminate" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Black Laminate</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3263,12 +3328,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___autotronic">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___autotronic"><button class="wish-btn" id="wish-btn-__karambit___autotronic" onclick="toggleWish('__karambit___autotronic')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-UHVibwPx3vd5oWj28gQ8ovTSGpYPwJiPTcAMkCJt3QuVY4xXrloHhP-nlsw2Ljo1NzS6ohitJvCc4sOcHAqInqKfJz1aWliaAF_M" alt="★ Karambit | Autotronic" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Autotronic</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3306,12 +3372,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__karambit___bright_water">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__karambit___bright_water"><button class="wish-btn" id="wish-btn-__karambit___bright_water" onclick="toggleWish('__karambit___bright_water')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-bF1ifwut3vt5iQSC1kCIrujqNjsGteH6ebFR1XJp3E-MNtxK7lYbiM-rg5wLZgoNGyyX62Hsb7ixq5e9RT-N7reSUYiY6" alt="★ Karambit | Bright Water" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Karambit</div>
+        <div class="skin-weapon">&#9733; Karambit</div>
         <div class="skin-name">Bright Water</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3349,12 +3416,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__m9_bayonet___gamma_doppler" onclick="toggleWish('__m9_bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf3qr3czxb49KzgL-KmsjxPr7Dl2dV18hwmOvN8IXvjVCLpxo7Oy3tIYKVIVNtYFjS_FC2yLvogMK4vM7NmHQ36CMgsHfbmhHkh0tEO-dtg-veFwv998pqQw" alt="★ M9 Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3392,12 +3460,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__m9_bayonet___gamma_doppler" onclick="toggleWish('__m9_bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_ul3vexocC28hQ0rti-6iof4Mi6WAVp5Xco0W7IMsxGwkdDuYbm0sVHeg49Fziz_h3lP6y5o4-dTUfYh8qXW2wCUYrwjoc5UyoohxGw" alt="★ M9 Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3435,12 +3504,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__m9_bayonet___gamma_doppler" onclick="toggleWish('__m9_bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_ul3vexocC28hQ0rti-6iof4Mi6VAVp5Xco0W7ZbshTuxoLnM-mxtgaP3t1EmXr4jCoa6ChqsuxQAKQnqaeFigvDM7Ejoc5UDoFmlio" alt="★ M9 Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3478,12 +3548,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__m9_bayonet___gamma_doppler" onclick="toggleWish('__m9_bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf3qr3czxb49KzgL-KmsjzMrbcl1RV59VhhuzTypz9iUex-CwwOj6rYJjBclM_NwvXrFW2k7u6jMS678ucn3Y17iIr4yzcmxaxhkkdZuFr1_3NVxzAUO-pfLmq" alt="★ M9 Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3521,12 +3592,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___gamma_doppler">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___gamma_doppler"><button class="wish-btn" id="wish-btn-__m9_bayonet___gamma_doppler" onclick="toggleWish('__m9_bayonet___gamma_doppler')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_ul3vexocC28hQ0rti-6iof4Mi6TAVp5Xco0W-UPsBDuwdfgN-jn5FHXjdpNzn322CpP5i064-oBVaEm_PWGjFmXMrAjoc5UYR0MRG0" alt="★ M9 Bayonet | Gamma Doppler" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Gamma Doppler</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3564,12 +3636,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___freehand">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___freehand"><button class="wish-btn" id="wish-btn-__m9_bayonet___freehand" onclick="toggleWish('__m9_bayonet___freehand')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_uN3oupsSxamhSJ-4wKJk4jxNWWSbVd2D8R1TbYKtxCww4DvZL7j71OI340Qnyqo2isbu3ps4ecHAqtz5OSJ2C2JEBJP" alt="★ M9 Bayonet | Freehand" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Freehand</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3607,12 +3680,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___lore">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___lore"><button class="wish-btn" id="wish-btn-__m9_bayonet___lore" onclick="toggleWish('__m9_bayonet___lore')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWSF_uMvj-NoVha_mg8ijDGMnYftbyrBOw52D5R0FOYPtkG6ltOxNrjl4FPdiN0WzC723SxP6ypp6u8LVKY7uvqAFpeI3XY" alt="★ M9 Bayonet | Lore" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Lore</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3650,12 +3724,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___black_laminate">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___black_laminate"><button class="wish-btn" id="wish-btn-__m9_bayonet___black_laminate" onclick="toggleWish('__m9_bayonet___black_laminate')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWSF_uMvj-NoVhaggRIptiqEiYfGLSLANkI-WJZxE-Fct0a6l4bjM-zgtQ2Lio1MnyitiClL7ig44eoLWKB3r_eD3BaBb-N1KCFKnQ" alt="★ M9 Bayonet | Black Laminate" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Black Laminate</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3693,12 +3768,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___autotronic">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___autotronic"><button class="wish-btn" id="wish-btn-__m9_bayonet___autotronic" onclick="toggleWish('__m9_bayonet___autotronic')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWCD_uMvj-NoVhaygAkopy-KlIb6HifOOV5kFJRxF-RZtxLqlIXvPr63tA2NithGmHj_iiwc6i5qsOwEA_Jxq_CD2grfcepqx0gUsCA" alt="★ M9 Bayonet | Autotronic" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Autotronic</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -3736,12 +3812,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__m9_bayonet___bright_water">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__m9_bayonet___bright_water"><button class="wish-btn" id="wish-btn-__m9_bayonet___bright_water" onclick="toggleWish('__m9_bayonet___bright_water')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMW-J_uF1teBncCK9nBsijGTVpYPwJiPTcFUmC5p3FO5YsRO_lIG2Me3rsVOM3tpAmSv_33ka5i5r5upWV6Qsq_HJz1aWbk46ROo" alt="★ M9 Bayonet | Bright Water" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ M9 Bayonet</div>
+        <div class="skin-weapon">&#9733; M9 Bayonet</div>
         <div class="skin-name">Bright Water</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -4367,7 +4444,7 @@ function renderQrChips(id){
   el.innerHTML=entries.map(e=>{
     const parts=[];
     if(e.wear)parts.push(`<span>${abbr(e.wear)}</span>`);
-    if(e.float)parts.push(`<span>fl ${parseFloat(e.float).toFixed(4)}</span>`);
+    if(e.float)parts.push(`<span>FL ${parseFloat(e.float).toFixed(4)}</span>`);
     if(e.pattern)parts.push(`<span>P${e.pattern}</span>`);
     const detail=parts.length?parts.join('<span style="color:#2a4060;margin:0 2px">&middot;</span>'):'<span style="color:#3a5070">&mdash;</span>';
     return `<div class="inv-chip${e.st?' chip-st':''}"><span class="chip-type ${e.st?'st':'std'}">${e.st?'ST&#x2122;':'STD'}</span><span class="chip-detail">${detail}</span></div>`;
@@ -4388,7 +4465,7 @@ function renderPrintRow(id){
     cell.innerHTML='<div class="print-inv-inner">'+entries.map(e=>{
       const parts=[];
       if(e.wear)parts.push(abbr(e.wear));
-      if(e.float)parts.push('fl '+parseFloat(e.float).toFixed(4));
+      if(e.float)parts.push('FL '+parseFloat(e.float).toFixed(4));
       if(e.pattern)parts.push('P'+e.pattern);
       return `<div class="pchip${e.st?' pchip-st':''}"><span class="pchip-type${e.st?' pst':''}">${e.st?'ST&#x2122;':'STD'}</span><span class="pchip-detail">${parts.join(' &middot; ')||'&mdash;'}</span></div>`;
     }).join('')+'</div>';
@@ -4411,66 +4488,100 @@ function printOwned(){
 }
 
 /* Pricing */
-function fmtPrice(raw){if(!raw)return null;const n=parseFloat(String(raw).replace(/[^0-9.]/g,''));return isNaN(n)?null:'$'+n.toFixed(2);}
-async function fetchSteamPrice(hash){
-  try{const r=await fetch(`https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hash)}`);if(!r.ok)return null;const d=await r.json();return d.success?fmtPrice(d.lowest_price||d.median_price):null;}catch{return null;}
+
+/* -- Pricing: reads from hosted prices.json -- */
+const PRICES_JSON_URL = 'https://csdad67.github.io/CS2SkinIndex/prices.json';
+let _priceData = null;
+
+async function loadPriceJSON(){
+  if(_priceData) return _priceData;
+  try{
+    const r = await fetch(PRICES_JSON_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    _priceData = await r.json();
+    return _priceData;
+  }catch(e){ console.warn('prices.json:', e.message); return null; }
 }
-async function fetchSkinportBulk(){
-  try{const r=await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{headers:{'Accept-Encoding':'br'}});if(!r.ok)return{};const data=await r.json();const map={};data.forEach(i=>{map[i.market_hash_name]=i;});return map;}catch{return{};}
+
+function getPriceFromData(data, hash){
+  if(!data||!data.prices) return null;
+  const entry = data.prices[hash];
+  return (entry && entry.steam) ? entry.steam : null;
 }
+
 async function fetchAllPrices(){
-  const btn=document.getElementById('fetch-prices-btn'),ts=document.getElementById('price-ts');
-  btn.disabled=true;btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');ts.textContent='Fetching...';
-  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
-  if(csEl){csEl.textContent='...';csEl.className='case-price-value loading';}
-  if(cpEl){cpEl.textContent='...';cpEl.className='case-price-value loading';}
-  PRICE_MAP.forEach(s=>{
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent='...';sel.className='price-value loading';}
-    if(spl){spl.textContent='...';spl.className='price-value loading';}
-  });
-  const spMap=await fetchSkinportBulk();
-  function getSp(hash){const item=spMap[hash];if(!item)return null;return fmtPrice((item.min_price??item.suggested_price??0)/100);}
-  const cache={},now=new Date().toISOString();
-  const casesteam=await fetchSteamPrice(CASE_HASH),caseSp=getSp(CASE_HASH);
-  if(csEl){csEl.textContent=casesteam||'N/A';csEl.className='case-price-value'+(casesteam?'':' no-fn');}
-  if(cpEl){cpEl.textContent=caseSp||'N/A';cpEl.className='case-price-value'+(caseSp?'':' no-fn');}
-  cache['_case']={steam:casesteam,skinport:caseSp};
-  for(let i=0;i<PRICE_MAP.length;i++){
-    const s=PRICE_MAP[i];
-    const spPrice=getSp(s.skinport_hash);
-    await new Promise(r=>setTimeout(r,280));
-    const steam=await fetchSteamPrice(s.steam_hash);
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent=steam||'N/A';sel.className='price-value'+(steam?'':' no-fn');}
-    if(spl){spl.textContent=spPrice||'N/A';spl.className='price-value'+(spPrice?'':' no-fn');}
-    cache[s.id]={steam,skinport:spPrice};
-  }
-  cache['_ts']=now;setStore(PRICE_KEY,cache);
-  ts.textContent=new Date(now).toLocaleString();
-  btn.disabled=false;btn.innerHTML=btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
-}
-function loadCachedPrices(){
-  const cache=getStore(PRICE_KEY);if(!cache['_ts'])return;
-  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
-  const cc=cache['_case'];
-  if(cc&&csEl){csEl.textContent=cc.steam||'N/A';csEl.className='case-price-value'+(cc.steam?'':' no-fn');}
-  if(cc&&cpEl){cpEl.textContent=cc.skinport||'N/A';cpEl.className='case-price-value'+(cc.skinport?'':' no-fn');}
-  PRICE_MAP.forEach(s=>{
-    const c=cache[s.id];if(!c)return;
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent=c.steam||'N/A';sel.className='price-value'+(c.steam?'':' no-fn');}
-    if(spl){spl.textContent=c.skinport||'N/A';spl.className='price-value'+(c.skinport?'':' no-fn');}
-  });
+  const btn=document.getElementById('fetch-prices-btn');
   const ts=document.getElementById('price-ts');
-  if(ts)ts.textContent=new Date(cache['_ts']).toLocaleString()+' (cached)';
+  if(btn){ btn.disabled=true; btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','LOADING...'); }
+  if(ts) ts.textContent='Loading prices.json...';
+
+  const csEl=document.getElementById('case-steam-price');
+  const cpEl=document.getElementById('case-skinport-price');
+  if(csEl){ csEl.textContent='...'; csEl.className='case-price-value loading'; }
+  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value loading'; }
+  PRICE_MAP.forEach(s=>{
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent='...'; sel.className='price-value loading'; }
+    if(spl){ spl.textContent='--'; spl.className='price-value'; }
+  });
+
+  const data = await loadPriceJSON();
+
+  const casePrice = getPriceFromData(data, CASE_HASH);
+  if(csEl){ csEl.textContent=casePrice||'N/A'; csEl.className='case-price-value'+(casePrice?'':' no-fn'); }
+  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value no-fn'; }
+
+  PRICE_MAP.forEach(s=>{
+    const steam = getPriceFromData(data, s.steam_hash);
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent=steam||'N/A'; sel.className='price-value'+(steam?'':' no-fn'); }
+    if(spl){ spl.textContent='--'; spl.className='price-value no-fn'; }
+  });
+
+  let updated = 'Error loading prices.json';
+  if(data) updated = data.updated ? new Date(data.updated).toLocaleString()+' (prices.json)' : 'prices.json loaded';
+  if(ts) ts.textContent=updated;
+  if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
 }
+
+function loadCachedPrices(){ fetchAllPrices(); }
+
 
 /* Init */
 document.addEventListener('DOMContentLoaded',()=>{
+  initWishlist();
   SKIN_IDS.forEach(([id])=>{updateBadge(id);updateCardOwned(id);renderQrChips(id);renderPrintRow(id);});
   loadCachedPrices();
 });
+
+const WISH_KEY_GLOBAL="cs2_global_wishlist";
+const CASE_NAME_WL="Gamma 2 Case";
+const SKIN_DATA_WL=[{"id": "ak_47___neon_revolution", "weapon": "AK-47", "skinName": "Neon Revolution", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSIf6SHGSY2NF6ueZhW2e3w0524mjQzomreXqVbAAhWJF3RuZfuxC5x920Yurh7gONjY0RxHr4kGoXuT5bpI-V", "floatMin": "0", "floatMax": "0.8", "caseName": "Gamma 2 Case"}, {"id": "famas___roll_cage", "weapon": "FAMAS", "skinName": "Roll Cage", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2oaalsM8-BD2uc2NF6ueZhW2exzUhz4WjWmNqpdy-UbwJxDJtxReEMtRGwloflP7m04wfXi94QyXj9kGoXuV3JhaXD", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "aug___syd_mead", "weapon": "AUG", "skinName": "Syd Mead", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwi5Hf-jFk7uepV7d0JM-eC2aU_uJ_t-l9AX_rkU9-5j_Ry42qcnuQbw5zCcMhQrINtRO-xIHvY-Ow4gPY2Y4UmSngznQeqqNNbYw", "floatMin": "0", "floatMax": "0.8", "caseName": "Gamma 2 Case"}, {"id": "mp9___airlock", "weapon": "MP9", "skinName": "Airlock", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f_jdk4uL3V6psMvOaHVicyOl-pK8xGXq2xE536m7dnI2vdS6WagZ2CMFyFrNcsBjuw4G1Ne23tQGN3olH02yg2ZxyeudA", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "tec_9___fuel_injector", "weapon": "Tec-9", "skinName": "Fuel Injector", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wiVI0Oara_1SM-WDC3WTye9kt-RtcCW6khUz_Wvcy9qgdCnEPQ8hApBzRrQJ4RW7moDgMLzktFDZiI5HnyWr3ChN5yp1o7FVg4hNKG8", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "desert_eagle___directive", "weapon": "Desert Eagle", "skinName": "Directive", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk7uORbKF-JeKHMWKRxuJzj-JmQTqnlB8rtgKJk4jxNWXGPQ9yA8Z0R7FbtBi7w9S2M7_msgCIid1CmH6viH5I7ilr4-oEUKst5OSJ2LTZlHwR", "floatMin": "0.06", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "glock_18___weasel", "weapon": "Glock-18", "skinName": "Weasel", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1Y-s2pZKtuK6HLMXCVwP1zvN5lRi67gVN_4j7Qzdj8dimQblQkX8YkTeNe5Bmxkd2zNr_j5QbdjthCzX-qjylI8G81tDMJpR5Y", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "mag_7___petroglyph", "weapon": "MAG-7", "skinName": "Petroglyph", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5G3wiFO0P-vb_NSNOKaDGac_uJ_t-l9AXm1kUQl4TzcytqpeSjFagMkW5AiQbZYsEG_mtTnN-jq4AWLidpNnC3gznQeOK4te4s", "floatMin": "0", "floatMax": "0.44", "caseName": "Gamma 2 Case"}, {"id": "scar_20___powercore", "weapon": "SCAR-20", "skinName": "Powercore", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLinZfyr3Jk6OGRe6dsMqLDMXef1utks-57Sha_nBovp3OAzd2qIy_DPVMkXMEiE7UL5ES-l9yyP76wswWP3Y1Nyyn2i35L6S5s_a9cBj_cXeyl", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "sg_553___triarch", "weapon": "SG 553", "skinName": "Triarch", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLimcO1qx1Y-s29b_E4ds-HHG6R0-1-j-1gSCGn20Qk6m3UmY77IHOeOlNxCJQmQbYMuhC6mtaxP-K0sQLYi94RzC_8iH5XrnE8WPSRipg", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "cz75_auto___imprint", "weapon": "CZ75-Auto", "skinName": "Imprint", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLyhMG1_B1c_M2tcvM4H-SBC2aU_uJ_t-l9AX_ql0kksWTVyYupJC7FOAUiAptxQudbs0KxkNK1MLzl4wOPjIsWyCngznQeZTDWXeo", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "five_seven___scumbria", "weapon": "Five-SeveN", "skinName": "Scumbria", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRabVSJvmFC1iDxPhzvt56TDy-lw8usgKJk4jxNWXBP1JzAppxQ-UN5hm_mtLgZbjn5wPdi49Bnyqr3SJPvChq4-tWB6Ak5OSJ2BFWlPNZ", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "g3sg1___ventilator", "weapon": "G3SG1", "skinName": "Ventilator", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2zYXnrB1c_M2pO7dqcc-FC2mEyOJ3pO57cCW6khUz_W_Rwo36cC6SagZzDZZyQbMN5kTtwNC0Mb60sg3cjo8UnHn4j3hPuid1o7FVSaKTKS0", "floatMin": "0", "floatMax": "0.45", "caseName": "Gamma 2 Case"}, {"id": "negev___dazzle", "weapon": "Negev", "skinName": "Dazzle", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_m5Hl6x1T9s2gbaNoNs-XD32KzetJvOhuRz39xxxzsmWEz9v9I3zFaQQiA5pzE7YLt0WwwdHkZrjktQXeg4gXyXj62zQJsHixNFIgjA", "floatMin": "0.1", "floatMax": "0.65", "caseName": "Gamma 2 Case"}, {"id": "p90___grim", "weapon": "P90", "skinName": "Grim", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhx8bf_jdk_6v-V6N_Kf2eMWuZxuZi_rA9GHDrlh8h6m7dw4qpciiUOgQkAsF2ELYPsBjploe2P7ngsQaIjN5bjXKpNUOMolU", "floatMin": "0", "floatMax": "0.8", "caseName": "Gamma 2 Case"}, {"id": "ump_45___briefing", "weapon": "UMP-45", "skinName": "Briefing", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1Y-s27ZbQ5dc-eC3OCyPpzouBWQyC0nQlp627XyNigJHjBOwIiXMNyQuUKsRKwktK2Zu_j5FOKi9lCzHmtjCNKvDErvbgMSlL6rA", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "xm1014___slipstream", "weapon": "XM1014", "skinName": "Slipstream", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLpk8ewrHZk5-uRcKk8cKHHMWGCwO1ise1WTSWmkCIrujqNjsGrdn-WZw51ApR5FO4K5xDuk9O0Zunm5lGIio4Rnn2rjyhA7Cw_se1WT-N7rYJQ1fMT", "floatMin": "0", "floatMax": "0.5", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___gamma_doppler", "weapon": "Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zJfAJH4dmklYyPqPr1Ibndk2JL7cFOhuDG_Zi73VG2qUQ_am36LNKWcwM2Ml3X_FS8wL3vhMC0vJXOn3ZkuSAl7HiOmwv3308XDHXucw", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___gamma_doppler", "weapon": "Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhh2jDGMnYftb3KfOlVxDpt5RbRf5ES8kdfhZenq7lPc3tgQySj5hyNL53k9troLUvI7uvqAwkE80cI", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___gamma_doppler", "weapon": "Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhh1jDGMnYftby7FbARxDZUkF7NfsUK5lYbmZO3ktAWKj40Qznn_intPvX1i5e4DVfI7uvqAz_bVj6c", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___gamma_doppler", "weapon": "Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhh0jDGMnYftb3ifPQd2ApZ3Redb5xG-mtzkNuPr5ADXg4tGm33_23hLvCZrt-9XV_Y7uvqA1Mz9WrE", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___gamma_doppler", "weapon": "Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6NsLf2SMWOf0f56tfNWXyGyhhhzjDGMnYftb3_CO1ciCJYhEOID4UW_kNayPuPktVbZg9pBmC_8jC5PvStp5L1QWPY7uvqA1BNTDgI", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___freehand", "weapon": "Bayonet", "skinName": "Freehand", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0POjV6lsMvuWCliF0dF6ueZhW2e1zUh36zuEnteqeSqTOlUnXMYhFOcDuxfpkIblM-zj4gSLi45EniSqkGoXuTHKXCgo", "floatMin": "0", "floatMax": "0.48", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___lore", "weapon": "Bayonet", "skinName": "Lore", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0PG7V6ZsOf-dC3OvzeFktd5lRi67gVMj5GnXzt__JH-SawdyDJF1ROcCu0K5xNOxZeqx5AOI2oNGnnn23ylJ8G81tNZRAs3w", "floatMin": "0", "floatMax": "0.65", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___black_laminate", "weapon": "Bayonet", "skinName": "Black Laminate", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0PG7V6ZsOf-dC3Ov0vp5vuR-Tjq7qhEutDWR1Nr6IHuXOgMkWcQiQ7YK5hG7wYfgYuOx5gSN2YNCyHn-2Cof5i5isL0cEf1yJefVwLI", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___autotronic", "weapon": "Bayonet", "skinName": "Autotronic", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0PW9V6ZsOf-dC3OvwPtiv_V7QCe6liIrujqNjsGodirBZlckD5B1FLMDtka7m9DuZL7i4ADf39lNxSqqjXgc5ihstrkAT-N7rfe3-Xhk", "floatMin": "0", "floatMax": "0.85", "caseName": "Gamma 2 Case"}, {"id": "__bayonet___bright_water", "weapon": "Bayonet", "skinName": "Bright Water", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzn4_v8ydP0Pq3V6tuJfGdMWyeyOhzj-1gSCGn20hz5DuAyIquJXmWaAMoW5QmE7YI4UG5xNOxN-3m4AHb3tlDmyiojHlXrnE80X-NDyA", "floatMin": "0", "floatMax": "0.5", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___gamma_doppler", "weapon": "Flip Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_WeC3WRzepJveB7TSW2nAcitwKJk4jxNWWWPVdzA5pyQeQCsEG9wNXiYey3sQbcjIhMzi73jy4duCprt-5QWKoh5OSJ2FqzBf3_", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___gamma_doppler", "weapon": "Flip Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_eSA2qR_up5oPFlSjuMhRUmoDjUpYPwJiPTcAQmD5YkQbVf4US-kIaxNO7ktAGMiooWnn-v3CxOv3pv5r5QUKMn_6HJz1aWfAqhZnY", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___gamma_doppler", "weapon": "Flip Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYQJD4eOxlY2GlsjwPKvBmm5D19V5i_rEp7P5gVO8v11qNW72cdeRcwE3YAzZ-QK_lO7qgcC4uJqcy3E3s3Uq4yrczEO_00tFcKUx0hSF2xj1", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___gamma_doppler", "weapon": "Flip Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_eSA2qR_up5oPFlSjuMhRUmoDjWpYPwJiPTcAUjCcQhFuRcuhawlIC0ZujqtAKL3oxCmyj723tAv3pr4u5TUfUnrq3Jz1aWLj9dSwc", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___gamma_doppler", "weapon": "Flip Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_eSA2qR_up5oPFlSjuMhRUmoDjRpYPwJiPTcFN2XJshE-ZfuhS-w9PgMuuxtQTZ2YoRzXj_3Ssf6ntp6rxWUass-KDJz1aW7hm8L5o", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___freehand", "weapon": "Flip Knife", "skinName": "Freehand", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6VgH_2SHGyVxdFjoN5lRi67gVMk4Wzdm4r7cCiWPwUjXpt2QrZZ5ESxktLiNbmx4VPdiogTyi_42CxO8G81tO8hlF8A", "floatMin": "0", "floatMax": "0.48", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___lore", "weapon": "Flip Knife", "skinName": "Lore", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6d4H_afB3evzeFktd5lRi67gVMi4jjSy937In2fbA4gXptyROJetBK9ldLjPuPi5gyKjINMyCX23Soa8G81tMSuH9C0", "floatMin": "0", "floatMax": "0.65", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___black_laminate", "weapon": "Flip Knife", "skinName": "Black Laminate", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6d4H_afB3ev0vp5vuR-Tjq7qhEutDWR1NqheHqUOAMlXpR0FOVZ4Ba8wIW2P7u35VPX2Y9Azn6s2ihB7S5v5uccEf1yNTyJJU8", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___autotronic", "weapon": "Flip Knife", "skinName": "Autotronic", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6N-H_afB3evwPtiv_V7QCe6liIrujqNjsGrdn-faFMpXJd0TO4ItEKxm92xNurrsQCNiI9Fzy_43y0f63s5t-gCT-N7rYkKXYid", "floatMin": "0", "floatMax": "0.85", "caseName": "Gamma 2 Case"}, {"id": "__flip_knife___bright_water", "weapon": "Flip Knife", "skinName": "Bright Water", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1d4_u-V6x0H_-QC2ae_uV4uedscCW6khUz_WyHy4usJS7EOlJxWMMlFrMMsxKxmobnZr_i4leNgohCxCT_iHwfuH11o7FV6J7t-P8", "floatMin": "0", "floatMax": "0.5", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___gamma_doppler", "weapon": "Gut Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJf2WHGacxdF7sfNrQyy6jxgjjDGMnYftby-ROwEmXMciQeUDt0Prkt3hMeKwsQKP2ogRzyWqiy4b6So_5-YBU6Q7uvqAIJUtHr4", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___gamma_doppler", "weapon": "Gut Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tmy6lob-KT-JbwN0WZR2Re5fuxXswdKxP-Kx5Qzdj9hCnn6qiyIb5yc45-1QA6Ut_LqX0V-_N17M0A", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___gamma_doppler", "weapon": "Gut Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tm-6lob-KT-JOwEgDcN2EOEDsBnumtG1N-nr7wHc2ItAySStiC8auC9p5-1XVKUk87qX0V8XtbYmPA", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___gamma_doppler", "weapon": "Gut Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tm66lob-KT-JOAIiWZRwR-NZ5hO5lde2NOrl4QyM3YtDySSoi39J6iZrtrpRAvYm-bqX0V-vZngSFg", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___gamma_doppler", "weapon": "Gut Knife", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSJ_GeA2avxeFmoO1sXRajnRw0tmm6lob-KT-JbANxW5okTLMPuhmwmtO2N7-z71bdjNpMm3-s23wb7Cc-4OtRB_Ug_LqX0V_Ys9LWqg", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___freehand", "weapon": "Gut Knife", "skinName": "Freehand", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRaalSLfGBBWKU_vtmj-1gSCGn20tw6jndyNmoIn3FbAQoCMEkTOYJsRTql4fkPriw5gyIjoxAyCj9hy1XrnE8qMFnbCI", "floatMin": "0", "floatMax": "0.48", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___lore", "weapon": "Gut Knife", "skinName": "Lore", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRa7FSJ-WHMWuf0-tJvOhuRz39zU5-4mzUyI2ud32RaQ8lXJB2FuUI40S4kofgM-7hslaPgtpBnHj-iDQJsHjij6hzng", "floatMin": "0", "floatMax": "0.65", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___black_laminate", "weapon": "Gut Knife", "skinName": "Black Laminate", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRa7FSJ-WHMXSEzuBzp-B6Rxa_nBovp3PRn96tIynBPFJxA5RzROYOtxHpwIWzP7zitQXe2owWySWojisa7S46_a9cBlypMIP0", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___autotronic", "weapon": "Gut Knife", "skinName": "Autotronic", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRb7dSJ-WHMWaF1eFiou5nRiqMmRQguynLy46odXPFZw9xD5dyFOUDuhPslNXkNOLj71Db3o4Rn3j7hy8YvCZu4_FCD_SSdjZ6vg", "floatMin": "0", "floatMax": "0.85", "caseName": "Gamma 2 Case"}, {"id": "__gut_knife___bright_water", "weapon": "Gut Knife", "skinName": "Bright Water", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1c-uaRYL1SL_OWD2mvyuB_tuRWQyC0nQlp4TiDntmtIiqeblAmDsB2QLMNukSxwNDkZOrg4wbajItNzXn4in9LvDErvbi4dh8COQ", "floatMin": "0", "floatMax": "0.5", "caseName": "Gamma 2 Case"}, {"id": "__karambit___gamma_doppler", "weapon": "Karambit", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iVzOtkse1tcCSyhx8rtjSfn4vGLSLANkI-X8MjTLFYskTsw9bnZOuwsgSIj4sTniz-2i5A7yY6tbwGV6Nx-qGEjxaBb-MuPavopw", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__karambit___gamma_doppler", "weapon": "Karambit", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iXwON7sd5tQDmjmRg1jC2Nm5z8cBTLN1F4TowkROZctEXqxNO2Nevn4QzZ2I9Mz3r62C9L634_5uhTWKEh_fKD2w7HL_RjthCBcAWy", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__karambit___gamma_doppler", "weapon": "Karambit", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iXwON7sd5tQDmjmRg1jC2Nm5z8cxTLN1F4ToxzRbQMukK6k4HnZe3k4gPW34hFmCWrjCgd5yk55-1RBfB0rq2D2w7FL_RjtjtuH2jv", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__karambit___gamma_doppler", "weapon": "Karambit", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJlY20kPb5PrrukmRB-Ml0mNbR_Y3mjQeLpxo7Oy3tIteQJwc7aAnW_VK3wu27g8DtvsjLzSdksnIk4izYlha-0x8ebrZnguveFwtRKpxn8A", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__karambit___gamma_doppler", "weapon": "Karambit", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1iXwON7sd5tQDmjmRg1jC2Nm5z8dRTLN1F4ToxwQLNZ5xa-xNDuNu_ktgCN2YtNn36thypAuidrsb4BUqMj_qPfiwCTL_Rjtpd8Mt3S", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__karambit___freehand", "weapon": "Karambit", "skinName": "Freehand", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-SA1idwPx9teVWWjmMkxQptgKJk4jxNWXCOlJ2CZpyEeBbuxbrltXkMbzlsgTXit1NyST9hiJBu3ptsesLAPJ35OSJ2AmQpzvF", "floatMin": "0", "floatMax": "0.48", "caseName": "Gamma 2 Case"}, {"id": "__karambit___lore", "weapon": "Karambit", "skinName": "Lore", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-QG1ibwPx3vd5lQDu2qhEutDWR1IqrIHLCZlUmDJYlTLFb50HuwdyxPu2w4lCKjI5HniT2jS1PuCxj5e0cEf1y9ZCADXU", "floatMin": "0", "floatMax": "0.65", "caseName": "Gamma 2 Case"}, {"id": "__karambit___black_laminate", "weapon": "Karambit", "skinName": "Black Laminate", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-QG1ibwPx3vd56Wya9kAomoDW6lob-KT-JbwIlWcYmQ-UM40LrldXkZO6wslONiN0UmCT52iIdui8-5LlUAqUn-LqX0V8xd7EU5Q", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "__karambit___autotronic", "weapon": "Karambit", "skinName": "Autotronic", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-UHVibwPx3vd5oWj28gQ8ovTSGpYPwJiPTcAMkCJt3QuVY4xXrloHhP-nlsw2Ljo1NzS6ohitJvCc4sOcHAqInqKfJz1aWliaAF_M", "floatMin": "0", "floatMax": "0.85", "caseName": "Gamma 2 Case"}, {"id": "__karambit___bright_water", "weapon": "Karambit", "skinName": "Bright Water", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Q7uCvZaZkNM-bF1ifwut3vt5iQSC1kCIrujqNjsGteH6ebFR1XJp3E-MNtxK7lYbiM-rg5wLZgoNGyyX62Hsb7ixq5e9RT-N7reSUYiY6", "floatMin": "0", "floatMax": "0.5", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___gamma_doppler", "weapon": "M9 Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf3qr3czxb49KzgL-KmsjxPr7Dl2dV18hwmOvN8IXvjVCLpxo7Oy3tIYKVIVNtYFjS_FC2yLvogMK4vM7NmHQ36CMgsHfbmhHkh0tEO-dtg-veFwv998pqQw", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___gamma_doppler", "weapon": "M9 Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_ul3vexocC28hQ0rti-6iof4Mi6WAVp5Xco0W7IMsxGwkdDuYbm0sVHeg49Fziz_h3lP6y5o4-dTUfYh8qXW2wCUYrwjoc5UyoohxGw", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___gamma_doppler", "weapon": "M9 Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_ul3vexocC28hQ0rti-6iof4Mi6VAVp5Xco0W7ZbshTuxoLnM-mxtgaP3t1EmXr4jCoa6ChqsuxQAKQnqaeFigvDM7Ejoc5UDoFmlio", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___gamma_doppler", "weapon": "M9 Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf3qr3czxb49KzgL-KmsjzMrbcl1RV59VhhuzTypz9iUex-CwwOj6rYJjBclM_NwvXrFW2k7u6jMS678ucn3Y17iIr4yzcmxaxhkkdZuFr1_3NVxzAUO-pfLmq", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___gamma_doppler", "weapon": "M9 Bayonet", "skinName": "Gamma Doppler", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_ul3vexocC28hQ0rti-6iof4Mi6TAVp5Xco0W-UPsBDuwdfgN-jn5FHXjdpNzn322CpP5i064-oBVaEm_PWGjFmXMrAjoc5UYR0MRG0", "floatMin": "0", "floatMax": "0.08", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___freehand", "weapon": "M9 Bayonet", "skinName": "Freehand", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWad_uN3oupsSxamhSJ-4wKJk4jxNWWSbVd2D8R1TbYKtxCww4DvZL7j71OI340Qnyqo2isbu3ps4ecHAqtz5OSJ2C2JEBJP", "floatMin": "0", "floatMax": "0.48", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___lore", "weapon": "M9 Bayonet", "skinName": "Lore", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWSF_uMvj-NoVha_mg8ijDGMnYftbyrBOw52D5R0FOYPtkG6ltOxNrjl4FPdiN0WzC723SxP6ypp6u8LVKY7uvqAFpeI3XY", "floatMin": "0", "floatMax": "0.65", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___black_laminate", "weapon": "M9 Bayonet", "skinName": "Black Laminate", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWSF_uMvj-NoVhaggRIptiqEiYfGLSLANkI-WJZxE-Fct0a6l4bjM-zgtQ2Lio1MnyitiClL7ig44eoLWKB3r_eD3BaBb-N1KCFKnQ", "floatMin": "0", "floatMax": "1", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___autotronic", "weapon": "M9 Bayonet", "skinName": "Autotronic", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMWCD_uMvj-NoVhaygAkopy-KlIb6HifOOV5kFJRxF-RZtxLqlIXvPr63tA2NithGmHj_iiwc6i5qsOwEA_Jxq_CD2grfcepqx0gUsCA", "floatMin": "0", "floatMax": "0.85", "caseName": "Gamma 2 Case"}, {"id": "__m9_bayonet___bright_water", "weapon": "M9 Bayonet", "skinName": "Bright Water", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1Wts2sab1iLvWHMW-J_uF1teBncCK9nBsijGTVpYPwJiPTcFUmC5p3FO5YsRO_lIG2Me3rsVOM3tpAmSv_33ka5i5r5upWV6Qsq_HJz1aWbk46ROo", "floatMin": "0", "floatMax": "0.5", "caseName": "Gamma 2 Case"}];
+function getWL(){try{return JSON.parse(localStorage.getItem(WISH_KEY_GLOBAL)||'[]');}catch{return[];}}
+function setWL(a){try{localStorage.setItem(WISH_KEY_GLOBAL,JSON.stringify(a));}catch{}}
+function toggleWish(skinId){
+  let list=getWL();
+  const idx=list.findIndex(i=>i.id===skinId);
+  if(idx>=0)list.splice(idx,1);
+  else{const meta=SKIN_DATA_WL.find(s=>s.id===skinId)||{};list.push({id:skinId,caseName:CASE_NAME_WL,...meta});}
+  setWL(list);updateWishCard(skinId);
+}
+function updateWishCard(skinId){
+  const on=getWL().some(i=>i.id===skinId);
+  const btn=document.getElementById('wish-btn-'+skinId);
+  if(btn){
+    btn.classList.toggle('wishlisted',on);
+    btn.innerHTML=on
+      ?'<span class="wish-heart">&#9829;</span> WISHLISTED'
+      :'<span class="wish-heart">&#9825;</span> WISHLIST';
+  }
+  const card=document.getElementById('card-'+skinId);
+  if(card)card.classList.toggle('is-wishlisted',on);
+}
+function initWishlist(){SKIN_DATA_WL.forEach(s=>updateWishCard(s.id));}
+
 </script>
 </body>
 </html>

@@ -176,6 +176,16 @@ td{padding:9px 14px;vertical-align:middle}
 .nav-link:hover{background:rgba(240,165,0,.07);border-color:var(--accent)}
 
 /* Print */
+
+.wish-btn-wrap{padding:6px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.wish-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;
+  padding:5px 12px;background:transparent;border:1px solid var(--border2);
+  color:var(--text-dim);cursor:pointer;transition:all .2s;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:6px;}
+.wish-btn:hover{border-color:#ff4d6d;color:#ff4d6d;background:rgba(255,77,109,.07);}
+.wish-btn.wishlisted{border-color:#ff4d6d;background:rgba(255,77,109,.1);color:var(--text-dim);}
+.wish-btn.wishlisted .wish-heart{color:#ff4d6d;}
+.skin-card.is-wishlisted{border-color:rgba(255,77,109,.5);}
 @media print{
   @page{size:letter portrait;margin:.55in .5in .6in .5in}
   body{background:#fff !important;color:#111 !important}
@@ -555,6 +565,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-ak_47___vulcan">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ak_47___vulcan"><button class="wish-btn" id="wish-btn-ak_47___vulcan" onclick="toggleWish('ak_47___vulcan')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSMuWRDGKC_uJ_t-l9AXCxxEh14zjTztivci2ePQZ2W8NzTecD4BKwloLiYeqxtAOIj9gUyyngznQeF7I6QE8" alt="AK-47 | Vulcan" loading="lazy">
         <div class="rarity-label">COVERT</div>
@@ -598,6 +609,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-m4a4___desert_strike">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-m4a4___desert_strike"><button class="wish-btn" id="wish-btn-m4a4___desert_strike" onclick="toggleWish('m4a4___desert_strike')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwiFO0OanfKVjM-ScHGqvzedxuPUnHnjnxEsi4WTTntqucnuUaA92CZR2E-IDtRa-mobnYeLksQbXg4hDyTK-0H1Bbz5yqg" alt="M4A4 | Desert-Strike" loading="lazy">
         <div class="rarity-label">COVERT</div>
@@ -648,6 +660,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-m4a1_s___atomic_alloy">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-m4a1_s___atomic_alloy"><button class="wish-btn" id="wish-btn-m4a1_s___atomic_alloy" onclick="toggleWish('m4a1_s___atomic_alloy')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_GeMWrEwL87o95oQyW8jCIooTyLnYrGLSLANkI-D5d2FrENtRG7wNDvZe-3slfci9pFmHj8jSof6yZjtugEB6QtrKTXhxaBb-PhITXxPA" alt="M4A1-S | Atomic Alloy" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -691,6 +704,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-scar_20___cyrex">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-scar_20___cyrex"><button class="wish-btn" id="wish-btn-scar_20___cyrex" onclick="toggleWish('scar_20___cyrex')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLinZfyr3Jk7OeRe6dsMs-QF3WV2dF6ueZhW2fgzUR_52nUzYugICnCPVImApYkRO8NtkLtw4a1Nbzn7lSN2oITnCr5kGoXuXXxbesR" alt="SCAR-20 | Cyrex" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -734,6 +748,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-usp_s___caiman">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-usp_s___caiman"><button class="wish-btn" id="wish-btn-usp_s___caiman" onclick="toggleWish('usp_s___caiman')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsBWaZzO94j-1gSCGn20t-4WyBn4mocC6XbVN0CMB2RLYMsUG5x9DgN-20tQSNiI1GzS2q3XtXrnE8NAiGp64" alt="USP-S | Caiman" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
@@ -784,6 +799,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-aug___torque">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-aug___torque"><button class="wish-btn" id="wish-btn-aug___torque" onclick="toggleWish('aug___torque')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwi5Hf_jdk7uepV7R_L_eBC3SDyPhJvOhuRz39lxhxsm_WzN37Iy7CbAcmC8B2QuYPtRCwx9HvNr-xtQPaj95EmS__3TQJsHjrLu4xbg" alt="AUG | Torque" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -827,6 +843,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-pp_bizon___antique">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-pp_bizon___antique"><button class="wish-btn" id="wish-btn-pp_bizon___antique" onclick="toggleWish('pp_bizon___antique')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1Y-s2sYb5iLs-SAHOZ0Ptzj-1gSCGn20sj4DnTyN2pdyjFOg4oXJV5Qu5c5xS9w4bjNL7q7gHd2INGxCn_iyxXrnE83Efvvd0" alt="PP-Bizon | Antique" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -870,6 +887,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-mac_10___tatter">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-mac_10___tatter"><button class="wish-btn" id="wish-btn-mac_10___tatter" onclick="toggleWish('mac_10___tatter')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2lZ7Z4MOSsAm6Xyfo4tbY7H3q1xRt152TWyt6tc3ifaVcmDppxReVethawlYHmNO6ztQbciJUFk3uxmhdQIQ" alt="MAC-10 | Tatter" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -913,6 +931,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-xm1014___heaven_guard">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-xm1014___heaven_guard"><button class="wish-btn" id="wish-btn-xm1014___heaven_guard" onclick="toggleWish('xm1014___heaven_guard')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLpk8ewrHZk7OeRcKk8cKHHMW-VwPhzvt5uWiihkSIrujqNjsH7cHLFPwd1WZsiFrJYuhC4lNTuNu3n5ASN3YxEniStjSMa6H45675UT-N7rZnbv6eE" alt="XM1014 | Heaven Guard" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
@@ -963,6 +982,7 @@ td{padding:9px 14px;vertical-align:middle}
   <div class="skins-grid">
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-cz75_auto___twist">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-cz75_auto___twist"><button class="wish-btn" id="wish-btn-cz75_auto___twist" onclick="toggleWish('cz75_auto___twist')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLyhMG1_B1a4s2pcbZsNPWsAm6Xyfo45bY7TXzjxk5w42XXn93_cnLFOFN1C5t0ROANsBLtx9ziNu6x4FHejpUFk3uH-TvaLw" alt="CZ75-Auto | Twist" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1006,6 +1026,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-galil_ar___kami">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-galil_ar___kami"><button class="wish-btn" id="wish-btn-galil_ar___kami" onclick="toggleWish('galil_ar___kami')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0Pq3V6NsLPmfMWyRzOdJvOhuRz39wkl142uEwtqsJ3OealV1DZYmFuNZ4xTtx4HnZuPl4gaLjdpNnHqt3TQJsHjaThnzjg" alt="Galil AR | Kami" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1049,6 +1070,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-p2000___pulse">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-p2000___pulse"><button class="wish-btn" id="wish-btn-p2000___pulse" onclick="toggleWish('p2000___pulse')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL5lYayrXIL0PG7V7Q_cKDDMXeFzf1zj-1gSCGn201wsTnRm9egcS7DaABxDZckQe5Ys0S6xtKxZO-wsQDbi9lMxSv-jS5XrnE8fJdFk9o" alt="P2000 | Pulse" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1092,6 +1114,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-p90___module">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-p90___module"><button class="wish-btn" id="wish-btn-p90___module" onclick="toggleWish('p90___module')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhx8bf_Cxk_f23aahvLPWWClicyOl-pK8_Sn_rwE1x5z6AyY6qeXmRb1cgWMNwR7Ff4Bm_m9y0Przq4A3b348Q02yg2QQMyM9M" alt="P90 | Module" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1135,6 +1158,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-ssg_08___slashed">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ssg_08___slashed"><button class="wish-btn" id="wish-btn-ssg_08___slashed" onclick="toggleWish('ssg_08___slashed')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-aA2qf0_p3vN5kSi26gBBp62XXyon_eHKXagYoC5ZwFLQNska7lIfiY-rgtVCN2IxExX_9h34buDErvbiGjEi-fQ" alt="SSG 08 | Slashed" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1178,6 +1202,7 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-tec_9___isaac">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-tec_9___isaac"><button class="wish-btn" id="wish-btn-tec_9___isaac" onclick="toggleWish('tec_9___isaac')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wiFO0Oara_1SIeOaB2qf19F6ueZhW2frlEpz6zyAy477dXrEagFxDcclRO4C5EK8wIa1Nem3s1TdiotNzCn5kGoXuYgN6W8t" alt="Tec-9 | Isaac" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
@@ -1233,12 +1258,13 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skins-grid">
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___fade">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___fade"><button class="wish-btn" id="wish-btn-__huntsman_knife___fade" onclick="toggleWish('__huntsman_knife___fade')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SD1iWwOpzj-1gSCGn2x8hsW6DmIqpcXjBZgYkCZt5F7VcthS8ldS2Nr7m5VCMi4gRyyuqjHtXrnE8oar8MtU" alt="★ Huntsman Knife | Fade" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Fade</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1276,12 +1302,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___slaughter">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___slaughter"><button class="wish-btn" id="wish-btn-__huntsman_knife___slaughter" onclick="toggleWish('__huntsman_knife___slaughter')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SA1iKxOxksd5lRi67gVN_42jTnourc3OSbA4iCJV5F7UCsEXpx93jYrnn7gfago4QyH6ri3tL8G81tAzA6RBm" alt="★ Huntsman Knife | Slaughter" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Slaughter</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.01</div></div>
@@ -1319,12 +1346,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___blue_steel">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___blue_steel"><button class="wish-btn" id="wish-btn-__huntsman_knife___blue_steel" onclick="toggleWish('__huntsman_knife___blue_steel')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SH1iSzftztN5lRi67gVN1tW3UzousdnrBbFB0WZt0QbVctEawxoGxN-ywtgGNjtgUySz-hiIa8G81tLF2CaOG" alt="★ Huntsman Knife | Blue Steel" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Blue Steel</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1362,12 +1390,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___stained">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___stained"><button class="wish-btn" id="wish-btn-__huntsman_knife___stained" onclick="toggleWish('__huntsman_knife___stained')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SH1iWzvx1teVWQyC0nQlpsjyHnIyvI3-UbgImApJxTLYJsUa9m4fkY7y25lbe3o8UzCn5j39BuzErvbgKxgW_zw" alt="★ Huntsman Knife | Stained" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Stained</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1405,12 +1434,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___case_hardened">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___case_hardened"><button class="wish-btn" id="wish-btn-__huntsman_knife___case_hardened" onclick="toggleWish('__huntsman_knife___case_hardened')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SH1ifyOJztN5lRi67gVN_4W-Byt-hIi2UbVV2W5p2Fu4PuxmxkdO0Zejj7wff3okWzCT3ji4f8G81tJdWCOsa" alt="★ Huntsman Knife | Case Hardened" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Case Hardened</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
@@ -1448,12 +1478,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___forest_ddpat">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___forest_ddpat"><button class="wish-btn" id="wish-btn-__huntsman_knife___forest_ddpat" onclick="toggleWish('__huntsman_knife___forest_ddpat')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-bF1iUxf53pN5lRi67gVN-6mqBz4msIHnDPAd1X5YiQuBe5Ba5ltG2NOvj7wTcjo1Eyn79inwd8G81tJCD569m" alt="★ Huntsman Knife | Forest DDPAT" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Forest DDPAT</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1491,12 +1522,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___boreal_forest">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___boreal_forest"><button class="wish-btn" id="wish-btn-__huntsman_knife___boreal_forest" onclick="toggleWish('__huntsman_knife___boreal_forest')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-bF1iWzvxzo_VWTSahkBwrjDGMnYftb3qRaFMmCpokE-YOsRW5xNbjY-ri7gTb2YpDz36o3XtL7H1psecLUfI7uvqAW2HsimI" alt="★ Huntsman Knife | Boreal Forest" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Boreal Forest</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1534,12 +1566,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___crimson_web">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___crimson_web"><button class="wish-btn" id="wish-btn-__huntsman_knife___crimson_web" onclick="toggleWish('__huntsman_knife___crimson_web')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-bF1iHxOxlj-1gSCGn20V24znRw4v7JXPEaVUnW8AkQbUP5xW4wYKzMeu3sgPbio4WzXr_3HxXrnE84qvZFNo" alt="★ Huntsman Knife | Crimson Web" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Crimson Web</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1577,12 +1610,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___night">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___night"><button class="wish-btn" id="wish-btn-__huntsman_knife___night" onclick="toggleWish('__huntsman_knife___night')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AAVieyOl-pN5lRi67gVMktj_XzNapIi6QPwYjCcd1FOIJsBPsm9TvM7-ztFfXjIgXnyX7jCxA8G81tHpNPllX" alt="★ Huntsman Knife | Night" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Night</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1620,12 +1654,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___scorched">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___scorched"><button class="wish-btn" id="wish-btn-__huntsman_knife___scorched" onclick="toggleWish('__huntsman_knife___scorched')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AHliUwP5mvORWQyC0nQlp5GiDnIqseHPGalMnXJMhQ-cDtkPrm93jZe7l5wbb2YsTyy352CpP7TErvbiCPrzwVA" alt="★ Huntsman Knife | Scorched" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Scorched</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1663,12 +1698,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___safari_mesh">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___safari_mesh"><button class="wish-btn" id="wish-btn-__huntsman_knife___safari_mesh" onclick="toggleWish('__huntsman_knife___safari_mesh')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AHlidxP1-j_VoQRa_nBovp3OEzd7_dn_FOAVxCpp2QuQC4xW9kYaxNOLqtA3dgowWyyn7jnxAuCxj_a9cBvBQQTn3" alt="★ Huntsman Knife | Safari Mesh" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Safari Mesh</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1706,12 +1742,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife___urban_masked">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife___urban_masked"><button class="wish-btn" id="wish-btn-__huntsman_knife___urban_masked" onclick="toggleWish('__huntsman_knife___urban_masked')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AHliEwP5zj_R7TSi9qhEutDWR1Nb4IH_GZw8lW8QiRu4M40Htl9W0NeK3tQKLjt9Cm3j4iypO6309suYcEf1yAgdvvhk" alt="★ Huntsman Knife | Urban Masked" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Urban Masked</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
@@ -1749,12 +1786,13 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__huntsman_knife">
       <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-__huntsman_knife"><button class="wish-btn" id="wish-btn-__huntsman_knife" onclick="toggleWish('__huntsman_knife')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
       <div class="skin-img-wrap">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s26aad5KfOSAimVlugu47U5HSrmzEp14zncz4ygICiealIiAsF2EOdYtkTpwNXuYbjk-UWA3JpY_ZDP" alt="★ Huntsman Knife" loading="lazy">
         <div class="rarity-label">RARE &#9733;</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; ★ Huntsman Knife</div>
+        <div class="skin-weapon">&#9733; Huntsman Knife</div>
         <div class="skin-name">Vanilla</div>
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">N/A</div></div>
@@ -2105,7 +2143,7 @@ function renderQrChips(id){
   el.innerHTML=entries.map(e=>{
     const parts=[];
     if(e.wear)parts.push(`<span>${abbr(e.wear)}</span>`);
-    if(e.float)parts.push(`<span>fl ${parseFloat(e.float).toFixed(4)}</span>`);
+    if(e.float)parts.push(`<span>FL ${parseFloat(e.float).toFixed(4)}</span>`);
     if(e.pattern)parts.push(`<span>P${e.pattern}</span>`);
     const detail=parts.length?parts.join('<span style="color:#2a4060;margin:0 2px">&middot;</span>'):'<span style="color:#3a5070">&mdash;</span>';
     return `<div class="inv-chip${e.st?' chip-st':''}"><span class="chip-type ${e.st?'st':'std'}">${e.st?'ST&#x2122;':'STD'}</span><span class="chip-detail">${detail}</span></div>`;
@@ -2126,7 +2164,7 @@ function renderPrintRow(id){
     cell.innerHTML='<div class="print-inv-inner">'+entries.map(e=>{
       const parts=[];
       if(e.wear)parts.push(abbr(e.wear));
-      if(e.float)parts.push('fl '+parseFloat(e.float).toFixed(4));
+      if(e.float)parts.push('FL '+parseFloat(e.float).toFixed(4));
       if(e.pattern)parts.push('P'+e.pattern);
       return `<div class="pchip${e.st?' pchip-st':''}"><span class="pchip-type${e.st?' pst':''}">${e.st?'ST&#x2122;':'STD'}</span><span class="pchip-detail">${parts.join(' &middot; ')||'&mdash;'}</span></div>`;
     }).join('')+'</div>';
@@ -2149,66 +2187,100 @@ function printOwned(){
 }
 
 /* Pricing */
-function fmtPrice(raw){if(!raw)return null;const n=parseFloat(String(raw).replace(/[^0-9.]/g,''));return isNaN(n)?null:'$'+n.toFixed(2);}
-async function fetchSteamPrice(hash){
-  try{const r=await fetch(`https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hash)}`);if(!r.ok)return null;const d=await r.json();return d.success?fmtPrice(d.lowest_price||d.median_price):null;}catch{return null;}
+
+/* -- Pricing: reads from hosted prices.json -- */
+const PRICES_JSON_URL = 'https://csdad67.github.io/CS2SkinIndex/prices.json';
+let _priceData = null;
+
+async function loadPriceJSON(){
+  if(_priceData) return _priceData;
+  try{
+    const r = await fetch(PRICES_JSON_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    _priceData = await r.json();
+    return _priceData;
+  }catch(e){ console.warn('prices.json:', e.message); return null; }
 }
-async function fetchSkinportBulk(){
-  try{const r=await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{headers:{'Accept-Encoding':'br'}});if(!r.ok)return{};const data=await r.json();const map={};data.forEach(i=>{map[i.market_hash_name]=i;});return map;}catch{return{};}
+
+function getPriceFromData(data, hash){
+  if(!data||!data.prices) return null;
+  const entry = data.prices[hash];
+  return (entry && entry.steam) ? entry.steam : null;
 }
+
 async function fetchAllPrices(){
-  const btn=document.getElementById('fetch-prices-btn'),ts=document.getElementById('price-ts');
-  btn.disabled=true;btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');ts.textContent='Fetching...';
-  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
-  if(csEl){csEl.textContent='...';csEl.className='case-price-value loading';}
-  if(cpEl){cpEl.textContent='...';cpEl.className='case-price-value loading';}
-  PRICE_MAP.forEach(s=>{
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent='...';sel.className='price-value loading';}
-    if(spl){spl.textContent='...';spl.className='price-value loading';}
-  });
-  const spMap=await fetchSkinportBulk();
-  function getSp(hash){const item=spMap[hash];if(!item)return null;return fmtPrice((item.min_price??item.suggested_price??0)/100);}
-  const cache={},now=new Date().toISOString();
-  const casesteam=await fetchSteamPrice(CASE_HASH),caseSp=getSp(CASE_HASH);
-  if(csEl){csEl.textContent=casesteam||'N/A';csEl.className='case-price-value'+(casesteam?'':' no-fn');}
-  if(cpEl){cpEl.textContent=caseSp||'N/A';cpEl.className='case-price-value'+(caseSp?'':' no-fn');}
-  cache['_case']={steam:casesteam,skinport:caseSp};
-  for(let i=0;i<PRICE_MAP.length;i++){
-    const s=PRICE_MAP[i];
-    const spPrice=getSp(s.skinport_hash);
-    await new Promise(r=>setTimeout(r,280));
-    const steam=await fetchSteamPrice(s.steam_hash);
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent=steam||'N/A';sel.className='price-value'+(steam?'':' no-fn');}
-    if(spl){spl.textContent=spPrice||'N/A';spl.className='price-value'+(spPrice?'':' no-fn');}
-    cache[s.id]={steam,skinport:spPrice};
-  }
-  cache['_ts']=now;setStore(PRICE_KEY,cache);
-  ts.textContent=new Date(now).toLocaleString();
-  btn.disabled=false;btn.innerHTML=btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
-}
-function loadCachedPrices(){
-  const cache=getStore(PRICE_KEY);if(!cache['_ts'])return;
-  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
-  const cc=cache['_case'];
-  if(cc&&csEl){csEl.textContent=cc.steam||'N/A';csEl.className='case-price-value'+(cc.steam?'':' no-fn');}
-  if(cc&&cpEl){cpEl.textContent=cc.skinport||'N/A';cpEl.className='case-price-value'+(cc.skinport?'':' no-fn');}
-  PRICE_MAP.forEach(s=>{
-    const c=cache[s.id];if(!c)return;
-    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){sel.textContent=c.steam||'N/A';sel.className='price-value'+(c.steam?'':' no-fn');}
-    if(spl){spl.textContent=c.skinport||'N/A';spl.className='price-value'+(c.skinport?'':' no-fn');}
-  });
+  const btn=document.getElementById('fetch-prices-btn');
   const ts=document.getElementById('price-ts');
-  if(ts)ts.textContent=new Date(cache['_ts']).toLocaleString()+' (cached)';
+  if(btn){ btn.disabled=true; btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','LOADING...'); }
+  if(ts) ts.textContent='Loading prices.json...';
+
+  const csEl=document.getElementById('case-steam-price');
+  const cpEl=document.getElementById('case-skinport-price');
+  if(csEl){ csEl.textContent='...'; csEl.className='case-price-value loading'; }
+  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value loading'; }
+  PRICE_MAP.forEach(s=>{
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent='...'; sel.className='price-value loading'; }
+    if(spl){ spl.textContent='--'; spl.className='price-value'; }
+  });
+
+  const data = await loadPriceJSON();
+
+  const casePrice = getPriceFromData(data, CASE_HASH);
+  if(csEl){ csEl.textContent=casePrice||'N/A'; csEl.className='case-price-value'+(casePrice?'':' no-fn'); }
+  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value no-fn'; }
+
+  PRICE_MAP.forEach(s=>{
+    const steam = getPriceFromData(data, s.steam_hash);
+    const sel=document.getElementById('steam-price-'+s.id);
+    const spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){ sel.textContent=steam||'N/A'; sel.className='price-value'+(steam?'':' no-fn'); }
+    if(spl){ spl.textContent='--'; spl.className='price-value no-fn'; }
+  });
+
+  let updated = 'Error loading prices.json';
+  if(data) updated = data.updated ? new Date(data.updated).toLocaleString()+' (prices.json)' : 'prices.json loaded';
+  if(ts) ts.textContent=updated;
+  if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
 }
+
+function loadCachedPrices(){ fetchAllPrices(); }
+
 
 /* Init */
 document.addEventListener('DOMContentLoaded',()=>{
+  initWishlist();
   SKIN_IDS.forEach(([id])=>{updateBadge(id);updateCardOwned(id);renderQrChips(id);renderPrintRow(id);});
   loadCachedPrices();
 });
+
+const WISH_KEY_GLOBAL="cs2_global_wishlist";
+const CASE_NAME_WL="Huntsman Weapon Case";
+const SKIN_DATA_WL=[{"id": "ak_47___vulcan", "weapon": "AK-47", "skinName": "Vulcan", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiFO0POlPPNSMuWRDGKC_uJ_t-l9AXCxxEh14zjTztivci2ePQZ2W8NzTecD4BKwloLiYeqxtAOIj9gUyyngznQeF7I6QE8", "floatMin": "0", "floatMax": "0.9", "caseName": "Huntsman Weapon Case"}, {"id": "m4a4___desert_strike", "weapon": "M4A4", "skinName": "Desert-Strike", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwiFO0OanfKVjM-ScHGqvzedxuPUnHnjnxEsi4WTTntqucnuUaA92CZR2E-IDtRa-mobnYeLksQbXg4hDyTK-0H1Bbz5yqg", "floatMin": "0", "floatMax": "0.7", "caseName": "Huntsman Weapon Case"}, {"id": "m4a1_s___atomic_alloy", "weapon": "M4A1-S", "skinName": "Atomic Alloy", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_GeMWrEwL87o95oQyW8jCIooTyLnYrGLSLANkI-D5d2FrENtRG7wNDvZe-3slfci9pFmHj8jSof6yZjtugEB6QtrKTXhxaBb-PhITXxPA", "floatMin": "0", "floatMax": "0.9", "caseName": "Huntsman Weapon Case"}, {"id": "scar_20___cyrex", "weapon": "SCAR-20", "skinName": "Cyrex", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLinZfyr3Jk7OeRe6dsMs-QF3WV2dF6ueZhW2fgzUR_52nUzYugICnCPVImApYkRO8NtkLtw4a1Nbzn7lSN2oITnCr5kGoXuXXxbesR", "floatMin": "0", "floatMax": "0.5", "caseName": "Huntsman Weapon Case"}, {"id": "usp_s___caiman", "weapon": "USP-S", "skinName": "Caiman", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSI-WsBWaZzO94j-1gSCGn20t-4WyBn4mocC6XbVN0CMB2RLYMsUG5x9DgN-20tQSNiI1GzS2q3XtXrnE8NAiGp64", "floatMin": "0", "floatMax": "0.4", "caseName": "Huntsman Weapon Case"}, {"id": "aug___torque", "weapon": "AUG", "skinName": "Torque", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwi5Hf_jdk7uepV7R_L_eBC3SDyPhJvOhuRz39lxhxsm_WzN37Iy7CbAcmC8B2QuYPtRCwx9HvNr-xtQPaj95EmS__3TQJsHjrLu4xbg", "floatMin": "0", "floatMax": "0.5", "caseName": "Huntsman Weapon Case"}, {"id": "pp_bizon___antique", "weapon": "PP-Bizon", "skinName": "Antique", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1Y-s2sYb5iLs-SAHOZ0Ptzj-1gSCGn20sj4DnTyN2pdyjFOg4oXJV5Qu5c5xS9w4bjNL7q7gHd2INGxCn_iyxXrnE83Efvvd0", "floatMin": "0", "floatMax": "0.5", "caseName": "Huntsman Weapon Case"}, {"id": "mac_10___tatter", "weapon": "MAC-10", "skinName": "Tatter", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5WxrR1Y-s2lZ7Z4MOSsAm6Xyfo4tbY7H3q1xRt152TWyt6tc3ifaVcmDppxReVethawlYHmNO6ztQbciJUFk3uxmhdQIQ", "floatMin": "0", "floatMax": "0.5", "caseName": "Huntsman Weapon Case"}, {"id": "xm1014___heaven_guard", "weapon": "XM1014", "skinName": "Heaven Guard", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLpk8ewrHZk7OeRcKk8cKHHMW-VwPhzvt5uWiihkSIrujqNjsH7cHLFPwd1WZsiFrJYuhC4lNTuNu3n5ASN3YxEniStjSMa6H45675UT-N7rZnbv6eE", "floatMin": "0.03", "floatMax": "0.5", "caseName": "Huntsman Weapon Case"}, {"id": "cz75_auto___twist", "weapon": "CZ75-Auto", "skinName": "Twist", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLyhMG1_B1a4s2pcbZsNPWsAm6Xyfo45bY7TXzjxk5w42XXn93_cnLFOFN1C5t0ROANsBLtx9ziNu6x4FHejpUFk3uH-TvaLw", "floatMin": "0", "floatMax": "1", "caseName": "Huntsman Weapon Case"}, {"id": "galil_ar___kami", "weapon": "Galil AR", "skinName": "Kami", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0Pq3V6NsLPmfMWyRzOdJvOhuRz39wkl142uEwtqsJ3OealV1DZYmFuNZ4xTtx4HnZuPl4gaLjdpNnHqt3TQJsHjaThnzjg", "floatMin": "0", "floatMax": "0.6", "caseName": "Huntsman Weapon Case"}, {"id": "p2000___pulse", "weapon": "P2000", "skinName": "Pulse", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL5lYayrXIL0PG7V7Q_cKDDMXeFzf1zj-1gSCGn201wsTnRm9egcS7DaABxDZckQe5Ys0S6xtKxZO-wsQDbi9lMxSv-jS5XrnE8fJdFk9o", "floatMin": "0", "floatMax": "0.6", "caseName": "Huntsman Weapon Case"}, {"id": "p90___module", "weapon": "P90", "skinName": "Module", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhx8bf_Cxk_f23aahvLPWWClicyOl-pK8_Sn_rwE1x5z6AyY6qeXmRb1cgWMNwR7Ff4Bm_m9y0Przq4A3b348Q02yg2QQMyM9M", "floatMin": "0", "floatMax": "0.35", "caseName": "Huntsman Weapon Case"}, {"id": "ssg_08___slashed", "weapon": "SSG 08", "skinName": "Slashed", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1Y-s29e6M9eM-aA2qf0_p3vN5kSi26gBBp62XXyon_eHKXagYoC5ZwFLQNska7lIfiY-rgtVCN2IxExX_9h34buDErvbiGjEi-fQ", "floatMin": "0.15", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "tec_9___isaac", "weapon": "Tec-9", "skinName": "Isaac", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wiFO0Oara_1SIeOaB2qf19F6ueZhW2frlEpz6zyAy477dXrEagFxDcclRO4C5EK8wIa1Nem3s1TdiotNzCn5kGoXuYgN6W8t", "floatMin": "0", "floatMax": "1", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___fade", "weapon": "Huntsman Knife", "skinName": "Fade", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SD1iWwOpzj-1gSCGn2x8hsW6DmIqpcXjBZgYkCZt5F7VcthS8ldS2Nr7m5VCMi4gRyyuqjHtXrnE8oar8MtU", "floatMin": "0", "floatMax": "0.08", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___slaughter", "weapon": "Huntsman Knife", "skinName": "Slaughter", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SA1iKxOxksd5lRi67gVN_42jTnourc3OSbA4iCJV5F7UCsEXpx93jYrnn7gfago4QyH6ri3tL8G81tAzA6RBm", "floatMin": "0.01", "floatMax": "0.26", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___blue_steel", "weapon": "Huntsman Knife", "skinName": "Blue Steel", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SH1iSzftztN5lRi67gVN1tW3UzousdnrBbFB0WZt0QbVctEawxoGxN-ywtgGNjtgUySz-hiIa8G81tLF2CaOG", "floatMin": "0", "floatMax": "1", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___stained", "weapon": "Huntsman Knife", "skinName": "Stained", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SH1iWzvx1teVWQyC0nQlpsjyHnIyvI3-UbgImApJxTLYJsUa9m4fkY7y25lbe3o8UzCn5j39BuzErvbgKxgW_zw", "floatMin": "0", "floatMax": "1", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___case_hardened", "weapon": "Huntsman Knife", "skinName": "Case Hardened", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-SH1ifyOJztN5lRi67gVN_4W-Byt-hIi2UbVV2W5p2Fu4PuxmxkdO0Zejj7wff3okWzCT3ji4f8G81tJdWCOsa", "floatMin": "0", "floatMax": "1", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___forest_ddpat", "weapon": "Huntsman Knife", "skinName": "Forest DDPAT", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-bF1iUxf53pN5lRi67gVN-6mqBz4msIHnDPAd1X5YiQuBe5Ba5ltG2NOvj7wTcjo1Eyn79inwd8G81tJCD569m", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___boreal_forest", "weapon": "Huntsman Knife", "skinName": "Boreal Forest", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-bF1iWzvxzo_VWTSahkBwrjDGMnYftb3qRaFMmCpokE-YOsRW5xNbjY-ri7gTb2YpDz36o3XtL7H1psecLUfI7uvqAW2HsimI", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___crimson_web", "weapon": "Huntsman Knife", "skinName": "Crimson Web", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-bF1iHxOxlj-1gSCGn20V24znRw4v7JXPEaVUnW8AkQbUP5xW4wYKzMeu3sgPbio4WzXr_3HxXrnE84qvZFNo", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___night", "weapon": "Huntsman Knife", "skinName": "Night", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AAVieyOl-pN5lRi67gVMktj_XzNapIi6QPwYjCcd1FOIJsBPsm9TvM7-ztFfXjIgXnyX7jCxA8G81tHpNPllX", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___scorched", "weapon": "Huntsman Knife", "skinName": "Scorched", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AHliUwP5mvORWQyC0nQlp5GiDnIqseHPGalMnXJMhQ-cDtkPrm93jZe7l5wbb2YsTyy352CpP7TErvbiCPrzwVA", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___safari_mesh", "weapon": "Huntsman Knife", "skinName": "Safari Mesh", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AHlidxP1-j_VoQRa_nBovp3OEzd7_dn_FOAVxCpp2QuQC4xW9kYaxNOLqtA3dgowWyyn7jnxAuCxj_a9cBvBQQTn3", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife___urban_masked", "weapon": "Huntsman Knife", "skinName": "Urban Masked", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL6kJ_m-B1P7vG6YadsLM-AHliEwP5zj_R7TSi9qhEutDWR1Nb4IH_GZw8lW8QiRu4M40Htl9W0NeK3tQKLjt9Cm3j4iypO6309suYcEf1yAgdvvhk", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Huntsman Weapon Case"}, {"id": "__huntsman_knife", "weapon": "Huntsman Knife", "skinName": "", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s26aad5KfOSAimVlugu47U5HSrmzEp14zncz4ygICiealIiAsF2EOdYtkTpwNXuYbjk-UWA3JpY_ZDP", "floatMin": "N/A", "floatMax": "N/A", "caseName": "Huntsman Weapon Case"}];
+function getWL(){try{return JSON.parse(localStorage.getItem(WISH_KEY_GLOBAL)||'[]');}catch{return[];}}
+function setWL(a){try{localStorage.setItem(WISH_KEY_GLOBAL,JSON.stringify(a));}catch{}}
+function toggleWish(skinId){
+  let list=getWL();
+  const idx=list.findIndex(i=>i.id===skinId);
+  if(idx>=0)list.splice(idx,1);
+  else{const meta=SKIN_DATA_WL.find(s=>s.id===skinId)||{};list.push({id:skinId,caseName:CASE_NAME_WL,...meta});}
+  setWL(list);updateWishCard(skinId);
+}
+function updateWishCard(skinId){
+  const on=getWL().some(i=>i.id===skinId);
+  const btn=document.getElementById('wish-btn-'+skinId);
+  if(btn){
+    btn.classList.toggle('wishlisted',on);
+    btn.innerHTML=on
+      ?'<span class="wish-heart">&#9829;</span> WISHLISTED'
+      :'<span class="wish-heart">&#9825;</span> WISHLIST';
+  }
+  const card=document.getElementById('card-'+skinId);
+  if(card)card.classList.toggle('is-wishlisted',on);
+}
+function initWishlist(){SKIN_DATA_WL.forEach(s=>updateWishCard(s.id));}
+
 </script>
 </body>
 </html>

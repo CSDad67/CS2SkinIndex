@@ -197,6 +197,18 @@ h1 span{color:var(--accent)}
 }
 @media screen { #print-wishlist-panel{ display:none } }
 
+
+.search-cat-header{
+  grid-column: 1 / -1;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;
+  color:var(--accent);padding:10px 4px 6px;border-bottom:1px solid var(--border);
+  text-transform:uppercase;display:flex;align-items:center;gap:8px;
+}
+.search-cat-count{
+  font-size:10px;color:var(--text-dim);
+  background:var(--surface2);padding:1px 6px;border:1px solid var(--border);
+}
+
 </style>
 </head>
 <body>
@@ -2184,6 +2196,86 @@ const RARITY_COLORS = {
   'Extraordinary':'#e4ae39',
 };
 
+
+const WEAPON_CATEGORIES = {
+  // Knives
+  'Bayonet':          'Knives',
+  'Bowie Knife':      'Knives',
+  'Butterfly Knife':  'Knives',
+  'Classic Knife':    'Knives',
+  'Falchion Knife':   'Knives',
+  'Flip Knife':       'Knives',
+  'Gut Knife':        'Knives',
+  'Huntsman Knife':   'Knives',
+  'Karambit':         'Knives',
+  'Kukri Knife':      'Knives',
+  'M9 Bayonet':       'Knives',
+  'Navaja Knife':     'Knives',
+  'Nomad Knife':      'Knives',
+  'Paracord Knife':   'Knives',
+  'Shadow Daggers':   'Knives',
+  'Skeleton Knife':   'Knives',
+  'Stiletto Knife':   'Knives',
+  'Survival Knife':   'Knives',
+  'Talon Knife':      'Knives',
+  'Ursus Knife':      'Knives',
+  // Gloves
+  'Bloodhound Gloves':  'Gloves',
+  'Broken Fang Gloves': 'Gloves',
+  'Driver Gloves':      'Gloves',
+  'Hand Wraps':         'Gloves',
+  'Hydra Gloves':       'Gloves',
+  'Moto Gloves':        'Gloves',
+  'Specialist Gloves':  'Gloves',
+  'Sport Gloves':       'Gloves',
+  // Pistols
+  'CZ75-Auto':      'Pistols',
+  'Desert Eagle':   'Pistols',
+  'Dual Berettas':  'Pistols',
+  'Five-SeveN':     'Pistols',
+  'Glock-18':       'Pistols',
+  'P2000':          'Pistols',
+  'P250':           'Pistols',
+  'R8 Revolver':    'Pistols',
+  'Tec-9':          'Pistols',
+  'USP-S':          'Pistols',
+  'Zeus x27':       'Pistols',
+  // SMGs
+  'MAC-10':   'SMGs',
+  'MP5-SD':   'SMGs',
+  'MP7':      'SMGs',
+  'MP9':      'SMGs',
+  'P90':      'SMGs',
+  'PP-Bizon': 'SMGs',
+  'UMP-45':   'SMGs',
+  // Rifles
+  'AK-47':   'Rifles',
+  'AUG':     'Rifles',
+  'FAMAS':   'Rifles',
+  'Galil AR':'Rifles',
+  'M4A1-S':  'Rifles',
+  'M4A4':    'Rifles',
+  'SG 553':  'Rifles',
+  // Sniper Rifles
+  'AWP':    'Sniper Rifles',
+  'G3SG1':  'Sniper Rifles',
+  'SCAR-20':'Sniper Rifles',
+  'SSG 08': 'Sniper Rifles',
+  // Shotguns
+  'MAG-7':    'Shotguns',
+  'Nova':     'Shotguns',
+  'Sawed-Off':'Shotguns',
+  'XM1014':   'Shotguns',
+  // Machine Guns
+  'M249':  'Machine Guns',
+  'Negev': 'Machine Guns',
+};
+
+const CATEGORY_ORDER = [
+  'Knives','Gloves','Pistols','SMGs',
+  'Rifles','Sniper Rifles','Shotguns','Machine Guns'
+];
+
 async function runSearch(){
   const weaponFilter = document.getElementById('search-weapon').value.toLowerCase();
   const nameFilter   = document.getElementById('search-name').value.toLowerCase().trim();
@@ -2201,32 +2293,64 @@ async function runSearch(){
     const wOk    = !weaponFilter || weapon === weaponFilter;
     const nOk    = !nameFilter   || skin.includes(nameFilter) || weapon.includes(nameFilter);
     return wOk && nOk;
-  }).slice(0, 120); // cap at 120 results
+  }).slice(0, 200);
 
   countEl.textContent = matches.length === 0
     ? 'No skins found'
-    : `${matches.length} skin${matches.length!==1?'s':''} found${matches.length===120?' (showing first 120)':''}`;
+    : `${matches.length} skin${matches.length!==1?'s':''} found${matches.length===200?' (first 200)':''}`;
 
-  grid.innerHTML = matches.map(s=>{
-    const parts   = s.name.split(' | ');
-    const weapon  = parts[0].replace('★ ','').trim();
-    const skinName= parts[1]||'';
-    const rarity  = s.rarity?.name||'';
-    const color   = RARITY_COLORS[rarity]||'#888';
-    const caseName= s.crates?.[0]?.name||'Unknown';
-    const caseFile= getCaseFile(caseName);
-    const img     = s.image||'';
-    return `<div class="search-result-card" onclick="window.location.href='${caseFile}'">
-      <img class="search-result-img" src="${img}" alt="${s.name}" loading="lazy">
-      <div class="search-result-info">
-        <div class="search-result-weapon">${weapon}</div>
-        <div class="search-result-name">${skinName}</div>
-        <div class="search-result-case">&#128230; ${caseName}</div>
-        <span class="search-result-rarity" style="background:${color}22;color:${color}">${rarity.replace(' Grade','')}</span>
-      </div>
-    </div>`;
-  }).join('');
+  // Group by category, then sort alphabetically within each group
+  const grouped = {};
+  CATEGORY_ORDER.forEach(cat => grouped[cat] = []);
+  grouped['Other'] = [];
 
+  matches.forEach(s => {
+    const parts  = s.name.split(' | ');
+    const weapon = (parts[0]||'').replace('★ ','').replace('★','').trim();
+    const cat    = WEAPON_CATEGORIES[weapon] || 'Other';
+    if(!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(s);
+  });
+
+  // Sort within each category alphabetically by skin name
+  Object.keys(grouped).forEach(cat => {
+    grouped[cat].sort((a,b) => {
+      const na = (a.name.split(' | ')[1]||'').toLowerCase();
+      const nb = (b.name.split(' | ')[1]||'').toLowerCase();
+      return na.localeCompare(nb);
+    });
+  });
+
+  // Build HTML with category headers
+  let html = '';
+  const allCats = [...CATEGORY_ORDER, 'Other'];
+  allCats.forEach(cat => {
+    const items = grouped[cat];
+    if(!items || !items.length) return;
+
+    html += `<div class="search-cat-header">${cat} <span class="search-cat-count">${items.length}</span></div>`;
+    items.forEach(s => {
+      const parts   = s.name.split(' | ');
+      const weapon  = parts[0].replace('★ ','').trim();
+      const skinName= parts[1]||'';
+      const rarity  = s.rarity?.name||'';
+      const color   = RARITY_COLORS[rarity]||'#888';
+      const caseName= s.crates?.[0]?.name||'Unknown';
+      const caseFile= getCaseFile(caseName);
+      const img     = s.image||'';
+      html += `<div class="search-result-card" onclick="window.location.href='${caseFile}'">
+        <img class="search-result-img" src="${img}" alt="${s.name}" loading="lazy">
+        <div class="search-result-info">
+          <div class="search-result-weapon">${weapon}</div>
+          <div class="search-result-name">${skinName}</div>
+          <div class="search-result-case">&#128230; ${caseName}</div>
+          <span class="search-result-rarity" style="background:${color}22;color:${color}">${rarity.replace(' Grade','')}</span>
+        </div>
+      </div>`;
+    });
+  });
+
+  grid.innerHTML = html;
   resultsDiv.classList.add('visible');
 }
 
