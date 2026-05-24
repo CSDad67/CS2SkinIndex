@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS2 Inventory Manager — Export / Import</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c10;--surface:#0f1318;--surface2:#161b24;
+  --border:#1e2836;--border2:#243040;
+  --accent:#f0a500;--text:#c8d8e8;--text-dim:#6a8098;--text-bright:#eaf2ff;
+  --green:#2ecc71;--red:#e74c3c;--cyan:#00d4ff;--own-accent:#00d4ff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:"Exo 2",sans-serif;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;
+  background-image:linear-gradient(rgba(59,158,255,.03) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(59,158,255,.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:40px 24px 80px}
+
+header{text-align:center;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+h1{font-family:"Rajdhani",sans-serif;font-size:36px;font-weight:700;color:var(--text-bright);letter-spacing:2px}
+h1 span{color:var(--accent)}
+.subtitle{font-family:"Share Tech Mono",monospace;font-size:12px;color:var(--text-dim);margin-top:8px;letter-spacing:1px}
+
+.breadcrumb{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);margin-bottom:24px}
+.breadcrumb a{color:var(--accent);text-decoration:none}
+
+.card{background:var(--surface);border:1px solid var(--border);padding:24px;margin-bottom:20px}
+.card-title{font-family:"Rajdhani",sans-serif;font-size:18px;font-weight:700;
+  color:var(--text-bright);letter-spacing:1px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card-desc{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);
+  margin-bottom:18px;line-height:1.8}
+
+.btn{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:1px;
+  padding:8px 20px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-export{background:var(--accent);color:#000}
+.btn-export:hover{opacity:.85}
+.btn-import{background:transparent;border:1px solid var(--cyan);color:var(--cyan)}
+.btn-import:hover{background:rgba(0,212,255,.1)}
+.btn-clear{background:transparent;border:1px solid var(--red);color:var(--red)}
+.btn-clear:hover{background:rgba(231,76,60,.1)}
+.btn-copy{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-copy:hover{border-color:var(--text-dim);color:var(--text)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+
+.stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.stat{background:var(--surface2);border:1px solid var(--border);padding:8px 16px;
+  font-family:"Share Tech Mono",monospace;font-size:11px}
+.stat-val{font-size:16px;font-weight:700;color:var(--accent);display:block;margin-top:2px}
+
+textarea{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text-bright);
+  font-family:"Share Tech Mono",monospace;font-size:11px;padding:12px;resize:vertical;
+  outline:none;transition:border-color .2s;line-height:1.6;min-height:160px}
+textarea:focus{border-color:var(--cyan)}
+textarea::placeholder{color:var(--text-dim)}
+
+.status-msg{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 12px;
+  margin-top:10px;display:none}
+.status-msg.ok{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:var(--green)}
+.status-msg.err{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:var(--red)}
+.status-msg.info{background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.3);color:var(--accent)}
+
+.inventory-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:12px}
+.inventory-table th{background:var(--surface2);font-family:"Share Tech Mono",monospace;
+  font-size:9px;letter-spacing:1.5px;color:var(--text-dim);padding:8px 12px;
+  text-align:left;border-bottom:1px solid var(--border2);text-transform:uppercase}
+.inventory-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.inventory-table tr:hover td{background:rgba(59,158,255,.04)}
+.inventory-table .mono{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--text-dim)}
+.inventory-table .name{font-family:"Rajdhani",sans-serif;font-weight:600;color:var(--text-bright)}
+.inventory-table .case-name{font-family:"Share Tech Mono",monospace;font-size:9px;color:var(--accent)}
+.entry-chips{display:flex;flex-wrap:wrap;gap:4px}
+.entry-chip{font-family:"Share Tech Mono",monospace;font-size:9px;padding:2px 6px;
+  border:1px solid var(--border);background:var(--surface2);white-space:nowrap}
+.entry-chip.st{border-color:rgba(240,165,0,.3);color:var(--accent)}
+
+.section-hdr{font-family:"Rajdhani",sans-serif;font-size:16px;font-weight:700;
+  color:var(--text-bright);letter-spacing:1.5px;margin:28px 0 12px;
+  padding-bottom:8px;border-bottom:1px solid var(--border);text-transform:uppercase}
+
+.wish-table td{padding:7px 12px}
+.firefox-tip{
+  margin-top:14px;padding:10px 14px;
+  background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.25);
+  font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--text-dim);line-height:1.8;
+}
+.firefox-tip strong{color:var(--accent)}
+.firefox-tip code{color:var(--cyan)}
+.fallback-header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+  font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);
+  margin-bottom:12px;flex-wrap:wrap;
+}
+.fallback-header strong{color:var(--text-bright)}
+.save-steps{
+  display:flex;flex-direction:column;gap:6px;
+  margin-bottom:12px;padding:12px 16px;
+  background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);
+}
+.save-step{
+  font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);
+  display:flex;align-items:baseline;gap:10px;line-height:1.6;
+}
+.save-step strong{color:var(--text-bright)}
+.step-num{
+  width:20px;height:20px;border-radius:50%;background:var(--own-accent);
+  color:#000;font-size:10px;font-weight:700;display:inline-flex;
+  align-items:center;justify-content:center;flex-shrink:0;
+}
+
+input[type="file"]{display:none}
+.file-label{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:1px;
+  padding:8px 20px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);
+  cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.file-label:hover{background:rgba(0,212,255,.1)}
+
+.safety-banner{
+  background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.25);
+  padding:12px 18px;margin-bottom:20px;
+  font-family:"Share Tech Mono",monospace;font-size:11px;
+  color:var(--text-dim);line-height:1.9;
+}
+.safety-banner strong{color:var(--green)}
+.safety-banner code{color:var(--cyan);font-size:10px}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="breadcrumb"><a href="cs2_master_index.html">&#8592; CS2 MASTER INDEX</a></div>
+
+  <header>
+    <h1>CS2 Inventory <span>Manager</span></h1>
+    <p class="subtitle">// EXPORT · IMPORT · BACKUP · RESTORE //</p>
+  </header>
+
+  <!-- Stats -->
+
+  <div class="safety-banner">
+    <strong>&#10003; YOUR DATA IS SAFE ACROSS PAGE UPDATES</strong><br>
+    Inventory and wishlist are stored in <code>localStorage</code> on <code>csdad67.github.io</code>.
+    Replacing HTML files on GitHub <em>never</em> erases localStorage &mdash; your data persists automatically.<br>
+    Export a backup periodically to protect against browser cache clears or device changes.
+  </div>
+
+  <div class="stats-row" id="stats-row">
+    <div class="stat">OWNED SKINS<span class="stat-val" id="stat-owned">—</span></div>
+    <div class="stat">OWNED ENTRIES<span class="stat-val" id="stat-entries">—</span></div>
+    <div class="stat">WISHLISTED<span class="stat-val" id="stat-wish">—</span></div>
+    <div class="stat">CASES COVERED<span class="stat-val" id="stat-cases">—</span></div>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      EXPORT INVENTORY
+    </div>
+    <div class="card-desc">
+      Exports your inventory and wishlist as a JSON backup file.<br>
+      <strong style="color:var(--green)">&#10003; HTML page updates never erase your data</strong> — localStorage persists independently of the files on GitHub.
+      Export periodically as a safeguard against browser clears or device changes.
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-export" onclick="exportInventory('all')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        DOWNLOAD FULL BACKUP
+      </button>
+      <button class="btn btn-export" onclick="exportInventory('wishlist')" style="background:rgba(255,77,109,.12);color:#ff4d6d;border:1px solid rgba(255,77,109,.4)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        WISHLIST ONLY
+      </button>
+      <button class="btn btn-export" onclick="exportInventory('owned')" style="background:rgba(0,212,255,.1);color:var(--cyan);border:1px solid rgba(0,212,255,.35)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        OWNED ONLY
+      </button>
+      <button class="btn btn-copy" onclick="copyToClipboard()">COPY TO CLIPBOARD</button>
+    </div>
+    <div class="status-msg" id="export-status"></div>
+
+    <!-- Export panel — always shown after clicking a download button -->
+    <div id="fallback-area" style="display:none;margin-top:20px">
+      <div class="fallback-header">
+        <div>
+          <div style="color:var(--green);font-size:12px;margin-bottom:3px">&#10003; EXPORT READY — <span id="fallback-count"></span></div>
+          <div>Save as: <strong id="fallback-filename" style="color:var(--text-bright)"></strong></div>
+        </div>
+        <button class="btn btn-export" onclick="copyFallback()" style="padding:6px 16px">
+          &#128203; COPY ALL TO CLIPBOARD
+        </button>
+      </div>
+
+      <div class="save-steps">
+        <div class="save-step"><span class="step-num">1</span> Click <strong>COPY ALL TO CLIPBOARD</strong> above</div>
+        <div class="save-step"><span class="step-num">2</span> Open <strong>Notepad</strong> (Windows: Start &rarr; type Notepad) or <strong>TextEdit</strong> (Mac)</div>
+        <div class="save-step"><span class="step-num">3</span> Press <strong>Ctrl+V</strong> to paste</div>
+        <div class="save-step"><span class="step-num">4</span> File &rarr; Save As &rarr; name it <strong id="fallback-filename-2"></strong> &rarr; change "Save as type" to <strong>All Files</strong></div>
+        <div class="save-step"><span class="step-num">5</span> Choose Desktop or another location &rarr; Save</div>
+      </div>
+
+      <textarea id="fallback-json" readonly placeholder="Your backup JSON will appear here after clicking a Download button..."></textarea>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:6px">
+        Or select all text above (Ctrl+A inside the box) and copy manually with Ctrl+C
+      </div>
+    </div>
+
+    <div class="firefox-tip">
+      <strong>&#9888; Note for Firefox users:</strong> Automatic file downloads may be blocked on GitHub Pages.
+      Use the <strong>COPY ALL TO CLIPBOARD</strong> button that appears after clicking any export option,
+      then paste into Notepad and save as a <code>.json</code> file.
+    </div>
+  </div>
+
+  <!-- IMPORT -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      IMPORT INVENTORY
+    </div>
+    <div class="card-desc">
+      Paste or upload a previously exported JSON backup to restore your inventory.<br>
+      <strong style="color:var(--red)">MERGE MODE:</strong> New entries are added without overwriting existing data.<br>
+      <strong style="color:var(--accent)">REPLACE MODE:</strong> Replaces everything — use after a fresh install or browser switch.
+    </div>
+    <textarea id="import-json" placeholder='Paste exported JSON here, or use the Upload button below...'></textarea>
+    <div class="btn-row">
+      <label class="file-label" for="import-file">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        UPLOAD JSON FILE
+      </label>
+      <input type="file" id="import-file" accept=".json" onchange="loadFile(event)">
+      <button class="btn btn-import" onclick="importInventory(false)">MERGE IMPORT</button>
+      <button class="btn" style="border:1px solid var(--accent);color:var(--accent)" onclick="importInventory(true)">REPLACE IMPORT</button>
+    </div>
+    <div class="status-msg" id="import-status"></div>
+  </div>
+
+  <!-- CLEAR -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      CLEAR INVENTORY
+    </div>
+    <div class="card-desc">
+      Permanently deletes all owned skin entries and/or wishlist from this browser.<br>
+      <strong style="color:var(--red)">This cannot be undone.</strong> Export a backup first.
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-clear" onclick="clearData('owned')">CLEAR OWNED SKINS</button>
+      <button class="btn btn-clear" onclick="clearData('wishlist')">CLEAR WISHLIST</button>
+      <button class="btn btn-clear" onclick="clearData('all')">CLEAR ALL</button>
+    </div>
+    <div class="status-msg" id="clear-status"></div>
+  </div>
+
+  <!-- CURRENT INVENTORY VIEW -->
+  <div class="section-hdr">Current Inventory Preview</div>
+  <div id="inventory-preview">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim)">Loading...</div>
+  </div>
+
+</div>
+
+<script>
+// ── Storage keys ──────────────────────────────────────────────────────────────
+const WISH_KEY = 'cs2_global_wishlist';
+
+// Inventory keys: each case stores under 'cs2_{slug}_inventory'
+// We scan all localStorage keys matching this pattern
+function getAllInventoryKeys(){
+  const keys = [];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k && k.startsWith('cs2_') && k.endsWith('_inventory') && k!=='cs2_global_wishlist'){
+      keys.push(k);
+    }
+  }
+  return keys;
+}
+
+function getStore(k){ try{ return JSON.parse(localStorage.getItem(k)||'{}'); }catch{ return {}; } }
+function setStore(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch{} }
+function getWL(){ try{ return JSON.parse(localStorage.getItem(WISH_KEY)||'[]'); }catch{ return []; } }
+
+// ── Build full export object ──────────────────────────────────────────────────
+function buildExport(){
+  const inv_keys = getAllInventoryKeys();
+  const inventory = {};
+  let totalSkins = 0, totalEntries = 0, totalCases = 0;
+
+  inv_keys.forEach(k => {
+    const data = getStore(k);
+    const skinIds = Object.keys(data).filter(id => Array.isArray(data[id]) && data[id].length > 0);
+    if(skinIds.length > 0){
+      inventory[k] = {};
+      skinIds.forEach(id => {
+        inventory[k][id] = data[id];
+        totalSkins++;
+        totalEntries += data[id].length;
+      });
+      totalCases++;
+    }
+  });
+
+  const wishlist = getWL();
+
+  return {
+    version: 2,
+    exported: new Date().toISOString(),
+    source: 'CS2 Master Skin Index — csdad67.github.io/CS2SkinIndex',
+    summary: { totalSkins, totalEntries, wishlisted: wishlist.length, cases: totalCases },
+    inventory,
+    wishlist,
+  };
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
+function exportInventory(mode){
+  mode = mode || 'all';
+  const full = buildExport();
+  const date = new Date().toISOString().slice(0,10);
+  let payload, filename, label;
+
+  if(mode === 'wishlist'){
+    payload  = { version:2, exported:full.exported, source:full.source,
+                 summary:{ wishlisted:full.summary.wishlisted }, wishlist:full.wishlist };
+    filename = 'cs2_wishlist_backup_' + date + '.json';
+    label    = full.summary.wishlisted + ' wishlist items';
+  } else if(mode === 'owned'){
+    payload  = { version:2, exported:full.exported, source:full.source,
+                 summary:{ totalSkins:full.summary.totalSkins, totalEntries:full.summary.totalEntries },
+                 inventory:full.inventory };
+    filename = 'cs2_owned_backup_' + date + '.json';
+    label    = full.summary.totalSkins + ' skins (' + full.summary.totalEntries + ' entries)';
+  } else {
+    payload  = full;
+    filename = 'cs2_full_backup_' + date + '.json';
+    label    = full.summary.totalSkins + ' owned skins + ' + full.summary.wishlisted + ' wishlist items';
+  }
+
+  const json = JSON.stringify(payload, null, 2);
+  // Always show the textarea — most reliable across all browsers and GitHub Pages
+  showJsonFallback(json, filename, label);
+}
+
+
+function copyToClipboard(){
+  const data = buildExport();
+  const json = JSON.stringify(data, null, 2);
+  navigator.clipboard.writeText(json).then(()=>{
+    showStatus('export-status','✓ Copied to clipboard','ok');
+  }).catch(()=>{
+    showStatus('export-status','✗ Copy failed — try Download instead','err');
+  });
+}
+
+// ── Load file into textarea ───────────────────────────────────────────────────
+function loadFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('import-json').value = ev.target.result;
+    showStatus('import-status','File loaded — click MERGE or REPLACE to import','info');
+  };
+  reader.readAsText(file);
+}
+
+// ── Import ────────────────────────────────────────────────────────────────────
+function importInventory(replace){
+  const raw = document.getElementById('import-json').value.trim();
+  if(!raw){ showStatus('import-status','✗ Nothing to import — paste JSON or upload a file','err'); return; }
+
+  let data;
+  try{ data = JSON.parse(raw); }
+  catch(e){ showStatus('import-status','✗ Invalid JSON: '+e.message,'err'); return; }
+
+  // Support both v1 (flat inventory object) and v2 (with wrapper)
+  let inventory = data.inventory || data;
+  let wishlist  = data.wishlist  || [];
+
+  if(typeof inventory !== 'object' || Array.isArray(inventory)){
+    showStatus('import-status','✗ Unrecognised format — expected exported CS2 inventory JSON','err');
+    return;
+  }
+
+  let skinCount=0, entryCount=0;
+
+  if(replace){
+    // Clear existing inventory keys before import
+    getAllInventoryKeys().forEach(k => localStorage.removeItem(k));
+    localStorage.removeItem(WISH_KEY);
+  }
+
+  // Write inventory
+  Object.entries(inventory).forEach(([storeKey, skins]) => {
+    if(!storeKey.startsWith('cs2_') || !storeKey.endsWith('_inventory')) return;
+    const existing = replace ? {} : getStore(storeKey);
+    Object.entries(skins).forEach(([skinId, entries]) => {
+      if(!Array.isArray(entries)) return;
+      if(replace || !existing[skinId] || !existing[skinId].length){
+        existing[skinId] = entries;
+      } else {
+        // Merge: append entries not already present (by float+wear+pattern combo)
+        entries.forEach(e => {
+          const dup = existing[skinId].some(x =>
+            x.float===e.float && x.wear===e.wear && x.pattern===e.pattern && x.st===e.st
+          );
+          if(!dup) existing[skinId].push(e);
+        });
+      }
+      skinCount++;
+      entryCount += (existing[skinId]||[]).length;
+    });
+    setStore(storeKey, existing);
+  });
+
+  // Write wishlist
+  if(wishlist.length){
+    if(replace){
+      setStore(WISH_KEY, wishlist);
+    } else {
+      const existing = getWL();
+      const existIds = new Set(existing.map(i=>i.id));
+      wishlist.forEach(item => { if(!existIds.has(item.id)) existing.push(item); });
+      setStore(WISH_KEY, existing);
+    }
+  }
+
+  const mode = replace ? 'REPLACE' : 'MERGE';
+  showStatus('import-status',
+    `✓ ${mode} complete — ${skinCount} skins (${entryCount} entries) + ${wishlist.length} wishlist items imported`,
+    'ok'
+  );
+  renderStats();
+  renderPreview();
+  document.getElementById('import-json').value = '';
+}
+
+// ── Clear ─────────────────────────────────────────────────────────────────────
+function clearData(what){
+  const msg = what==='all'
+    ? 'Delete ALL owned skins AND wishlist? This cannot be undone.'
+    : what==='owned'
+    ? 'Delete all owned skin entries? Wishlist will be kept.'
+    : 'Delete wishlist? Owned skin data will be kept.';
+  if(!confirm(msg)) return;
+
+  if(what==='all'||what==='owned'){
+    getAllInventoryKeys().forEach(k=>localStorage.removeItem(k));
+  }
+  if(what==='all'||what==='wishlist'){
+    localStorage.removeItem(WISH_KEY);
+  }
+  showStatus('clear-status','✓ Cleared','ok');
+  renderStats();
+  renderPreview();
+}
+
+// ── Render stats ──────────────────────────────────────────────────────────────
+function renderStats(){
+  const data = buildExport();
+  document.getElementById('stat-owned').textContent   = data.summary.totalSkins;
+  document.getElementById('stat-entries').textContent = data.summary.totalEntries;
+  document.getElementById('stat-wish').textContent    = data.summary.wishlisted;
+  document.getElementById('stat-cases').textContent   = data.summary.cases;
+}
+
+// ── Render inventory preview table ────────────────────────────────────────────
+function renderPreview(){
+  const inv_keys = getAllInventoryKeys();
+  const container = document.getElementById('inventory-preview');
+
+  let allSkins = [];
+  inv_keys.forEach(k => {
+    const data = getStore(k);
+    Object.entries(data).forEach(([skinId, entries]) => {
+      if(Array.isArray(entries) && entries.length > 0){
+        // Try to get display info from entries
+        const first = entries[0] || {};
+        allSkins.push({ skinId, storeKey: k, entries, meta: first });
+      }
+    });
+  });
+
+  const wishlist = getWL();
+
+  if(allSkins.length === 0 && wishlist.length === 0){
+    container.innerHTML = '<div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);padding:20px 0">No inventory data found in this browser.</div>';
+    return;
+  }
+
+  function abbr(w){ return (w||'').replace('Factory New','FN').replace('Minimal Wear','MW')
+    .replace('Field-Tested','FT').replace('Well-Worn','WW').replace('Battle-Scarred','BS'); }
+
+  // Owned skins table
+  let html = '';
+  if(allSkins.length > 0){
+    html += `<div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:10px">${allSkins.length} skin${allSkins.length!==1?'s':''} with owned entries</div>`;
+    html += `<table class="inventory-table">
+      <thead><tr><th>SKIN</th><th>CASE / SOURCE</th><th>OWNED ENTRIES</th></tr></thead><tbody>`;
+    allSkins.forEach(s => {
+      const caseName = s.meta.caseName || s.storeKey.replace('cs2_','').replace('_inventory','').replace(/_/g,' ');
+      const name = s.meta.skinName ? `${s.meta.weapon} | ${s.meta.skinName}` : s.skinId.replace(/_+/g,' ');
+      const chips = s.entries.map(e => {
+        const parts = [e.st?'ST™':'STD'];
+        if(e.wear) parts.push(abbr(e.wear));
+        if(e.float) parts.push('FL '+parseFloat(e.float).toFixed(4));
+        if(e.pattern) parts.push('P'+e.pattern);
+        return `<span class="entry-chip${e.st?' st':''}">${parts.join(' · ')}</span>`;
+      }).join('');
+      html += `<tr>
+        <td><div class="name">${name}</div></td>
+        <td><span class="case-name">${caseName}</span></td>
+        <td><div class="entry-chips">${chips}</div></td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+  }
+
+  // Wishlist table
+  if(wishlist.length > 0){
+    html += `<div class="section-hdr" style="margin-top:28px">Wishlist (${wishlist.length})</div>`;
+    html += `<table class="inventory-table wish-table">
+      <thead><tr><th>SKIN</th><th>CASE</th><th>RARITY</th></tr></thead><tbody>`;
+    wishlist.forEach(item => {
+      const name = item.skinName ? `${item.weapon} | ${item.skinName}` : item.id.replace(/_+/g,' ');
+      html += `<tr>
+        <td><div class="name"><span class="wish-heart">&#9829;</span> ${name}</div></td>
+        <td><span class="case-name">${item.caseName||'—'}</span></td>
+        <td><span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim)">${(item.rarity||'').replace(' Grade','')}</span></td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+  }
+
+  container.innerHTML = html;
+}
+
+// ── JSON display + manual save (most reliable cross-browser method) ───────────
+function showJsonFallback(json, filename, label){
+  const area = document.getElementById('fallback-area');
+  const ta   = document.getElementById('fallback-json');
+  const fn   = document.getElementById('fallback-filename');
+  const cnt  = document.getElementById('fallback-count');
+  if(!area || !ta) return;
+
+  ta.value = json;
+  if(fn)  fn.textContent  = filename;
+  const fn2 = document.getElementById('fallback-filename-2');
+  if(fn2) fn2.textContent = filename;
+  if(cnt) cnt.textContent = label || '';
+
+  area.style.display = 'block';
+  area.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  // Auto-select the text so it's ready to copy
+  setTimeout(function(){ ta.select(); }, 400);
+
+  showStatus('export-status',
+    '\u2713 Ready \u2014 ' + (label||'') + '<br>' +
+    '<small>Select all text below &rarr; Copy &rarr; Paste into Notepad &rarr; Save As <strong>' + filename + '</strong></small>',
+    'ok'
+  );
+}
+
+function copyFallback(){
+  const ta = document.getElementById('fallback-json');
+  if(!ta || !ta.value){ showStatus('export-status','Nothing to copy yet — click a Download button first','err'); return; }
+  ta.select();
+  // Try modern clipboard API first
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(function(){
+      showStatus('export-status','\u2713 Copied! Now open Notepad, paste (Ctrl+V), and save as .json','ok');
+    }).catch(function(){
+      // Fallback to execCommand
+      try{ document.execCommand('copy'); showStatus('export-status','\u2713 Copied!','ok'); }
+      catch(e){ showStatus('export-status','\u2717 Copy failed \u2014 click inside the text box and press Ctrl+A then Ctrl+C','err'); }
+    });
+  } else {
+    try{ document.execCommand('copy'); showStatus('export-status','\u2713 Copied!','ok'); }
+    catch(e){ showStatus('export-status','\u2717 Press Ctrl+A then Ctrl+C to copy manually','err'); }
+  }
+}
+
+// ── Status helper (supports HTML content) ────────────────────────────────────
+function showStatus(id, msg, type){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = msg;
+  el.className = 'status-msg ' + type;
+  el.style.display = 'block';
+  setTimeout(function(){ el.style.display='none'; }, 9000);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderStats();
+  renderPreview();
+});
+</script>
+</body>
+</html>
