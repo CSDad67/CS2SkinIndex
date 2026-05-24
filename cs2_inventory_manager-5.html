@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS2 Inventory Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--surface:#0f1318;--surface2:#161b24;--border:#1e2836;--border2:#243040;--accent:#f0a500;--text:#c8d8e8;--text-dim:#6a8098;--text-bright:#eaf2ff;--green:#2ecc71;--red:#e74c3c;--cyan:#00d4ff;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:"Exo 2",sans-serif;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(59,158,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,158,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 24px 80px}
+.breadcrumb{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);margin-bottom:24px}
+.breadcrumb a{color:var(--accent);text-decoration:none}
+h1{font-family:"Rajdhani",sans-serif;font-size:32px;font-weight:700;color:var(--text-bright);letter-spacing:2px;margin-bottom:6px}
+h1 span{color:var(--accent)}
+.subtitle{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-bottom:32px}
+
+.info-box{padding:14px 18px;margin-bottom:20px;font-family:"Share Tech Mono",monospace;font-size:11px;line-height:1.9}
+.info-box.green{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.25);color:var(--text-dim)}
+.info-box.green strong{color:var(--green)}
+.info-box.amber{background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25);color:var(--text-dim)}
+.info-box.amber strong{color:var(--accent)}
+.info-box code{color:var(--cyan)}
+
+.stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.stat{background:var(--surface);border:1px solid var(--border);padding:10px 18px;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);min-width:120px}
+.stat-val{font-size:18px;font-weight:700;color:var(--accent);display:block;margin-top:3px}
+
+.card{background:var(--surface);border:1px solid var(--border);padding:22px;margin-bottom:18px}
+.card-title{font-family:"Rajdhani",sans-serif;font-size:17px;font-weight:700;color:var(--text-bright);letter-spacing:1px;margin-bottom:6px}
+.card-desc{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);margin-bottom:16px;line-height:1.8}
+
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:0}
+.btn{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:1px;padding:8px 18px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{opacity:.85}
+.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}
+.btn-danger:hover{background:rgba(231,76,60,.1)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--text);color:var(--text)}
+
+/* Export textarea */
+.export-area{margin-top:16px;display:none}
+.export-steps{background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);padding:14px 16px;margin-bottom:12px;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--text-dim);line-height:2}
+.export-steps strong{color:var(--text-bright)}
+.export-steps .step{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.step-num{background:var(--cyan);color:#000;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.export-filename{font-family:"Share Tech Mono",monospace;font-size:12px;color:var(--cyan);margin-bottom:8px}
+textarea{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text-bright);font-family:"Share Tech Mono",monospace;font-size:11px;padding:12px;resize:vertical;outline:none;min-height:200px;line-height:1.5;cursor:text}
+textarea:focus{border-color:var(--cyan)}
+.select-hint{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--text-dim);margin-top:6px}
+
+/* Import */
+.import-area textarea{min-height:120px;cursor:text}
+input[type=file]{display:none}
+.file-label{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:1px;padding:8px 18px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.file-label:hover{background:rgba(0,212,255,.1)}
+
+.msg{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 12px;margin-top:10px;display:none}
+.msg.ok{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:var(--green)}
+.msg.err{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:var(--red)}
+.msg.info{background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.3);color:var(--accent)}
+
+/* Inventory preview */
+.section-hdr{font-family:"Rajdhani",sans-serif;font-size:16px;font-weight:700;color:var(--text-bright);letter-spacing:1.5px;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);text-transform:uppercase}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--surface2);font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:1.5px;color:var(--text-dim);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border2);text-transform:uppercase}
+td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:hover td{background:rgba(59,158,255,.04)}
+.td-name{font-family:"Rajdhani",sans-serif;font-weight:600;color:var(--text-bright)}
+.td-case{font-family:"Share Tech Mono",monospace;font-size:9px;color:var(--accent)}
+.td-mono{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--text-dim)}
+.chip{font-family:"Share Tech Mono",monospace;font-size:9px;padding:2px 6px;border:1px solid var(--border);background:var(--surface2);display:inline-block;margin:1px}
+.chip.st{border-color:rgba(240,165,0,.3);color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="breadcrumb"><a href="cs2_master_index.html">&#8592; CS2 MASTER INDEX</a></div>
+  <h1>Inventory <span>Manager</span></h1>
+  <p class="subtitle">// EXPORT · IMPORT · BACKUP · RESTORE //</p>
+
+  <div class="info-box green">
+    <strong>&#10003; YOUR DATA IS SAFE ACROSS PAGE UPDATES</strong><br>
+    Inventory and wishlist live in your browser&#39;s <code>localStorage</code> for <code>csdad67.github.io</code>.
+    Uploading new HTML files to GitHub <em>never</em> erases localStorage &mdash;
+    your data persists automatically through every update.
+    Export periodically as a safeguard against clearing browser data or switching browsers.
+  </div>
+
+  <div class="info-box amber">
+    <strong>&#9888; Firefox Export Note</strong><br>
+    Due to browser security restrictions on GitHub Pages, automatic file downloads are blocked.
+    Instead, click an export button to load your data into a text box, then
+    <strong>press Ctrl+A to select all</strong>, <strong>Ctrl+C to copy</strong>,
+    open Notepad, paste and save as <strong>.json</strong>.
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat">OWNED SKINS<span class="stat-val" id="stat-owned">—</span></div>
+    <div class="stat">TOTAL ENTRIES<span class="stat-val" id="stat-entries">—</span></div>
+    <div class="stat">WISHLISTED<span class="stat-val" id="stat-wish">—</span></div>
+    <div class="stat">CASES<span class="stat-val" id="stat-cases">—</span></div>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="card">
+    <div class="card-title">EXPORT INVENTORY</div>
+    <div class="card-desc">Choose what to export. Your data will appear in a text box below — select all and copy it, then save to a .json file.</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="doExport('all')">FULL BACKUP (owned + wishlist)</button>
+      <button class="btn btn-primary" style="background:#ff4d6d" onclick="doExport('wishlist')">WISHLIST ONLY</button>
+      <button class="btn btn-primary" style="background:#00d4ff;color:#000" onclick="doExport('owned')">OWNED ONLY</button>
+    </div>
+    <div class="export-area" id="export-area">
+      <div class="export-steps">
+        <div class="step"><span class="step-num">1</span> <span>Click inside the text box below</span></div>
+        <div class="step"><span class="step-num">2</span> <span>Press <strong>Ctrl+A</strong> to select all text</span></div>
+        <div class="step"><span class="step-num">3</span> <span>Press <strong>Ctrl+C</strong> to copy</span></div>
+        <div class="step"><span class="step-num">4</span> <span>Open <strong>Notepad</strong> &rarr; Ctrl+V to paste &rarr; File &rarr; Save As &rarr; name it <strong id="export-filename">backup.json</strong> &rarr; set type to <strong>All Files</strong> &rarr; Save</span></div>
+      </div>
+      <div class="export-filename">File: <span id="export-filename-2"></span></div>
+      <textarea id="export-json" readonly onclick="this.select()" onfocus="this.select()"></textarea>
+      <div class="select-hint">&#9650; Click anywhere in the box above, then Ctrl+A &rarr; Ctrl+C</div>
+    </div>
+  </div>
+
+  <!-- IMPORT -->
+  <div class="card import-area">
+    <div class="card-title">IMPORT INVENTORY</div>
+    <div class="card-desc">Paste your exported JSON below, or upload the .json file. Use MERGE to add to existing data, or REPLACE to overwrite everything.</div>
+    <label class="file-label" for="import-file">&#128193; UPLOAD .JSON FILE</label>
+    <input type="file" id="import-file" accept=".json" onchange="loadFile(event)">
+    <textarea id="import-json" placeholder="Paste your exported JSON here..." style="margin-top:12px"></textarea>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-primary" onclick="doImport(false)">MERGE IMPORT</button>
+      <button class="btn" style="background:transparent;border:1px solid var(--accent);color:var(--accent)" onclick="doImport(true)">REPLACE IMPORT</button>
+    </div>
+    <div class="msg" id="import-msg"></div>
+  </div>
+
+  <!-- CLEAR -->
+  <div class="card">
+    <div class="card-title">CLEAR DATA</div>
+    <div class="card-desc">Permanently delete data from this browser. Export a backup first — this cannot be undone.</div>
+    <div class="btn-row">
+      <button class="btn btn-danger" onclick="doClear('owned')">CLEAR OWNED SKINS</button>
+      <button class="btn btn-danger" onclick="doClear('wishlist')">CLEAR WISHLIST</button>
+      <button class="btn btn-danger" onclick="doClear('all')">CLEAR ALL</button>
+    </div>
+    <div class="msg" id="clear-msg"></div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="section-hdr">Current Inventory</div>
+  <div id="preview"></div>
+</div>
+
+<script>
+const WISH_KEY = 'cs2_global_wishlist';
+
+function getAllInvKeys(){
+  var keys=[];
+  for(var i=0;i<localStorage.length;i++){
+    var k=localStorage.key(i);
+    if(k&&k.startsWith('cs2_')&&k.endsWith('_inventory'))keys.push(k);
+  }
+  return keys;
+}
+
+function getStore(k){try{return JSON.parse(localStorage.getItem(k)||'{}');}catch{return{};}}
+function setStore(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
+function getWL(){try{return JSON.parse(localStorage.getItem(WISH_KEY)||'[]');}catch{return[];}}
+
+function buildExport(){
+  var inv={},totalSkins=0,totalEntries=0,totalCases=0;
+  getAllInvKeys().forEach(function(k){
+    var data=getStore(k);
+    var ids=Object.keys(data).filter(function(id){return Array.isArray(data[id])&&data[id].length>0;});
+    if(ids.length){
+      inv[k]={};
+      ids.forEach(function(id){inv[k][id]=data[id];totalSkins++;totalEntries+=data[id].length;});
+      totalCases++;
+    }
+  });
+  var wl=getWL();
+  return{version:2,exported:new Date().toISOString(),source:'CS2 Master Skin Index',
+    summary:{totalSkins:totalSkins,totalEntries:totalEntries,wishlisted:wl.length,cases:totalCases},
+    inventory:inv,wishlist:wl};
+}
+
+function doExport(mode){
+  var full=buildExport(),payload,filename,label;
+  var date=new Date().toISOString().slice(0,10);
+  if(mode==='wishlist'){
+    payload={version:2,exported:full.exported,source:full.source,
+      summary:{wishlisted:full.summary.wishlisted},wishlist:full.wishlist};
+    filename='cs2_wishlist_'+date+'.json';
+    label=full.summary.wishlisted+' wishlist items';
+  }else if(mode==='owned'){
+    payload={version:2,exported:full.exported,source:full.source,
+      summary:{totalSkins:full.summary.totalSkins,totalEntries:full.summary.totalEntries},
+      inventory:full.inventory};
+    filename='cs2_owned_'+date+'.json';
+    label=full.summary.totalSkins+' skins ('+full.summary.totalEntries+' entries)';
+  }else{
+    payload=full;filename='cs2_full_backup_'+date+'.json';
+    label=full.summary.totalSkins+' owned skins + '+full.summary.wishlisted+' wishlist items';
+  }
+  var json=JSON.stringify(payload,null,2);
+  var area=document.getElementById('export-area');
+  var ta=document.getElementById('export-json');
+  var fn=document.getElementById('export-filename');
+  var fn2=document.getElementById('export-filename-2');
+  ta.value=json;
+  if(fn)fn.textContent=filename;
+  if(fn2)fn2.textContent=filename;
+  area.style.display='block';
+  area.scrollIntoView({behavior:'smooth',block:'start'});
+  // Select after scroll
+  setTimeout(function(){ta.focus();ta.select();},600);
+}
+
+function loadFile(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){document.getElementById('import-json').value=ev.target.result;showMsg('import-msg','File loaded — click MERGE or REPLACE to import','info');};
+  reader.readAsText(file);
+}
+
+function doImport(replace){
+  var raw=document.getElementById('import-json').value.trim();
+  if(!raw){showMsg('import-msg','Nothing to import — paste JSON or upload a file','err');return;}
+  var data;
+  try{data=JSON.parse(raw);}catch(e){showMsg('import-msg','Invalid JSON: '+e.message,'err');return;}
+  var inv=data.inventory||data;
+  var wl=data.wishlist||[];
+  if(typeof inv!=='object'||Array.isArray(inv)){showMsg('import-msg','Unrecognised format','err');return;}
+  var skinCount=0,entryCount=0;
+  if(replace){getAllInvKeys().forEach(function(k){localStorage.removeItem(k);});localStorage.removeItem(WISH_KEY);}
+  Object.entries(inv).forEach(function(e){
+    var storeKey=e[0],skins=e[1];
+    if(!storeKey.startsWith('cs2_')||!storeKey.endsWith('_inventory'))return;
+    var existing=replace?{}:getStore(storeKey);
+    Object.entries(skins).forEach(function(f){
+      var skinId=f[0],entries=f[1];
+      if(!Array.isArray(entries))return;
+      if(replace||!existing[skinId]||!existing[skinId].length){existing[skinId]=entries;}
+      else{entries.forEach(function(en){var dup=existing[skinId].some(function(x){return x.float===en.float&&x.wear===en.wear&&x.pattern===en.pattern&&x.st===en.st;});if(!dup)existing[skinId].push(en);});}
+      skinCount++;entryCount+=(existing[skinId]||[]).length;
+    });
+    setStore(storeKey,existing);
+  });
+  if(wl.length){
+    if(replace){setStore(WISH_KEY,wl);}
+    else{var ex=getWL();var exIds=new Set(ex.map(function(i){return i.id;}));wl.forEach(function(item){if(!exIds.has(item.id))ex.push(item);});setStore(WISH_KEY,ex);}
+  }
+  showMsg('import-msg','✓ '+(replace?'REPLACE':'MERGE')+' complete — '+skinCount+' skins ('+entryCount+' entries) + '+wl.length+' wishlist items','ok');
+  renderStats();renderPreview();
+  document.getElementById('import-json').value='';
+}
+
+function doClear(what){
+  var msg=what==='all'?'Delete ALL owned skins AND wishlist?':what==='owned'?'Delete all owned skin entries?':'Delete wishlist?';
+  if(!confirm(msg+' This cannot be undone.'))return;
+  if(what==='all'||what==='owned')getAllInvKeys().forEach(function(k){localStorage.removeItem(k);});
+  if(what==='all'||what==='wishlist')localStorage.removeItem(WISH_KEY);
+  showMsg('clear-msg','✓ Cleared','ok');
+  renderStats();renderPreview();
+}
+
+function renderStats(){
+  var d=buildExport();
+  document.getElementById('stat-owned').textContent=d.summary.totalSkins;
+  document.getElementById('stat-entries').textContent=d.summary.totalEntries;
+  document.getElementById('stat-wish').textContent=d.summary.wishlisted;
+  document.getElementById('stat-cases').textContent=d.summary.cases;
+}
+
+function abbr(w){return(w||'').replace('Factory New','FN').replace('Minimal Wear','MW').replace('Field-Tested','FT').replace('Well-Worn','WW').replace('Battle-Scarred','BS');}
+
+function renderPreview(){
+  var container=document.getElementById('preview');
+  var allSkins=[];
+  getAllInvKeys().forEach(function(k){
+    var data=getStore(k);
+    Object.entries(data).forEach(function(e){
+      var skinId=e[0],entries=e[1];
+      if(Array.isArray(entries)&&entries.length>0)allSkins.push({skinId:skinId,storeKey:k,entries:entries,meta:entries[0]||{}});
+    });
+  });
+  var wl=getWL();
+  if(!allSkins.length&&!wl.length){
+    container.innerHTML='<div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);padding:16px 0">No inventory data found in this browser.</div>';
+    return;
+  }
+  var html='';
+  if(allSkins.length){
+    html+='<table><thead><tr><th>SKIN</th><th>CASE / SOURCE</th><th>OWNED ENTRIES</th></tr></thead><tbody>';
+    allSkins.forEach(function(s){
+      var caseName=s.meta.caseName||s.storeKey.replace('cs2_','').replace('_inventory','').replace(/_/g,' ');
+      var name=s.meta.skinName?(s.meta.weapon+' | '+s.meta.skinName):s.skinId.replace(/_+/g,' ');
+      var chips=s.entries.map(function(e){
+        var parts=[e.st?'ST™':'STD'];
+        if(e.wear)parts.push(abbr(e.wear));
+        if(e.float)parts.push('FL '+parseFloat(e.float).toFixed(4));
+        if(e.pattern)parts.push('P'+e.pattern);
+        return'<span class="chip'+(e.st?' st':'')+'">'+parts.join(' · ')+'</span>';
+      }).join('');
+      html+='<tr><td class="td-name">'+name+'</td><td class="td-case">'+caseName+'</td><td>'+chips+'</td></tr>';
+    });
+    html+='</tbody></table>';
+  }
+  if(wl.length){
+    html+='<div class="section-hdr" style="margin-top:24px">Wishlist ('+wl.length+')</div>';
+    html+='<table><thead><tr><th>SKIN</th><th>CASE</th><th>RARITY</th></tr></thead><tbody>';
+    wl.forEach(function(item){
+      var name=item.skinName?(item.weapon+' | '+item.skinName):item.id.replace(/_+/g,' ');
+      html+='<tr><td class="td-name"><span style="color:#ff4d6d">&#9829;</span> '+name+'</td><td class="td-case">'+(item.caseName||'—')+'</td><td class="td-mono">'+((item.rarity||'').replace(' Grade',''))+'</td></tr>';
+    });
+    html+='</tbody></table>';
+  }
+  container.innerHTML=html;
+}
+
+function showMsg(id,msg,type){
+  var el=document.getElementById(id);if(!el)return;
+  el.textContent=msg;el.className='msg '+type;el.style.display='block';
+  setTimeout(function(){el.style.display='none';},7000);
+}
+
+document.addEventListener('DOMContentLoaded',function(){renderStats();renderPreview();});
+</script>
+</body>
+</html>
