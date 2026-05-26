@@ -4,34 +4,31 @@ fetch_inventory.py - Fetches CS2 Steam inventory for CS2 Master Skin Index.
 Always writes steam_inventory.json (even on error) so you can see what happened.
 """
 import json, sys, os, time, re, argparse, datetime, traceback
-import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error
 
-OUTPUT_FILE = "steam_inventory.json"
-
-def save_result(data):
-    with open(OUTPUT_FILE, "w") as f:
+def save_json(path, data):
+    with open(path, "w") as f:
         json.dump(data, f, indent=2)
-    print(f"Saved to {OUTPUT_FILE}")
+    print(f"Saved to {path} ({os.path.getsize(path)} bytes)")
 
-def save_error(message, steam_id="", extra={}):
+def make_error(message, steam_id="", extra=None):
     result = {
-        "version":     3,
-        "type":        "steam_inventory_error",
-        "steam_id":    steam_id,
-        "fetched":     datetime.datetime.utcnow().isoformat() + "Z",
-        "error":       message,
-        "total_items": 0,
-        "skin_entries": {},
-        **extra
+        "version":      3,
+        "type":         "steam_inventory_error",
+        "steam_id":     steam_id,
+        "fetched":      datetime.datetime.utcnow().isoformat() + "Z",
+        "error":        message,
+        "total_items":  0,
+        "skin_entries": {}
     }
-    save_result(result)
-    print(f"\nERROR: {message}")
+    if extra:
+        result.update(extra)
     return result
 
 def fetch_inventory(steam_id):
     url = (
-        f"https://steamcommunity.com/inventory/{steam_id}/730/2"
-        f"?l=english&count=5000"
+        "https://steamcommunity.com/inventory/" + steam_id + "/730/2"
+        "?l=english&count=5000"
     )
     headers = {
         "User-Agent": (
@@ -43,12 +40,13 @@ def fetch_inventory(steam_id):
         "Accept-Language": "en-US,en;q=0.9",
         "Referer":         "https://steamcommunity.com/",
     }
-    print(f"Fetching: {url}")
-    
+    print("Fetching: " + url)
+
+    last_err = "No attempts made"
     for attempt in range(3):
-        if attempt:
-            wait = attempt * 3
-            print(f"Retry {attempt}/2 in {wait}s...")
+        if attempt > 0:
+            wait = attempt * 4
+            print("Retry " + str(attempt) + "/2 in " + str(wait) + "s...")
             time.sleep(wait)
         try:
             req = urllib.request.Request(url, headers=headers)
@@ -60,103 +58,104 @@ def fetch_inventory(steam_id):
                         raw = gzip.decompress(raw)
                 except Exception:
                     pass
-                data = json.loads(raw.decode("utf-8"))
-                return data, None
+                return json.loads(raw.decode("utf-8")), None
         except urllib.error.HTTPError as e:
             body = ""
-            try: body = e.read().decode()[:200]
-            except: pass
+            try:
+                body = e.read().decode()[:300]
+            except Exception:
+                pass
             if e.code == 403:
                 return None, (
-                    f"Steam returned 403 Forbidden. "
-                    f"Your inventory MUST be set to Public: "
-                    f"Steam > Profile > Edit Profile > Privacy Settings > Inventory = Public. "
-                    f"Body: {body}"
+                    "Steam returned 403 Forbidden. "
+                    "Set your inventory to PUBLIC: "
+                    "Steam > Profile > Edit Profile > Privacy Settings > Inventory = Public. "
+                    "Response body: " + body
+                )
+            elif e.code == 401:
+                return None, (
+                    "Steam returned 401 Unauthorized. "
+                    "Inventory is private. Set to Public in Steam Privacy Settings."
                 )
             elif e.code == 429:
-                print(f"Rate limited (429), waiting 15s...")
+                print("Rate limited (429), waiting 15s...")
                 time.sleep(15)
-                continue
+                last_err = "Rate limited"
             else:
-                return None, f"HTTP {e.code}: {e.reason}. Body: {body}"
+                last_err = "HTTP " + str(e.code) + ": " + str(e.reason) + " Body: " + body
+                print(last_err)
         except Exception as e:
-            print(f"Attempt {attempt+1} error: {e}")
             last_err = str(e)
-    
-    return None, f"All retries failed. Last error: {last_err}"
+            print("Error on attempt " + str(attempt + 1) + ": " + last_err)
 
-def sid(name):
+    return None, "All retries failed. Last error: " + last_err
+
+def skin_id(name):
     return re.sub(r"[^a-z0-9]", "_", name.lower())
 
-def convert(raw, steam_id):
+def convert_inventory(raw, steam_id):
     assets       = raw.get("assets", [])
     descriptions = raw.get("descriptions", [])
-    
-    print(f"Raw inventory: {len(assets)} assets, {len(descriptions)} descriptions")
-    
+
+    print("Raw assets:       " + str(len(assets)))
+    print("Raw descriptions: " + str(len(descriptions)))
+
     if not assets:
-        keys = list(raw.keys())
         return None, (
-            f"No assets found. Response keys: {keys}. "
-            f"This usually means the inventory is private or empty."
+            "No assets in response. Keys in response: " + str(list(raw.keys())) + ". "
+            "This usually means inventory is private or empty."
         )
-    
+
     desc_map = {}
     for d in descriptions:
-        key = f"{d.get('classid','')}_{d.get('instanceid','')}"
+        key = str(d.get("classid","")) + "_" + str(d.get("instanceid",""))
         desc_map[key] = d
-    
+
     skin_entries = {}
-    skipped_keys = {"cases":0, "stickers":0, "keys":0, "agents":0, "other":0, "skins":0}
-    
+    counts = {"skins": 0, "cases": 0, "stickers": 0, "keys": 0, "other": 0}
+
     for asset in assets:
-        key  = f"{asset.get('classid','')}_{asset.get('instanceid','')}"
+        key  = str(asset.get("classid","")) + "_" + str(asset.get("instanceid",""))
         desc = desc_map.get(key, {})
         mhn  = desc.get("market_hash_name", "")
+
         if not mhn:
-            skipped_keys["other"] += 1
+            counts["other"] += 1
             continue
-        
-        # Categorise skip reasons for transparency
+
         if " | " not in mhn:
-            if "Case" in mhn or "Package" in mhn:
-                skipped_keys["cases"] += 1
-            elif "Sticker" in mhn or "Patch" in mhn:
-                skipped_keys["stickers"] += 1
+            if any(w in mhn for w in ["Case", "Package", "Capsule"]):
+                counts["cases"] += 1
+            elif any(w in mhn for w in ["Sticker", "Patch", "Graffiti"]):
+                counts["stickers"] += 1
             elif "Key" in mhn:
-                skipped_keys["keys"] += 1
-            elif "Agent" in mhn:
-                skipped_keys["agents"] += 1
+                counts["keys"] += 1
             else:
-                skipped_keys["other"] += 1
+                counts["other"] += 1
             continue
-        
-        skipped_keys["skins"] += 1
-        
-        # Determine wear
+
+        counts["skins"] += 1
+
         wear = ""
         for w in ["Factory New","Minimal Wear","Field-Tested","Well-Worn","Battle-Scarred"]:
-            if f"({w})" in mhn:
+            if "(" + w + ")" in mhn:
                 wear = w
                 break
-        
+
         st       = "StatTrak" in mhn
         souvenir = "Souvenir" in mhn
-        
-        # Build base name
+
         base = mhn
         if wear:
-            base = base.replace(f" ({wear})", "").strip()
-        if st:
-            base = base.replace("StatTrak\u2122 ", "").replace("StatTrak ", "").strip()
-        if souvenir:
-            base = base.replace("Souvenir ", "").strip()
-        
-        skin_id = sid(base)
-        if skin_id not in skin_entries:
-            skin_entries[skin_id] = {"name": base, "entries": []}
-        
-        skin_entries[skin_id]["entries"].append({
+            base = base.replace(" (" + wear + ")", "").strip()
+        base = base.replace("StatTrak\u2122 ", "").replace("StatTrak ", "")
+        base = base.replace("Souvenir ", "").strip()
+
+        sid = skin_id(base)
+        if sid not in skin_entries:
+            skin_entries[sid] = {"name": base, "entries": []}
+
+        skin_entries[sid]["entries"].append({
             "st":       st,
             "souvenir": souvenir,
             "wear":     wear,
@@ -164,85 +163,74 @@ def convert(raw, steam_id):
             "pattern":  "",
             "assetid":  asset.get("assetid", ""),
         })
-    
-    print(f"Categorised: {skipped_keys}")
-    print(f"Unique weapon skins found: {len(skin_entries)}")
-    
+
+    print("Item counts: " + str(counts))
+    print("Unique skins found: " + str(len(skin_entries)))
     return skin_entries, None
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--steamid", default=os.environ.get("STEAM_ID",""))
-    parser.add_argument("--output",  default=OUTPUT_FILE)
+    parser.add_argument("--steamid", default=os.environ.get("STEAM_ID", ""))
+    parser.add_argument("--output",  default="steam_inventory.json")
     args = parser.parse_args()
-    
-    global OUTPUT_FILE
-    OUTPUT_FILE = args.output
-    
-    steam_id = args.steamid.strip()
-    print(f"Steam ID provided: '{steam_id}'")
-    print(f"Steam ID length:    {len(steam_id)}")
-    print(f"All digits:         {steam_id.isdigit()}")
-    
-    # Validate Steam ID
-    if not steam_id:
-        save_error(
-            "No Steam ID provided. Enter your 17-digit Steam ID when running the workflow.",
-            extra={"help": "Find your Steam ID at https://steamidfinder.com"}
-        )
+
+    out  = args.output
+    sid  = args.steamid.strip()
+
+    print("Steam ID provided: '" + sid + "'")
+    print("Length: " + str(len(sid)) + "  All digits: " + str(sid.isdigit()))
+
+    # Validate
+    if not sid:
+        save_json(out, make_error(
+            "No Steam ID provided. Enter your 17-digit Steam ID when running workflow.",
+            extra={"help": "Find at https://steamidfinder.com"}
+        ))
         sys.exit(1)
-    
-    if not steam_id.isdigit():
-        save_error(
-            f"Steam ID '{steam_id}' contains non-digit characters. "
-            f"Must be 17 digits only, e.g. 76561198012345678. "
-            f"Find yours at https://steamidfinder.com",
-            steam_id=steam_id
-        )
+
+    if not sid.isdigit():
+        save_json(out, make_error(
+            "Steam ID '" + sid + "' contains non-digit characters. "
+            "Must be 17 digits only. Find yours at https://steamidfinder.com",
+            steam_id=sid
+        ))
         sys.exit(1)
-    
-    if len(steam_id) != 17:
-        save_error(
-            f"Steam ID '{steam_id}' is {len(steam_id)} digits but must be exactly 17. "
-            f"Find your correct ID at https://steamidfinder.com",
-            steam_id=steam_id
-        )
+
+    if len(sid) != 17:
+        save_json(out, make_error(
+            "Steam ID is " + str(len(sid)) + " digits but must be exactly 17. "
+            "Find your correct ID at https://steamidfinder.com",
+            steam_id=sid
+        ))
         sys.exit(1)
-    
-    if not steam_id.startswith("7656119"):
-        save_error(
-            f"Steam ID '{steam_id}' doesn't start with 7656119 - may be incorrect. "
-            f"Verify at https://steamidfinder.com",
-            steam_id=steam_id
-        )
-        # Don't exit - try anyway
-    
-    # Fetch inventory
-    raw, err = fetch_inventory(steam_id)
+
+    # Fetch
+    raw, err = fetch_inventory(sid)
     if err:
-        save_error(err, steam_id=steam_id)
+        save_json(out, make_error(err, steam_id=sid))
         sys.exit(1)
-    
+
     # Convert
-    skin_entries, err = convert(raw, steam_id)
+    skin_entries, err = convert_inventory(raw, sid)
     if err:
-        save_error(err, steam_id=steam_id)
+        save_json(out, make_error(err, steam_id=sid))
         sys.exit(1)
-    
-    # Save success result
+
+    # Save success
     result = {
         "version":      3,
         "type":         "steam_inventory_import",
-        "steam_id":     steam_id,
+        "steam_id":     sid,
         "fetched":      datetime.datetime.utcnow().isoformat() + "Z",
         "total_items":  len(skin_entries),
         "skin_entries": skin_entries,
-        "note":         "Float values not available via Steam API - add manually on case pages",
+        "note":         (
+            "Float values not available via Steam API. "
+            "Add them manually on individual case pages."
+        ),
     }
-    save_result(result)
-    
-    print(f"\nSUCCESS: {len(skin_entries)} skins saved to {OUTPUT_FILE}")
-    print("Next: open cs2_inventory_manager.html and click LOAD FROM GITHUB")
+    save_json(out, result)
+    print("\nSUCCESS: " + str(len(skin_entries)) + " skins saved.")
 
 if __name__ == "__main__":
     try:
@@ -250,7 +238,11 @@ if __name__ == "__main__":
     except SystemExit:
         raise
     except Exception as e:
-        save_error(
-            f"Unexpected error: {type(e).__name__}: {e}\n{traceback.format_exc()}",
-        )
+        try:
+            save_json("steam_inventory.json", make_error(
+                "Unexpected error: " + type(e).__name__ + ": " + str(e)
+                + "\n" + traceback.format_exc()
+            ))
+        except Exception:
+            pass
         sys.exit(1)

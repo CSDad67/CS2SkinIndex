@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       steam_id:
-        description: '17-digit Steam ID (find at steamidfinder.com, e.g. 76561198012345678)'
+        description: '17-digit Steam ID — find at steamidfinder.com (e.g. 76561198012345678)'
         required: true
         type: string
 
@@ -27,18 +27,30 @@ jobs:
           python-version: '3.11'
 
       - name: Fetch Steam Inventory
+        id: fetch
         run: python3 fetch_inventory.py --steamid "${{ github.event.inputs.steam_id }}" --output steam_inventory.json
         continue-on-error: true
 
+      - name: Show output file
+        if: always()
+        run: |
+          echo "=== steam_inventory.json ==="
+          if [ -f steam_inventory.json ]; then
+            cat steam_inventory.json | head -60
+          else
+            echo "FILE NOT WRITTEN - script crashed before saving"
+          fi
+
       - name: Commit steam_inventory.json
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add steam_inventory.json
-          git diff --staged --quiet || git commit -m "Steam inventory fetch $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
-
-      - name: Show result
-        run: |
-          echo "=== steam_inventory.json contents ==="
-          cat steam_inventory.json | head -50
+          if [ -f steam_inventory.json ]; then
+            git add steam_inventory.json
+            git diff --staged --quiet || git commit -m "Steam inventory fetch $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "Committed steam_inventory.json"
+          else
+            echo "No file to commit"
+          fi
