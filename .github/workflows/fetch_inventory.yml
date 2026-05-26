@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       steam_id:
-        description: '76561197999087813'
+        description: 76561197999087813
         required: true
         type: string
 
