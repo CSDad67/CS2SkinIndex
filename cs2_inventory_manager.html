@@ -68,6 +68,24 @@ tr:hover td{background:rgba(59,158,255,.03)}
 .tm{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td)}
 .chip{font-family:"Share Tech Mono",monospace;font-size:9px;padding:2px 5px;border:1px solid var(--bd);background:var(--s2);display:inline-block;margin:1px}
 .cst{border-color:rgba(240,165,0,.3);color:var(--a)}
+
+/* Steam import section */
+.steam-card{background:var(--s);border:1px solid var(--bd);padding:20px;margin-bottom:14px}
+.steam-steps{background:rgba(46,204,113,.04);border:1px solid rgba(46,204,113,.15);padding:14px;margin-bottom:14px;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);line-height:2.1}
+.steam-steps strong{color:var(--tb)}
+.steam-steps a{color:var(--c)}
+.steam-steps code{color:var(--a);background:rgba(240,165,0,.1);padding:1px 5px}
+.steam-result{margin-top:14px;display:none;border:1px solid var(--bd);padding:14px;background:var(--s2)}
+.steam-result-title{font-family:"Rajdhani",sans-serif;font-size:15px;font-weight:700;color:var(--tb);margin-bottom:10px}
+.steam-skin-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--bd);font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td)}
+.steam-skin-row:last-child{border-bottom:none}
+.steam-skin-name{color:var(--tb);flex:1}
+.steam-skin-status{font-size:9px;padding:2px 6px;border:1px solid}
+.steam-skin-status.matched{border-color:rgba(46,204,113,.4);color:var(--g);background:rgba(46,204,113,.08)}
+.steam-skin-status.unmatched{border-color:rgba(240,165,0,.4);color:var(--a);background:rgba(240,165,0,.08)}
+.prog-bar{height:4px;background:var(--bd);border-radius:2px;margin:8px 0;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--c),var(--g));border-radius:2px;transition:width .3s}
+
 </style>
 </head>
 <body>
@@ -106,6 +124,52 @@ tr:hover td{background:rgba(59,158,255,.03)}
     <div class="stat">ENTRIES<span class="sv" id="s2">—</span></div>
     <div class="stat">WISHLISTED<span class="sv" id="s3">—</span></div>
     <div class="stat">CASES<span class="sv" id="s4">—</span></div>
+  </div>
+
+
+  <!-- STEAM INVENTORY IMPORT -->
+  <div class="steam-card">
+    <div class="ct">IMPORT FROM STEAM INVENTORY</div>
+    <div class="cd">
+      Automatically populate your collection from your live CS2 Steam inventory.<br>
+      Requires your Steam inventory to be set to <strong style="color:var(--g)">Public</strong>
+      and a one-time GitHub Action run.
+    </div>
+
+    <div class="steam-steps">
+      <strong>HOW TO SET UP (one time only):</strong><br>
+      1. Make your Steam inventory public: Steam &#8594; Profile &#8594; Edit Profile &#8594;
+         Privacy Settings &#8594; Inventory = <strong>Public</strong><br>
+      2. Find your 64-bit Steam ID at
+         <a href="https://steamidfinder.com" target="_blank">steamidfinder.com</a>
+         (looks like <code>76561198XXXXXXXXX</code>)<br>
+      3. Go to your GitHub repo &#8594; <strong>Actions</strong> &#8594;
+         <strong>Fetch Steam Inventory</strong> &#8594; <strong>Run workflow</strong> &#8594;
+         enter your Steam ID &#8594; click Run<br>
+      4. Wait ~30 seconds for it to finish, then click
+         <strong>LOAD FROM GITHUB</strong> below<br>
+      5. Click <strong>IMPORT TO INVENTORY</strong> to save everything
+    </div>
+
+    <div class="brow">
+      <button class="btn bc" onclick="loadSteamInventory()">
+        &#8595; LOAD FROM GITHUB
+      </button>
+      <button class="btn bg" id="btn-steam-import" style="display:none" onclick="importSteamInventory()">
+        &#10003; IMPORT TO INVENTORY
+      </button>
+    </div>
+    <div class="msg" id="sm"></div>
+
+    <div id="prog-wrap" style="display:none">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+      <p class="mono" style="font-size:10px;color:var(--td)" id="prog-label"></p>
+    </div>
+
+    <div class="steam-result" id="steam-result">
+      <div class="steam-result-title">Steam Inventory Preview</div>
+      <div id="steam-result-body"></div>
+    </div>
   </div>
 
   <!-- EXPORT -->
@@ -386,6 +450,105 @@ function rPreview(){
     h+='</tbody></table>';
   }
   c.innerHTML=h;
+}
+
+
+/* ── Steam Inventory Import ─────────────────────────────────────────────── */
+var SKIN_TO_STORE = null; // loaded on demand from skin_to_store.json
+var _steamData = null;
+
+async function loadSteamInventory(){
+  showMsg('sm','Loading steam_inventory.json from GitHub...','inf');
+  document.getElementById('prog-wrap').style.display='block';
+  document.getElementById('prog').style.width='20%';
+  try{
+    // Add timestamp to bust cache
+    var url='https://raw.githubusercontent.com/csdad67/CS2SkinIndex/main/steam_inventory.json?t='+Date.now();
+    var r=await fetch(url);
+    if(!r.ok)throw new Error('HTTP '+r.status+' - Run the Fetch Steam Inventory workflow first');
+    var data=await r.json();
+
+    if(!data.skin_entries)throw new Error('Invalid format - re-run the workflow');
+    if(data.type!=='steam_inventory_import')throw new Error('Not an inventory file');
+
+    _steamData=data;
+    document.getElementById('prog').style.width='100%';
+    document.getElementById('prog-label').textContent=
+      'Loaded: '+data.total_items+' CS2 skins from Steam ID '+data.steam_id;
+
+    previewSteamInventory(data);
+    document.getElementById('btn-steam-import').style.display='inline-flex';
+    showMsg('sm','\u2713 Loaded '+data.total_items+' skins. Review below and click IMPORT TO INVENTORY.','ok');
+  }catch(e){
+    showMsg('sm','\u2717 '+e.message,'er');
+    document.getElementById('prog-wrap').style.display='none';
+  }
+}
+
+function previewSteamInventory(data){
+  var body=document.getElementById('steam-result-body');
+  var result=document.getElementById('steam-result');
+  var matched=0,unmatched=0;
+  var rows='';
+
+  Object.keys(data.skin_entries).forEach(function(skinId){
+    var entry=data.skin_entries[skinId];
+    var storeKey=SKIN_TO_STORE[skinId];
+    var isMatch=!!storeKey;
+    if(isMatch)matched++;else unmatched++;
+    var status=isMatch
+      ?'<span class="steam-skin-status matched">MATCHED</span>'
+      :'<span class="steam-skin-status unmatched">UNRECOGNISED</span>';
+    var entryCount=entry.entries.length;
+    rows+='<div class="steam-skin-row">'+
+      '<span class="steam-skin-name">'+entry.name+'</span>'+
+      '<span style="color:var(--td)">'+entryCount+' item'+(entryCount!==1?'s':'')+'</span>'+
+      status+'</div>';
+  });
+
+  body.innerHTML=
+    '<p class="mono" style="font-size:11px;color:var(--td);margin-bottom:10px">'+
+    '<span style="color:var(--g)">'+matched+' matched</span> &nbsp;|&nbsp; '+
+    '<span style="color:var(--a)">'+unmatched+' unrecognised</span> &nbsp;|&nbsp; '+
+    'Fetched: '+new Date(data.fetched).toLocaleString()+'</p>'+rows;
+  result.style.display='block';
+}
+
+function importSteamInventory(){
+  if(!_steamData){showMsg('sm','Load inventory first','er');return;}
+  var imported=0,skipped=0;
+
+  Object.keys(_steamData.skin_entries).forEach(function(skinId){
+    var entry=_steamData.skin_entries[skinId];
+    var storeKey=SKIN_TO_STORE[skinId];
+    if(!storeKey){skipped++;return;}
+
+    var existing=gs(storeKey);
+    if(!existing[skinId])existing[skinId]=[];
+
+    entry.entries.forEach(function(e){
+      // Check for duplicate by assetid or float+wear combo
+      var dup=existing[skinId].some(function(x){
+        return (e.assetid&&x.assetid===e.assetid)||
+               (x.float&&x.float===e.float&&x.wear===e.wear&&x.st===e.st);
+      });
+      if(!dup){
+        existing[skinId].push({
+          st:e.st, wear:e.wear, float:e.float||'', pattern:e.pattern||'',
+          assetid:e.assetid||''
+        });
+        imported++;
+      }
+    });
+    ss(storeKey,existing);
+  });
+
+  showMsg('sm','\u2713 Imported '+imported+' skin entries ('+skipped+' unrecognised skins skipped)','ok');
+  rStats();rPreview();runDiag();
+  _steamData=null;
+  document.getElementById('steam-result').style.display='none';
+  document.getElementById('btn-steam-import').style.display='none';
+  document.getElementById('prog-wrap').style.display='none';
 }
 
 function showMsg(id,t,tp){
