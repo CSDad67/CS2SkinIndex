@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       steam_id:
-        description: 'Your Steam ID (64-bit, e.g. 76561198XXXXXXXXX)'
+        description: '76561197999087813'
         required: true
         type: string
 
