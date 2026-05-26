@@ -468,8 +468,22 @@ async function loadSteamInventory(){
     if(!r.ok)throw new Error('HTTP '+r.status+' - Run the Fetch Steam Inventory workflow first');
     var data=await r.json();
 
-    if(!data.skin_entries)throw new Error('Invalid format - re-run the workflow');
-    if(data.type!=='steam_inventory_import')throw new Error('Not an inventory file');
+    // Check if the file contains an error from the Python script
+    if(data.type === 'steam_inventory_error'){
+      var errMsg = data.error || 'Unknown error';
+      showMsg('sm','\u2717 Fetch failed: ' + errMsg, 'er');
+      document.getElementById('prog-wrap').style.display='none';
+      // Show the error in the result area for easy reading
+      var result=document.getElementById('steam-result');
+      var body=document.getElementById('steam-result-body');
+      body.innerHTML='<div style="font-family:\'Share Tech Mono\',monospace;font-size:11px;color:#ff8888;line-height:2;padding:10px 0">'
+        +'<strong style="color:var(--r)">&#9888; ERROR FROM GITHUB ACTION:</strong><br>'
+        +errMsg.replace(/\n/g,'<br>')
+        +'</div>';
+      result.style.display='block';
+      return;
+    }
+    if(!data.skin_entries) throw new Error('Invalid format - re-run the workflow');
 
     _steamData=data;
     document.getElementById('prog').style.width='100%';

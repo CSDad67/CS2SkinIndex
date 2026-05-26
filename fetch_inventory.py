@@ -1,150 +1,256 @@
 #!/usr/bin/env python3
 """
-fetch_inventory.py — fetches the user's CS2 Steam inventory via GitHub Actions
-and saves it as steam_inventory.json for the web app to import.
-
-Usage: python3 fetch_inventory.py --steamid 76561198XXXXXXXXX
-Or set STEAM_ID environment variable.
+fetch_inventory.py - Fetches CS2 Steam inventory for CS2 Master Skin Index.
+Always writes steam_inventory.json (even on error) so you can see what happened.
 """
-import json, sys, os, urllib.request, urllib.parse, datetime, argparse
+import json, sys, os, time, re, argparse, datetime, traceback
+import urllib.request, urllib.parse, urllib.error
 
-def fetch_inventory(steam_id, count=5000):
-    """Fetch CS2 inventory from Steam. Works server-side (no CORS)."""
+OUTPUT_FILE = "steam_inventory.json"
+
+def save_result(data):
+    with open(OUTPUT_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+    print(f"Saved to {OUTPUT_FILE}")
+
+def save_error(message, steam_id="", extra={}):
+    result = {
+        "version":     3,
+        "type":        "steam_inventory_error",
+        "steam_id":    steam_id,
+        "fetched":     datetime.datetime.utcnow().isoformat() + "Z",
+        "error":       message,
+        "total_items": 0,
+        "skin_entries": {},
+        **extra
+    }
+    save_result(result)
+    print(f"\nERROR: {message}")
+    return result
+
+def fetch_inventory(steam_id):
     url = (
         f"https://steamcommunity.com/inventory/{steam_id}/730/2"
-        f"?l=english&count={count}"
+        f"?l=english&count=5000"
     )
-    req = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (compatible; CS2SkinIndex/1.0)",
-        "Accept": "application/json",
-    })
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            data = json.loads(r.read().decode())
-            return data
-    except urllib.error.HTTPError as e:
-        if e.code == 403:
-            print(f"ERROR: Steam returned 403. Make sure your inventory is set to PUBLIC.")
-            print(f"  Steam Profile → Edit Profile → Privacy Settings → Inventory = Public")
-        raise
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept":          "application/json, text/javascript, */*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer":         "https://steamcommunity.com/",
+    }
+    print(f"Fetching: {url}")
+    
+    for attempt in range(3):
+        if attempt:
+            wait = attempt * 3
+            print(f"Retry {attempt}/2 in {wait}s...")
+            time.sleep(wait)
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=30) as r:
+                raw = r.read()
+                try:
+                    import gzip
+                    if r.info().get("Content-Encoding") == "gzip":
+                        raw = gzip.decompress(raw)
+                except Exception:
+                    pass
+                data = json.loads(raw.decode("utf-8"))
+                return data, None
+        except urllib.error.HTTPError as e:
+            body = ""
+            try: body = e.read().decode()[:200]
+            except: pass
+            if e.code == 403:
+                return None, (
+                    f"Steam returned 403 Forbidden. "
+                    f"Your inventory MUST be set to Public: "
+                    f"Steam > Profile > Edit Profile > Privacy Settings > Inventory = Public. "
+                    f"Body: {body}"
+                )
+            elif e.code == 429:
+                print(f"Rate limited (429), waiting 15s...")
+                time.sleep(15)
+                continue
+            else:
+                return None, f"HTTP {e.code}: {e.reason}. Body: {body}"
+        except Exception as e:
+            print(f"Attempt {attempt+1} error: {e}")
+            last_err = str(e)
+    
+    return None, f"All retries failed. Last error: {last_err}"
 
-def parse_wear(market_hash_name):
-    """Extract wear condition from market hash name."""
-    for wear in ["Factory New","Minimal Wear","Field-Tested","Well-Worn","Battle-Scarred"]:
-        if wear in market_hash_name:
-            return wear
-    return ""
+def sid(name):
+    return re.sub(r"[^a-z0-9]", "_", name.lower())
 
-def parse_float_from_descriptions(desc):
-    """Try to extract float value from Steam item description tags."""
-    # Steam embeds float in fraudwarnings or item_description sometimes
-    for fw in (desc.get("fraudwarnings") or []):
-        if "float" in fw.lower() or "wear rating" in fw.lower():
-            import re
-            m = re.search(r"[0-9]\.[0-9]{6,}", fw)
-            if m:
-                return m.group(0)
-    return ""
-
-def is_stattrak(market_hash_name):
-    return "StatTrak" in market_hash_name or "StatTrak™" in market_hash_name
-
-def convert_inventory(raw_data, steam_id):
-    """Convert Steam inventory format to CS2SkinIndex import format."""
-    assets       = raw_data.get("assets", [])
-    descriptions = raw_data.get("descriptions", [])
-
-    # Build description lookup by classid+instanceid
+def convert(raw, steam_id):
+    assets       = raw.get("assets", [])
+    descriptions = raw.get("descriptions", [])
+    
+    print(f"Raw inventory: {len(assets)} assets, {len(descriptions)} descriptions")
+    
+    if not assets:
+        keys = list(raw.keys())
+        return None, (
+            f"No assets found. Response keys: {keys}. "
+            f"This usually means the inventory is private or empty."
+        )
+    
     desc_map = {}
     for d in descriptions:
         key = f"{d.get('classid','')}_{d.get('instanceid','')}"
         desc_map[key] = d
-
-    # Group by market_hash_name (weapon+skin+wear)
-    # We need to map back to case store keys
-    # Format: store key = cs2_{CASE_SLUG}_inventory, skin key = sid(name)
-    import re
-    def sid(name):
-        return re.sub(r'[^a-z0-9]', '_', name.lower())
-
-    # Build entries grouped by skin base name (without wear)
+    
     skin_entries = {}
-
+    skipped_keys = {"cases":0, "stickers":0, "keys":0, "agents":0, "other":0, "skins":0}
+    
     for asset in assets:
-        key = f"{asset.get('classid','')}_{asset.get('instanceid','')}"
+        key  = f"{asset.get('classid','')}_{asset.get('instanceid','')}"
         desc = desc_map.get(key, {})
         mhn  = desc.get("market_hash_name", "")
-
-        if not mhn or "730" not in str(desc.get("appid","730")):
+        if not mhn:
+            skipped_keys["other"] += 1
             continue
-
-        # Skip non-skin items (stickers, cases, keys, agents, etc.)
-        # Weapon skins and knife skins have a '|'in their name
-        # Gloves also have '|'
-        if " | " not in mhn and not mhn.startswith("★"):
+        
+        # Categorise skip reasons for transparency
+        if " | " not in mhn:
+            if "Case" in mhn or "Package" in mhn:
+                skipped_keys["cases"] += 1
+            elif "Sticker" in mhn or "Patch" in mhn:
+                skipped_keys["stickers"] += 1
+            elif "Key" in mhn:
+                skipped_keys["keys"] += 1
+            elif "Agent" in mhn:
+                skipped_keys["agents"] += 1
+            else:
+                skipped_keys["other"] += 1
             continue
-
-        wear     = parse_wear(mhn)
-        float_v  = parse_float_from_descriptions(desc)
-        st       = is_stattrak(mhn)
-
-        # Base name without wear and without StatTrak prefix
+        
+        skipped_keys["skins"] += 1
+        
+        # Determine wear
+        wear = ""
+        for w in ["Factory New","Minimal Wear","Field-Tested","Well-Worn","Battle-Scarred"]:
+            if f"({w})" in mhn:
+                wear = w
+                break
+        
+        st       = "StatTrak" in mhn
+        souvenir = "Souvenir" in mhn
+        
+        # Build base name
         base = mhn
         if wear:
             base = base.replace(f" ({wear})", "").strip()
         if st:
-            base = base.replace("StatTrak™ ", "").strip()
-
+            base = base.replace("StatTrak\u2122 ", "").replace("StatTrak ", "").strip()
+        if souvenir:
+            base = base.replace("Souvenir ", "").strip()
+        
         skin_id = sid(base)
-
         if skin_id not in skin_entries:
-            skin_entries[skin_id] = {
-                "name":    base,
-                "entries": [],
-                "st":      st,
-            }
-
-        entry = {
-            "st":      st,
-            "wear":    wear,
-            "float":   float_v,
-            "pattern": "",
-            "assetid": asset.get("assetid",""),
-        }
-        skin_entries[skin_id]["entries"].append(entry)
-
-    return {
-        "version":     3,
-        "type":        "steam_inventory_import",
-        "steam_id":    steam_id,
-        "fetched":     datetime.datetime.utcnow().isoformat() + "Z",
-        "total_items": len(skin_entries),
-        "skin_entries": skin_entries,
-    }
+            skin_entries[skin_id] = {"name": base, "entries": []}
+        
+        skin_entries[skin_id]["entries"].append({
+            "st":       st,
+            "souvenir": souvenir,
+            "wear":     wear,
+            "float":    "",
+            "pattern":  "",
+            "assetid":  asset.get("assetid", ""),
+        })
+    
+    print(f"Categorised: {skipped_keys}")
+    print(f"Unique weapon skins found: {len(skin_entries)}")
+    
+    return skin_entries, None
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--steamid", default=os.environ.get("STEAM_ID",""))
-    parser.add_argument("--output",  default="steam_inventory.json")
+    parser.add_argument("--output",  default=OUTPUT_FILE)
     args = parser.parse_args()
-
-    if not args.steamid:
-        print("ERROR: Steam ID required. Use --steamid or set STEAM_ID env var.")
+    
+    global OUTPUT_FILE
+    OUTPUT_FILE = args.output
+    
+    steam_id = args.steamid.strip()
+    print(f"Steam ID provided: '{steam_id}'")
+    print(f"Steam ID length:    {len(steam_id)}")
+    print(f"All digits:         {steam_id.isdigit()}")
+    
+    # Validate Steam ID
+    if not steam_id:
+        save_error(
+            "No Steam ID provided. Enter your 17-digit Steam ID when running the workflow.",
+            extra={"help": "Find your Steam ID at https://steamidfinder.com"}
+        )
         sys.exit(1)
-
-    print(f"Fetching CS2 inventory for Steam ID: {args.steamid}")
-    raw = fetch_inventory(args.steamid)
-
-    total_assets = len(raw.get("assets", []))
-    print(f"  Raw items in inventory: {total_assets}")
-
-    converted = convert_inventory(raw, args.steamid)
-    print(f"  CS2 weapon skins found: {converted['total_items']}")
-
-    with open(args.output, "w") as f:
-        json.dump(converted, f, indent=2)
-
-    print(f"  Saved to {args.output}")
+    
+    if not steam_id.isdigit():
+        save_error(
+            f"Steam ID '{steam_id}' contains non-digit characters. "
+            f"Must be 17 digits only, e.g. 76561198012345678. "
+            f"Find yours at https://steamidfinder.com",
+            steam_id=steam_id
+        )
+        sys.exit(1)
+    
+    if len(steam_id) != 17:
+        save_error(
+            f"Steam ID '{steam_id}' is {len(steam_id)} digits but must be exactly 17. "
+            f"Find your correct ID at https://steamidfinder.com",
+            steam_id=steam_id
+        )
+        sys.exit(1)
+    
+    if not steam_id.startswith("7656119"):
+        save_error(
+            f"Steam ID '{steam_id}' doesn't start with 7656119 - may be incorrect. "
+            f"Verify at https://steamidfinder.com",
+            steam_id=steam_id
+        )
+        # Don't exit - try anyway
+    
+    # Fetch inventory
+    raw, err = fetch_inventory(steam_id)
+    if err:
+        save_error(err, steam_id=steam_id)
+        sys.exit(1)
+    
+    # Convert
+    skin_entries, err = convert(raw, steam_id)
+    if err:
+        save_error(err, steam_id=steam_id)
+        sys.exit(1)
+    
+    # Save success result
+    result = {
+        "version":      3,
+        "type":         "steam_inventory_import",
+        "steam_id":     steam_id,
+        "fetched":      datetime.datetime.utcnow().isoformat() + "Z",
+        "total_items":  len(skin_entries),
+        "skin_entries": skin_entries,
+        "note":         "Float values not available via Steam API - add manually on case pages",
+    }
+    save_result(result)
+    
+    print(f"\nSUCCESS: {len(skin_entries)} skins saved to {OUTPUT_FILE}")
+    print("Next: open cs2_inventory_manager.html and click LOAD FROM GITHUB")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:
+        save_error(
+            f"Unexpected error: {type(e).__name__}: {e}\n{traceback.format_exc()}",
+        )
+        sys.exit(1)

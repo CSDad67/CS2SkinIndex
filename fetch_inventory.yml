@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       steam_id:
-        description: 'Your Steam ID (64-bit, e.g. 76561198XXXXXXXXX)'
+        description: '17-digit Steam ID (find at steamidfinder.com, e.g. 76561198012345678)'
         required: true
         type: string
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   fetch-inventory:
@@ -25,11 +28,17 @@ jobs:
 
       - name: Fetch Steam Inventory
         run: python3 fetch_inventory.py --steamid "${{ github.event.inputs.steam_id }}" --output steam_inventory.json
+        continue-on-error: true
 
       - name: Commit steam_inventory.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add steam_inventory.json
-          git diff --staged --quiet || git commit -m "Steam inventory import $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git diff --staged --quiet || git commit -m "Steam inventory fetch $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
+
+      - name: Show result
+        run: |
+          echo "=== steam_inventory.json contents ==="
+          cat steam_inventory.json | head -50
