@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       steam_id:
-        description: 76561197999087813
+        description: '17-digit Steam ID from steamidfinder.com'
         required: true
         type: string
 
@@ -21,18 +21,139 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Fetch Steam Inventory
-        run: python3 fetch_inventory.py --steamid "${{ github.event.inputs.steam_id }}" --output steam_inventory.json
-
-      - name: Commit steam_inventory.json
+      - name: Fetch and save inventory
+        if: always()
+        shell: python
         run: |
+          import json, sys, os, time, datetime, re
+          import urllib.request, urllib.error
+
+          steam_id = "${{ github.event.inputs.steam_id }}".strip()
+          out_file = "steam_inventory.json"
+
+          def save(data):
+              with open(out_file, "w") as f:
+                  json.dump(data, f, indent=2)
+              print("Saved " + out_file)
+
+          def error(msg):
+              save({"type":"error","steam_id":steam_id,"error":msg,
+                    "fetched":datetime.datetime.utcnow().isoformat()+"Z",
+                    "total_items":0,"skin_entries":{}})
+
+          print("Steam ID: " + repr(steam_id))
+          print("Python: " + sys.version)
+
+          # Validate
+          if not steam_id:
+              error("No Steam ID provided"); sys.exit(0)
+          if not steam_id.isdigit() or len(steam_id) != 17:
+              error("Invalid Steam ID: " + steam_id + " (need 17 digits from steamidfinder.com)")
+              sys.exit(0)
+
+          # Fetch
+          url = "https://steamcommunity.com/inventory/" + steam_id + "/730/2?l=english&count=5000"
+          print("URL: " + url)
+          headers = {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36",
+              "Accept": "application/json",
+              "Referer": "https://steamcommunity.com/",
+          }
+          raw = None
+          for attempt in range(3):
+              try:
+                  req = urllib.request.Request(url, headers=headers)
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      raw = json.loads(r.read().decode())
+                  print("Fetched OK")
+                  break
+              except urllib.error.HTTPError as e:
+                  body = ""
+                  try: body = e.read().decode()[:200]
+                  except: pass
+                  msg = "HTTP " + str(e.code) + ": " + str(e.reason) + " | " + body
+                  print(msg)
+                  if e.code == 403:
+                      error("403 Forbidden - Set inventory to PUBLIC in Steam Privacy Settings. " + msg)
+                      sys.exit(0)
+                  if e.code == 429:
+                      time.sleep(10); continue
+                  error(msg); sys.exit(0)
+              except Exception as e:
+                  print("Error: " + str(e))
+                  if attempt == 2:
+                      error("Failed after 3 attempts: " + str(e)); sys.exit(0)
+                  time.sleep(4)
+
+          if not raw:
+              error("No response received"); sys.exit(0)
+
+          assets = raw.get("assets", [])
+          descs  = raw.get("descriptions", [])
+          print("Assets: " + str(len(assets)) + "  Descriptions: " + str(len(descs)))
+
+          if not assets:
+              error("Empty inventory or private. Response keys: " + str(list(raw.keys())))
+              sys.exit(0)
+
+          # Build lookup
+          dm = {}
+          for d in descs:
+              dm[str(d.get("classid",""))+"_"+str(d.get("instanceid",""))] = d
+
+          entries = {}
+          skipped = 0
+          for a in assets:
+              k   = str(a.get("classid",""))+"_"+str(a.get("instanceid",""))
+              d   = dm.get(k, {})
+              mhn = d.get("market_hash_name","")
+              if not mhn or " | " not in mhn:
+                  skipped += 1; continue
+              wear = ""
+              for w in ["Factory New","Minimal Wear","Field-Tested","Well-Worn","Battle-Scarred"]:
+                  if "("+w+")" in mhn:
+                      wear = w; break
+              st = "StatTrak" in mhn
+              base = mhn
+              if wear: base = base.replace(" ("+wear+")","").strip()
+              base = base.replace("StatTrak\u2122 ","").replace("StatTrak ","").replace("Souvenir ","").strip()
+              sid  = re.sub(r"[^a-z0-9]","_",base.lower())
+              if sid not in entries:
+                  entries[sid] = {"name":base,"entries":[]}
+              entries[sid]["entries"].append({
+                  "st":st,"wear":wear,"float":"","pattern":"",
+                  "assetid":a.get("assetid","")
+              })
+          print("Skins: " + str(len(entries)) + "  Skipped: " + str(skipped))
+
+          save({
+              "version":3,"type":"steam_inventory_import",
+              "steam_id":steam_id,
+              "fetched":datetime.datetime.utcnow().isoformat()+"Z",
+              "total_items":len(entries),"skin_entries":entries,
+              "note":"Float values not in Steam API - add manually on case pages"
+          })
+          print("Done: " + str(len(entries)) + " skins")
+
+      - name: Commit result
+        if: always()
+        run: |
+          echo "Checking for steam_inventory.json..."
+          ls -la *.json 2>/dev/null || echo "No JSON files found"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add steam_inventory.json
-          git diff --staged --quiet || git commit -m "Steam inventory import $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
+          if [ -f steam_inventory.json ]; then
+            echo "File exists, committing..."
+            cat steam_inventory.json | head -20
+            git add steam_inventory.json
+            git status
+            git commit -m "Steam inventory $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing to commit"
+            git push
+          else
+            echo "steam_inventory.json was NOT created"
+            echo "Creating error placeholder..."
+            echo '{"type":"error","error":"Script failed to run or write file"}' > steam_inventory.json
+            git add steam_inventory.json
+            git commit -m "Steam inventory fetch failed $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
