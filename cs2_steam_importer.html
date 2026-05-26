@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Steam Inventory Importer — CS2 Skin Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&family=Share+Tech+Mono&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--s:#0f1318;--s2:#161b24;--bd:#1e2836;--a:#f0a500;--t:#c8d8e8;--td:#6a8098;--tb:#eaf2ff;--g:#2ecc71;--r:#e74c3c;--c:#00d4ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:"Exo 2",sans-serif;padding:32px 20px 80px}
+.wrap{max-width:860px;margin:0 auto}
+a{color:var(--a);text-decoration:none}
+h1{font-family:"Rajdhani",sans-serif;font-size:30px;color:var(--tb);letter-spacing:2px;margin:8px 0 4px}
+h1 span{color:var(--a)}
+.sub{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);letter-spacing:1px;margin-bottom:28px}
+.mono{font-family:"Share Tech Mono",monospace}
+.card{background:var(--s);border:1px solid var(--bd);padding:22px;margin-bottom:16px}
+.ct{font-family:"Rajdhani",sans-serif;font-size:18px;font-weight:700;color:var(--tb);margin-bottom:8px}
+.cd{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);line-height:1.9;margin-bottom:16px}
+.step{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.sn{background:var(--c);color:#000;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Share Tech Mono",monospace;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.sc{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);line-height:1.9;flex:1}
+.sc strong{color:var(--tb)}
+.sc code{color:var(--a);background:rgba(240,165,0,.1);padding:1px 5px}
+/* Bookmarklet drag box */
+.bm-box{background:var(--s2);border:2px dashed var(--c);padding:18px 20px;text-align:center;margin:12px 0}
+.bm-link{font-family:"Rajdhani",sans-serif;font-size:16px;font-weight:700;color:var(--c);padding:10px 20px;background:rgba(0,212,255,.1);border:1px solid var(--c);display:inline-block;cursor:move;text-decoration:none;user-select:none}
+.bm-link:hover{background:rgba(0,212,255,.2)}
+.bm-hint{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td);margin-top:8px}
+/* Output area */
+.out{display:none;margin-top:16px}
+.out-steps{background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.12);padding:14px;margin-bottom:10px;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);line-height:2}
+.out-steps strong{color:var(--tb)}
+textarea{width:100%;background:var(--s2);border:2px solid var(--c);color:var(--tb);font-family:"Share Tech Mono",monospace;font-size:10px;padding:10px;resize:vertical;outline:none;min-height:140px;line-height:1.5}
+.hint{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td);margin-top:6px}
+.btn{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 18px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;margin-top:10px}
+.bg{background:var(--a);color:#000}.bg:hover{opacity:.85}
+/* Status */
+.status{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 12px;margin-top:10px;border:1px solid;display:none}
+.ok{background:rgba(46,204,113,.1);border-color:rgba(46,204,113,.3);color:var(--g)}
+.er{background:rgba(231,76,60,.1);border-color:rgba(231,76,60,.3);color:var(--r)}
+.inf{background:rgba(240,165,0,.1);border-color:rgba(240,165,0,.3);color:var(--a)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono" style="font-size:11px;color:var(--td);margin-bottom:16px">
+    <a href="cs2_master_index.html">&#8592; CS2 MASTER INDEX</a>
+    &nbsp;|&nbsp;
+    <a href="cs2_inventory_manager.html">INVENTORY MANAGER</a>
+  </p>
+  <h1>Steam Inventory <span>Importer</span></h1>
+  <p class="sub">// IMPORT YOUR CS2 COLLECTION IN 3 STEPS — NO API KEY REQUIRED //</p>
+
+  <div class="card">
+    <div class="ct">HOW IT WORKS</div>
+    <div class="cd">
+      The bookmarklet below runs directly on your Steam inventory page while you are logged in.<br>
+      It uses your existing Steam session — no API key, no passwords, nothing is stored or transmitted.<br>
+      The data never leaves your browser. It generates a JSON file you paste into the Inventory Manager.
+    </div>
+
+    <div class="step">
+      <div class="sn">1</div>
+      <div class="sc">
+        <strong>Drag the button below to your browser's bookmarks bar</strong><br>
+        (If you don't see the bookmarks bar: press <strong>Ctrl+Shift+B</strong> in Chrome/Firefox to show it)
+        <div class="bm-box">
+          <a class="bm-link" id="bm-link" href="#">&#9670; CS2 Skin Index — Import Inventory</a>
+          <div class="bm-hint">&#8679; Drag this button to your bookmarks bar &nbsp;|&nbsp; or right-click &rarr; Bookmark this link</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="sn">2</div>
+      <div class="sc">
+        <strong>Go to your Steam inventory page and click the bookmarklet</strong><br>
+        Open: <a href="https://steamcommunity.com/my/inventory/#730" target="_blank" style="color:var(--c)">steamcommunity.com/my/inventory</a>
+        &nbsp;(log in if needed)<br>
+        Make sure CS2 is selected (the default tab). Then click <strong>CS2 Skin Index — Import Inventory</strong> in your bookmarks bar.<br>
+        A panel will appear at the bottom of the page showing your skins being processed.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="sn">3</div>
+      <div class="sc">
+        <strong>Copy the generated JSON and paste it into the Inventory Manager</strong><br>
+        The bookmarklet shows a text box with your inventory JSON.<br>
+        Click the box &rarr; <strong>Ctrl+A</strong> &rarr; <strong>Ctrl+C</strong> to copy.<br>
+        Then open <a href="cs2_inventory_manager.html">cs2_inventory_manager.html</a>
+        &rarr; paste into the Import box &rarr; click <strong>MERGE IMPORT</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">ALTERNATIVE — PASTE STEAM INVENTORY JSON DIRECTLY</div>
+    <div class="cd">
+      If the bookmarklet doesn't work, you can get your inventory JSON manually:<br>
+      1. While logged into Steam, open this URL in your browser (replace YOUR_STEAMID):<br>
+      <code style="color:var(--c);word-break:break-all">
+        https://steamcommunity.com/inventory/YOUR_STEAMID/730/2?l=english&count=5000
+      </code><br>
+      2. You'll see raw JSON. Press <strong>Ctrl+A</strong> then <strong>Ctrl+C</strong> to copy it.<br>
+      3. Paste below and click <strong>PROCESS &amp; IMPORT</strong>.
+    </div>
+    <textarea id="raw-json" placeholder="Paste your Steam inventory JSON here (from the URL above while logged in)..."></textarea>
+    <button class="btn bg" onclick="processRawJSON()">PROCESS &amp; IMPORT TO INVENTORY</button>
+    <div class="status" id="status"></div>
+    <div class="out" id="out">
+      <div class="out-steps">
+        <strong>Ready to import!</strong> Click inside the box &rarr; <strong>Ctrl+A</strong> &rarr; <strong>Ctrl+C</strong> &rarr;
+        open Inventory Manager &rarr; paste &rarr; MERGE IMPORT
+      </div>
+      <textarea id="out-json" readonly onclick="this.select();this.setSelectionRange(0,99999);" onfocus="this.select();"></textarea>
+      <div class="hint">&#9651; Click box &rarr; Ctrl+A &rarr; Ctrl+C &nbsp;|&nbsp; Mac: Cmd+A, Cmd+C</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Build the bookmarklet code ────────────────────────────────────────────────
+var SKIN_TO_STORE_URL = 'https://raw.githubusercontent.com/csdad67/CS2SkinIndex/main/skin_to_store.json';
+
+function buildBookmarklet(){
+  // This code runs on steamcommunity.com/my/inventory
+  // It fetches the inventory via the page's own session, processes it, and shows the result
+  var code = `
+(function(){
+  if(window._cs2importer){document.getElementById('_cs2panel').style.display='block';return;}
+  window._cs2importer=true;
+
+  // Create UI panel
+  var panel=document.createElement('div');
+  panel.id='_cs2panel';
+  panel.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#0a0c10;border-top:2px solid #00d4ff;padding:16px 20px;z-index:99999;font-family:monospace;font-size:12px;color:#c8d8e8;max-height:50vh;overflow-y:auto';
+  panel.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><strong style="color:#00d4ff;font-size:14px">&#9670; CS2 Skin Index — Import Inventory</strong><button onclick="this.closest(div).style.display=\'none\'" style="background:#333;border:none;color:#fff;padding:4px 10px;cursor:pointer">CLOSE</button></div><div id="_cs2log" style="color:#6a8098;margin-bottom:10px">Loading...</div><textarea id="_cs2out" readonly style="width:100%;background:#161b24;border:1px solid #00d4ff;color:#eaf2ff;font-family:monospace;font-size:10px;padding:8px;height:100px;resize:vertical;display:none" onclick="this.select();this.setSelectionRange(0,this.value.length)"></textarea><div id="_cs2hint" style="color:#6a8098;font-size:10px;margin-top:4px;display:none">&#9651; Click box, then Ctrl+A, Ctrl+C to copy. Then paste into cs2_inventory_manager.html</div></div>';
+  document.body.appendChild(panel);
+
+  function log(msg,col){
+    document.getElementById('_cs2log').innerHTML+='<div style="color:'+(col||'#c8d8e8')+'">'+msg+'</div>';
+  }
+
+  function sid(n){return n.toLowerCase().replace(/[^a-z0-9]/g,'_');}
+
+  function process(raw, skinMap){
+    var assets=raw.assets||[];
+    var descs=raw.descriptions||[];
+    log('Assets: '+assets.length+' | Descriptions: '+descs.length);
+
+    if(!assets.length){
+      log('No CS2 items found. Make sure CS2 tab is selected and inventory is not empty.','#e74c3c');
+      return;
+    }
+
+    var dm={};
+    descs.forEach(function(d){dm[d.classid+'_'+d.instanceid]=d;});
+
+    var inv={};
+    var n=0,sk=0;
+    assets.forEach(function(a){
+      var d=dm[a.classid+'_'+a.instanceid]||{};
+      var mhn=d.market_hash_name||'';
+      if(!mhn||mhn.indexOf(' | ')<0){sk++;return;}
+      var wear='';
+      ['Factory New','Minimal Wear','Field-Tested','Well-Worn','Battle-Scarred'].forEach(function(w){
+        if(mhn.indexOf('('+w+')')>=0)wear=w;
+      });
+      var st=mhn.indexOf('StatTrak')>=0;
+      var base=mhn;
+      if(wear)base=base.replace(' ('+wear+')','').trim();
+      base=base.replace('StatTrak\u2122 ','').replace('StatTrak ','').replace('Souvenir ','').trim();
+      var id=sid(base);
+      var storeKey=skinMap[id]||null;
+      if(!inv[id])inv[id]={name:base,entries:[],storeKey:storeKey};
+      inv[id].entries.push({st:st,wear:wear,float:'',pattern:'',assetid:a.assetid||''});
+      n++;
+    });
+
+    var matched=Object.keys(inv).filter(function(k){return inv[k].storeKey;}).length;
+    var total=Object.keys(inv).length;
+    log('Skins: '+n+' items | '+total+' unique | '+matched+' matched to cases | '+(total-matched)+' unrecognised','#2ecc71');
+
+    // Build import format (matching cs2_inventory_manager.html format)
+    var invByStore={};
+    Object.keys(inv).forEach(function(id){
+      var item=inv[id];
+      if(!item.storeKey)return;
+      if(!invByStore[item.storeKey])invByStore[item.storeKey]={};
+      invByStore[item.storeKey][id]=item.entries;
+    });
+
+    var result=JSON.stringify({
+      version:2,
+      exported:new Date().toISOString(),
+      source:'CS2 Skin Index Steam Importer (bookmarklet)',
+      summary:{totalSkins:matched,totalEntries:n,wishlisted:0,cases:0},
+      inventory:invByStore,
+      wishlist:[]
+    },null,2);
+
+    document.getElementById('_cs2out').value=result;
+    document.getElementById('_cs2out').style.display='block';
+    document.getElementById('_cs2hint').style.display='block';
+    log('Done! Copy the JSON below and paste it into the CS2 Inventory Manager MERGE IMPORT.','#f0a500');
+  }
+
+  // Get Steam ID from page
+  var steamId=null;
+  try{
+    var m=window.location.href.match(/steamcommunity\.com\/profiles\/([0-9]+)/);
+    if(m)steamId=m[1];
+    if(!steamId&&typeof g_steamID!='undefined')steamId=g_steamID;
+    if(!steamId&&typeof g_rgProfileData!='undefined')steamId=g_rgProfileData.steamid;
+  }catch(e){}
+
+  if(!steamId){
+    log('Could not detect Steam ID. Go to steamcommunity.com/my/inventory first.','#e74c3c');
+    return;
+  }
+  log('Steam ID: '+steamId);
+
+  // Load skin map from GitHub
+  log('Loading skin database from GitHub...');
+  var xhr1=new XMLHttpRequest();
+  xhr1.open('GET','https://raw.githubusercontent.com/csdad67/CS2SkinIndex/main/skin_to_store.json?t='+Date.now(),true);
+  xhr1.onload=function(){
+    if(xhr1.status!==200){log('Could not load skin database: HTTP '+xhr1.status,'#e74c3c');return;}
+    var skinMap;
+    try{skinMap=JSON.parse(xhr1.responseText);}
+    catch(e){log('Invalid skin database: '+e,'#e74c3c');return;}
+    log('Skin database: '+Object.keys(skinMap).length+' entries');
+
+    // Fetch inventory
+    log('Fetching CS2 inventory...');
+    var inv_url='https://steamcommunity.com/inventory/'+steamId+'/730/2?l=english&count=5000';
+    var xhr2=new XMLHttpRequest();
+    xhr2.open('GET',inv_url,true);
+    xhr2.withCredentials=true;
+    xhr2.onload=function(){
+      if(xhr2.status!==200){
+        log('Inventory fetch failed: HTTP '+xhr2.status+'. Make sure you are logged into Steam.','#e74c3c');
+        return;
+      }
+      var raw;
+      try{raw=JSON.parse(xhr2.responseText);}
+      catch(e){log('Invalid response from Steam: '+e,'#e74c3c');return;}
+      process(raw,skinMap);
+    };
+    xhr2.onerror=function(){log('Network error fetching inventory. Make sure you are on steamcommunity.com','#e74c3c');};
+    xhr2.send();
+  };
+  xhr1.onerror=function(){log('Could not reach GitHub (network error)','#e74c3c');};
+  xhr1.send();
+})();
+  `.trim();
+
+  // Minify slightly
+  return 'javascript:' + encodeURIComponent(code);
+}
+
+// Set the bookmarklet href
+var bm = document.getElementById('bm-link');
+if(bm) bm.href = buildBookmarklet();
+
+// ── Process pasted raw Steam inventory JSON ───────────────────────────────────
+function processRawJSON(){
+  var raw_text = document.getElementById('raw-json').value.trim();
+  if(!raw_text){showStatus('Paste your Steam inventory JSON first','er');return;}
+
+  var raw;
+  try{ raw = JSON.parse(raw_text); }
+  catch(e){ showStatus('Invalid JSON: '+e.message,'er'); return; }
+
+  var assets = raw.assets || [];
+  var descs  = raw.descriptions || [];
+
+  if(!assets.length){
+    showStatus('No CS2 items found in the pasted JSON. Check you used the correct URL while logged in.','er');
+    return;
+  }
+
+  showStatus('Processing '+assets.length+' items...','inf');
+
+  // Load skin map
+  fetch('https://raw.githubusercontent.com/csdad67/CS2SkinIndex/main/skin_to_store.json?t='+Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(skinMap){
+      var dm = {};
+      descs.forEach(function(d){ dm[d.classid+'_'+d.instanceid] = d; });
+
+      function sid(n){ return n.toLowerCase().replace(/[^a-z0-9]/g,'_'); }
+
+      var invByStore = {};
+      var matched=0, total=0, entries=0;
+
+      assets.forEach(function(a){
+        var d   = dm[a.classid+'_'+a.instanceid] || {};
+        var mhn = d.market_hash_name || '';
+        if(!mhn || mhn.indexOf(' | ') < 0) return;
+        total++;
+        var wear = '';
+        ['Factory New','Minimal Wear','Field-Tested','Well-Worn','Battle-Scarred'].forEach(function(w){
+          if(mhn.indexOf('('+w+')') >= 0) wear = w;
+        });
+        var st   = mhn.indexOf('StatTrak') >= 0;
+        var base = mhn;
+        if(wear) base = base.replace(' ('+wear+')', '').trim();
+        base = base.replace('StatTrak™ ','').replace('StatTrak ','').replace('Souvenir ','').trim();
+        var id       = sid(base);
+        var storeKey = skinMap[id] || null;
+        if(!storeKey) return;
+        matched++;
+        if(!invByStore[storeKey]) invByStore[storeKey] = {};
+        if(!invByStore[storeKey][id]) invByStore[storeKey][id] = [];
+        invByStore[storeKey][id].push({
+          st: st, wear: wear, float: '', pattern: '', assetid: a.assetid || ''
+        });
+        entries++;
+      });
+
+      var result = JSON.stringify({
+        version: 2,
+        exported: new Date().toISOString(),
+        source: 'CS2 Skin Index Steam Importer',
+        summary: {totalSkins: matched, totalEntries: entries, wishlisted: 0, cases: 0},
+        inventory: invByStore,
+        wishlist: []
+      }, null, 2);
+
+      document.getElementById('out-json').value = result;
+      document.getElementById('out').style.display = 'block';
+      document.getElementById('out-json').scrollIntoView({behavior:'smooth'});
+      setTimeout(function(){
+        document.getElementById('out-json').focus();
+        document.getElementById('out-json').select();
+      }, 400);
+      showStatus('✓ Processed: '+total+' weapon skins found, '+matched+' matched to cases. Copy the JSON below and paste into Inventory Manager.','ok');
+    })
+    .catch(function(e){
+      showStatus('Could not load skin database from GitHub: '+e.message,'er');
+    });
+}
+
+function showStatus(msg, type){
+  var el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status ' + type;
+  el.style.display = 'block';
+}
+</script>
+</body>
+</html>
