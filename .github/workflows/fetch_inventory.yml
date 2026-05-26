@@ -1,0 +1,35 @@
+name: Fetch Steam Inventory
+
+on:
+  workflow_dispatch:
+    inputs:
+      steam_id:
+        description: 'Your Steam ID (64-bit, e.g. 76561198XXXXXXXXX)'
+        required: true
+        type: string
+
+jobs:
+  fetch-inventory:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Steam Inventory
+        run: python3 fetch_inventory.py --steamid "${{ github.event.inputs.steam_id }}" --output steam_inventory.json
+
+      - name: Commit steam_inventory.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add steam_inventory.json
+          git diff --staged --quiet || git commit -m "Steam inventory import $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
