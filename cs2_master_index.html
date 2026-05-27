@@ -37,7 +37,15 @@ h1 span{color:var(--accent)}
 .stat-dot{width:8px;height:8px;border-radius:50%}
 
 /* Toolbar */
-.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:32px}
+/* Two-row toolbar */
+.toolbar-actions{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:14px 0 10px;border-bottom:1px solid var(--border);margin-bottom:0;
+}
+.toolbar{
+  display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 0 14px;border-bottom:1px solid var(--border);margin-bottom:32px;
+}
 .filter-btn{font-family:'Share Tech Mono',monospace;font-size:11px;padding:6px 14px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;transition:all .2s;letter-spacing:1px}
 .filter-btn:hover,.filter-btn.active{color:var(--accent);border-color:var(--accent);background:rgba(240,165,0,.07)}
 
@@ -281,42 +289,24 @@ h1 span{color:var(--accent)}
     <div class="stat-pill"><div class="stat-dot" style="background:#f0a500"></div>2 ARMORY CASES</div>
     <div class="stat-pill"><div class="stat-dot" style="background:#2ecc71"></div>4 PRIME ACTIVE</div>
     <div class="stat-pill"><div class="stat-dot" style="background:#9b59b6"></div>RARE &amp; OPERATION</div>
+    <div class="stat-pill"><div class="stat-dot" style="background:#9b59b6"></div>48 COLLECTIONS</div>
     <div class="stat-pill"><div class="stat-dot" style="background:#888"></div>UPDATED MAY 2026</div>
   </div>
 
   <!-- Toolbar -->
-  <div class="toolbar">
-    <button class="filter-btn active" onclick="filterCases('all',this)">ALL</button>
-    <button class="filter-btn" onclick="filterCases('terminal',this)">TERMINALS</button>
-    <button class="filter-btn" onclick="filterCases('armory',this)">ARMORY</button>
-    <button class="filter-btn" onclick="filterCases('prime',this)">PRIME ACTIVE</button>
-    <button class="filter-btn" onclick="filterCases('rare',this)">RARE</button>
-    <button class="filter-btn" onclick="filterCases('operation',this)">OPERATION</button>
-    <button class="filter-btn" onclick="filterCases('discontinued',this)">DISCONTINUED</button>
+  <div class="toolbar-actions">
     <button class="action-btn fetch-btn" id="fetch-btn" onclick="fetchAllPrices()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/>
-        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
       FETCH CURRENT PRICES
     </button>
     <button class="action-btn check-btn" id="check-btn" onclick="checkForNewCases()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       CHECK FOR NEW CASES
     </button>
-    <button class="action-btn" id="wishlist-print-btn"
-        style="border-color:#ff4d6d;color:#ff4d6d"
-        onclick="printWishlist()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-      </svg>
+    <button class="action-btn" id="wishlist-print-btn" style="border-color:#ff4d6d;color:#ff4d6d" onclick="printWishlist()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       PRINT WISHLIST
     </button>
-    <a href="cs2_steam_importer.html" class="action-btn" style="border-color:#2ecc71;color:#2ecc71;text-decoration:none">
-      &#9670; STEAM IMPORT
-    </a>
     <a href="cs2_inventory_manager.html" class="action-btn" style="border-color:var(--own-accent);color:var(--own-accent);text-decoration:none">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       EXPORT / IMPORT
@@ -325,8 +315,20 @@ h1 span{color:var(--accent)}
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       PRINT ALL OWNED
     </button>
-    <div class="price-timestamp">PRICING: <span id="price-ts">NOT YET FETCHED</span></div>
+    <div class="price-timestamp" style="margin-left:auto">PRICING: <span id="price-ts">NOT YET FETCHED</span></div>
   </div>
+
+  <div class="toolbar">
+    <button class="filter-btn active" onclick="filterCases('all',this)">ALL</button>
+    <button class="filter-btn" onclick="filterCases('terminal',this)">TERMINALS</button>
+    <button class="filter-btn" onclick="filterCases('armory',this)">ARMORY</button>
+    <button class="filter-btn" onclick="filterCases('prime',this)">PRIME ACTIVE</button>
+    <button class="filter-btn" onclick="filterCases('rare',this)">RARE</button>
+    <button class="filter-btn" onclick="filterCases('operation',this)">OPERATION</button>
+    <button class="filter-btn" onclick="filterCases('discontinued',this)">DISCONTINUED</button>
+    <button class="filter-btn" onclick="filterCases('collection',this)">COLLECTIONS</button>
+  </div>
+
 
   <!-- New case alert area -->
   <div class="new-case-alert" id="new-case-alert">
@@ -351,6 +353,17 @@ h1 span{color:var(--accent)}
     <div class="search-row">
       <select class="search-select" id="search-weapon" onchange="runSearch()">
         <option value="">All Weapons</option>
+      </select>
+
+      <select class="search-select" id="search-rarity" onchange="runSearch()" style="flex:0 0 auto;min-width:160px">
+        <option value="">All Rarities</option>
+        <option value="Consumer Grade">Consumer Grade</option>
+        <option value="Industrial Grade">Industrial Grade</option>
+        <option value="Mil-Spec Grade">Mil-Spec Grade</option>
+        <option value="Restricted">Restricted</option>
+        <option value="Classified">Classified</option>
+        <option value="Covert">Covert</option>
+        <option value="Extraordinary">Extraordinary (Knives/Gloves)</option>
       </select>
       <input class="search-input" id="search-name" type="text" placeholder="Search skin name... (e.g. Asiimov, Fade, Neon)" oninput="runSearch()" autocomplete="off">
       <button class="search-clear" onclick="clearSearch()">CLEAR</button>
@@ -1959,6 +1972,1361 @@ h1 span{color:var(--accent)}
   </div>
   </div>
 
+
+  <div class="idx-section" id="sec-collection">
+    <div class="idx-section-hdr">
+      <h2 class="idx-section-title">Map &amp; Theme Collections</h2>
+      <span class="idx-section-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b612;border:1px solid">48 COLLECTIONS</span>
+    </div>
+    <div class="idx-section-desc" style="border-left-color:#9b59b6">Drop-only collections tied to maps and themes. No key required.</div>
+    <div class="case-cards-grid">
+    <div class="case-card" data-section="collection" data-hash="Limited Edition Item" id="case-card-limited_edition_item">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Limited Edition Item</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Limited Edition Item</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 4 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Aphrodite</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Desert Eagle | Heat Treated</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_LIMITED_EDITION_ITEM.html" class="case-file-link">CS2_COL_LIMITED_EDITION_ITEM.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The 2018 Inferno Collection" id="case-card-the_2018_inferno_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">2018 Inferno Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">2018 Inferno Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 18 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Dual Berettas | Twin Turbo</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">SG 553 | Integrale</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_2018_INFERNO.html" class="case-file-link">CS2_COL_2018_INFERNO.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The 2018 Nuke Collection" id="case-card-the_2018_nuke_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">2018 Nuke Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">2018 Nuke Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 18 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Control Panel</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Tec-9 | Remote Control</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_2018_NUKE.html" class="case-file-link">CS2_COL_2018_NUKE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The 2021 Dust 2 Collection" id="case-card-the_2021_dust_2_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">2021 Dust 2 Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">2021 Dust 2 Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Gold Arabesque</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">SSG 08 | Death Strike</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_2021_DUST_2.html" class="case-file-link">CS2_COL_2021_DUST_2.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The 2021 Mirage Collection" id="case-card-the_2021_mirage_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">2021 Mirage Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">2021 Mirage Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Desert Hydra</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Desert Eagle | Fennec Fox</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_2021_MIRAGE.html" class="case-file-link">CS2_COL_2021_MIRAGE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The 2021 Train Collection" id="case-card-the_2021_train_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">2021 Train Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">2021 Train Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 21 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Gamma Doppler</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Gamma Doppler</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_2021_TRAIN.html" class="case-file-link">CS2_COL_2021_TRAIN.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The 2021 Vertigo Collection" id="case-card-the_2021_vertigo_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">2021 Vertigo Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">2021 Vertigo Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Imminent Danger</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Five-SeveN | Fall Hazard</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_2021_VERTIGO.html" class="case-file-link">CS2_COL_2021_VERTIGO.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Achroma Collection" id="case-card-the_achroma_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Achroma Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Achroma Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 20 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | The End</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Breakthrough</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ACHROMA.html" class="case-file-link">CS2_COL_ACHROMA.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Alpha Collection" id="case-card-the_alpha_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Alpha Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Alpha Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">FAMAS | Spitfire</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">SCAR-20 | Emerald</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ALPHA.html" class="case-file-link">CS2_COL_ALPHA.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Ancient Collection" id="case-card-the_ancient_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Ancient Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Ancient Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Welcome to the Jungle</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Panthera onca</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ANCIENT.html" class="case-file-link">CS2_COL_ANCIENT.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Anubis Collection" id="case-card-the_anubis_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Anubis Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Anubis Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A4 | Eye of Horus</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">FAMAS | Waters of Nephthys</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ANUBIS.html" class="case-file-link">CS2_COL_ANUBIS.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Ascent Collection" id="case-card-the_ascent_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Ascent Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Ascent Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 28 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Stratosphere</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Midnight Laminate</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ASCENT.html" class="case-file-link">CS2_COL_ASCENT.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Assault Collection" id="case-card-the_assault_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Assault Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Assault Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 7 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Fade</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MP9 | Bulldozer</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ASSAULT.html" class="case-file-link">CS2_COL_ASSAULT.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Aztec Collection" id="case-card-the_aztec_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Aztec Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Aztec Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 6 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Tec-9 | Ossified</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Jungle Spray</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_AZTEC.html" class="case-file-link">CS2_COL_AZTEC.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Baggage Collection" id="case-card-the_baggage_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Baggage Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Baggage Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Jet Set</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | First Class</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_BAGGAGE.html" class="case-file-link">CS2_COL_BAGGAGE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Bank Collection" id="case-card-the_bank_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Bank Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Bank Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">P250 | Franklin</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Emerald Pinstripe</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_BANK.html" class="case-file-link">CS2_COL_BANK.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Blacksite Collection" id="case-card-the_blacksite_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Blacksite Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Blacksite Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 1 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MP5-SD | Lab Rats</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_BLACKSITE.html" class="case-file-link">CS2_COL_BLACKSITE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Boreal Collection" id="case-card-the_boreal_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Boreal Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Boreal Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 29 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Green Energy</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Glockingbird</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_BOREAL.html" class="case-file-link">CS2_COL_BOREAL.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Cache Collection" id="case-card-the_cache_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Cache Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Cache Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 13 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">FAMAS | Styx</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Galil AR | Cerberus</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_CACHE.html" class="case-file-link">CS2_COL_CACHE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Canals Collection" id="case-card-the_canals_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Canals Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Canals Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 18 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | The Prince</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MAG-7 | Cinquedea</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_CANALS.html" class="case-file-link">CS2_COL_CANALS.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Cobblestone Collection" id="case-card-the_cobblestone_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Cobblestone Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Cobblestone Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Dragon Lore</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Knight</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_COBBLESTONE.html" class="case-file-link">CS2_COL_COBBLESTONE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Control Collection" id="case-card-the_control_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Control Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Control Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Fade</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Blue Phosphor</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_CONTROL.html" class="case-file-link">CS2_COL_CONTROL.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Dust 2 Collection" id="case-card-the_dust_2_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Dust 2 Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Dust 2 Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">R8 Revolver | Amber Fade</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">P2000 | Amber Fade</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_DUST_2.html" class="case-file-link">CS2_COL_DUST_2.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Dust Collection" id="case-card-the_dust_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Dust Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Dust Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 9 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Desert Eagle | Blaze</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Brass</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_DUST.html" class="case-file-link">CS2_COL_DUST.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Gods and Monsters Collection" id="case-card-the_gods_and_monsters_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Gods and Monsters Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Gods and Monsters Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 14 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Medusa</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A4 | Poseidon</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_GODS_AND_MONSTERS.html" class="case-file-link">CS2_COL_GODS_AND_MONSTERS.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Graphic Design Collection" id="case-card-the_graphic_design_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Graphic Design Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Graphic Design Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | CMYK</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AUG | Lil' Pig</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_GRAPHIC_DESIGN.html" class="case-file-link">CS2_COL_GRAPHIC_DESIGN.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Harlequin Collection" id="case-card-the_harlequin_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Harlequin Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Harlequin Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Party Animal</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Exothermic</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_HARLEQUIN.html" class="case-file-link">CS2_COL_HARLEQUIN.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Havoc Collection" id="case-card-the_havoc_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Havoc Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Havoc Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 19 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | X-Ray</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Silk Tiger</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_HAVOC.html" class="case-file-link">CS2_COL_HAVOC.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Inferno Collection" id="case-card-the_inferno_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Inferno Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Inferno Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 6 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Dual Berettas | Anodized Navy</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Tec-9 | Brass</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_INFERNO.html" class="case-file-link">CS2_COL_INFERNO.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Italy Collection" id="case-card-the_italy_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Italy Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Italy Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Pit Viper</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Candy Apple</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ITALY.html" class="case-file-link">CS2_COL_ITALY.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Lake Collection" id="case-card-the_lake_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Lake Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Lake Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Dual Berettas | Cobalt Quartz</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">P90 | Teardown</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_LAKE.html" class="case-file-link">CS2_COL_LAKE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Militia Collection" id="case-card-the_militia_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Militia Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Militia Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 11 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">SCAR-20 | Splash Jam</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A4 | Modern Hunter</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_MILITIA.html" class="case-file-link">CS2_COL_MILITIA.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Mirage Collection" id="case-card-the_mirage_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Mirage Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Mirage Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MAG-7 | Bulldozer</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MAC-10 | Amber Fade</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_MIRAGE.html" class="case-file-link">CS2_COL_MIRAGE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Norse Collection" id="case-card-the_norse_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Norse Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Norse Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 18 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Gungnir</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Negev | Mjölnir</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_NORSE.html" class="case-file-link">CS2_COL_NORSE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Nuke Collection" id="case-card-the_nuke_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Nuke Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Nuke Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 9 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">P250 | Nuclear Threat</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Tec-9 | Nuclear Threat</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_NUKE.html" class="case-file-link">CS2_COL_NUKE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Office Collection" id="case-card-the_office_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Office Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Office Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 6 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">P2000 | Silver</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MP7 | Whiteout</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_OFFICE.html" class="case-file-link">CS2_COL_OFFICE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Overpass 2024 Collection" id="case-card-the_overpass_2024_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Overpass 2024 Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Overpass 2024 Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | B the Monster</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Crakow!</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_OVERPASS_2024.html" class="case-file-link">CS2_COL_OVERPASS_2024.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Overpass Collection" id="case-card-the_overpass_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Overpass Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Overpass Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Master Piece</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | Pink DDPAT</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_OVERPASS.html" class="case-file-link">CS2_COL_OVERPASS.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Radiant Collection" id="case-card-the_radiant_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Radiant Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Radiant Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 28 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Nouveau Rouge</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Desert Eagle | Mulberry</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_RADIANT.html" class="case-file-link">CS2_COL_RADIANT.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Rising Sun Collection" id="case-card-the_rising_sun_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Rising Sun Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Rising Sun Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AUG | Akihabara Accept</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Hydroponic</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_RISING_SUN.html" class="case-file-link">CS2_COL_RISING_SUN.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Safehouse Collection" id="case-card-the_safehouse_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Safehouse Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Safehouse Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Nitro</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">FAMAS | Teardown</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_SAFEHOUSE.html" class="case-file-link">CS2_COL_SAFEHOUSE.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Sport & Field Collection" id="case-card-the_sport___field_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Sport & Field Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Sport & Field Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Fade</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Galil AR | Rainbow Spoon</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_SPORT_FIELD.html" class="case-file-link">CS2_COL_SPORT_FIELD.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The St. Marc Collection" id="case-card-the_st__marc_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">St. Marc Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">St. Marc Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 18 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Wild Lotus</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">MP9 | Wild Lily</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_ST_MARC.html" class="case-file-link">CS2_COL_ST_MARC.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Train 2025 Collection" id="case-card-the_train_2025_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Train 2025 Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Train 2025 Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AWP | LongDog</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A4 | Hellish</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_TRAIN_2025.html" class="case-file-link">CS2_COL_TRAIN_2025.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Train Collection" id="case-card-the_train_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Train Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Train Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 15 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Tec-9 | Red Quartz</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Desert Eagle | Urban Rubble</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_TRAIN.html" class="case-file-link">CS2_COL_TRAIN.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Vertigo Collection" id="case-card-the_vertigo_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Vertigo Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Vertigo Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 6 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Dual Berettas | Demolition</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">AK-47 | Black Laminate</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_VERTIGO.html" class="case-file-link">CS2_COL_VERTIGO.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The X-Ray Collection" id="case-card-the_x_ray_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">X-Ray Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">X-Ray Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 1 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">P250 | X-Ray</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_X_RAY.html" class="case-file-link">CS2_COL_X_RAY.html</a>
+      </div>
+    </div>
+    <div class="case-card" data-section="collection" data-hash="The Chop Shop Collection" id="case-card-the_chop_shop_collection">
+      <div class="case-card-accent" style="background:linear-gradient(90deg,#9b59b6,transparent)"></div>
+      <div class="case-card-img-wrap">
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#9b59b6;text-align:center;padding:20px;letter-spacing:1px;line-height:1.4">Chop Shop Collection</div>
+        <div class="case-card-status-badge" style="color:#9b59b6;border-color:#9b59b640;background:#9b59b615">COLLECTION</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-card-name">Chop Shop Collection</div>
+        <div class="case-card-meta-row">
+          <span class="case-meta-pill">&#127922; 16 skins</span>
+          <span class="case-meta-pill">DROP ONLY</span>
+        </div>
+        <div class="case-card-knives" style="color:#9b59b6">No key required</div>
+        <div class="case-card-coverts-label">TOP SKINS</div>
+        <div class="case-card-coverts"><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">Glock-18 | Twilight Galaxy</span><span class="covert-pill" style="background:rgba(155,89,182,.1);border-color:rgba(155,89,182,.25);color:#bb88ee">M4A1-S | Hot Rod</span></div>
+        <div class="case-price-row">
+          <div class="case-price-item" style="flex:2">
+            <span class="case-price-dot" style="background:#9b59b6"></span>
+            <span class="case-price-source">NO KEY NEEDED</span>
+            <span class="case-price-val" style="color:#9b59b6">FREE DROP</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-card-footer">
+        <span class="case-drop-badge">DROP: ACTIVE POOL</span>
+        <a href="CS2_COL_CHOP_SHOP.html" class="case-file-link">CS2_COL_CHOP_SHOP.html</a>
+      </div>
+    </div>
+    </div>
+  </div>
+
   <div class="footer-note">
     <strong style="color:var(--accent)">CS2 MASTER CASE INDEX</strong> — Data: ByMykel CSGO-API (MIT) · Images: community.akamai.steamstatic.com (Valve)<br>
     Prices: Steam Community Market &amp; Skinport. Pricing cached in localStorage. Click FETCH CURRENT PRICES to refresh.<br>
@@ -2366,20 +3734,23 @@ const CATEGORY_ORDER = [
 async function runSearch(){
   const weaponFilter = document.getElementById('search-weapon').value.toLowerCase();
   const nameFilter   = document.getElementById('search-name').value.toLowerCase().trim();
+  const rarityFilter = document.getElementById('search-rarity').value;
   const resultsDiv   = document.getElementById('search-results');
   const grid         = document.getElementById('search-grid');
   const countEl      = document.getElementById('search-count');
 
-  if(!weaponFilter && !nameFilter){ resultsDiv.classList.remove('visible'); return; }
+  if(!weaponFilter && !nameFilter && !rarityFilter){ resultsDiv.classList.remove('visible'); return; }
 
   const skins = await loadSkinDB();
   const matches = skins.filter(s=>{
     const parts  = s.name.split(' | ');
     const weapon = (parts[0]||'').replace('★ ','').replace('★','').trim().toLowerCase();
     const skin   = (parts[1]||'').toLowerCase();
+    const rarity = s.rarity?.name||'';
     const wOk    = !weaponFilter || weapon === weaponFilter;
     const nOk    = !nameFilter   || skin.includes(nameFilter) || weapon.includes(nameFilter);
-    return wOk && nOk;
+    const rOk    = !rarityFilter || rarity === rarityFilter;
+    return wOk && nOk && rOk;
   }).slice(0, 200);
 
   countEl.textContent = matches.length === 0
@@ -2444,6 +3815,7 @@ async function runSearch(){
 function clearSearch(){
   document.getElementById('search-weapon').value='';
   document.getElementById('search-name').value='';
+  document.getElementById('search-rarity').value='';
   document.getElementById('search-results').classList.remove('visible');
 }
 

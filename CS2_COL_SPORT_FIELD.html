@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sport & Field Collection — CS2 Skin Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c10;--surface:#0f1318;--surface2:#161b24;
+  --border:#1e2836;--border2:#243040;
+  --accent:#f0a500;--text:#c8d8e8;--text-dim:#6a8098;--text-bright:#eaf2ff;
+  --covert:#eb4b4b;--classified:#d32ce6;--restricted:#8847ff;
+  --milspec:#4b69ff;--extraordinary:#e4ae39;
+  --own-bg:#0b141f;--own-border:#1a2d44;--own-accent:#00d4ff;--st-color:#f0a500;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(59,158,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,158,255,.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:0 24px 60px}
+
+/* Header */
+header{padding:36px 24px 32px;border-bottom:1px solid var(--border);margin-bottom:36px;position:relative}
+header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:160px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.breadcrumb a{color:var(--accent);text-decoration:none}
+.breadcrumb a:hover{color:var(--text-bright)}
+.header-flex{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.case-img-wrap{width:120px;height:120px;border:1px solid var(--border2);background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.case-img-wrap img{width:108px;height:108px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
+.header-info h1{font-family:'Rajdhani',sans-serif;font-size:clamp(24px,4vw,44px);font-weight:700;color:var(--text-bright);letter-spacing:2px}
+.header-info h1 span{color:var(--accent)}
+.header-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.meta-pill{font-family:'Share Tech Mono',monospace;font-size:11px;padding:4px 10px;background:var(--surface2);border:1px solid var(--border2);color:var(--text-dim)}
+.meta-pill strong{color:var(--text-bright)}
+.meta-highlight{color:var(--accent);border-color:rgba(240,165,0,.4)}
+/* Case price strip in header */
+.case-price-strip{display:flex;align-items:stretch;gap:10px;margin-top:12px;flex-wrap:wrap}
+.case-price-cell{display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--surface2);border:1px solid var(--border);min-width:155px}
+.case-price-cell .price-source-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.case-price-cell .price-source-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;white-space:nowrap}
+.case-price-cell .case-price-value{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;color:var(--text-bright);margin-left:2px}
+.case-price-cell .case-price-value.loading{color:var(--text-dim);font-size:11px;animation:pulse 1.2s infinite}
+.case-price-cell .case-price-value.no-fn{color:#3a5070;font-size:10px}
+
+/* Toolbar */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.filter-btn{font-family:'Share Tech Mono',monospace;font-size:11px;padding:6px 14px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;transition:all .2s;letter-spacing:1px}
+.filter-btn:hover,.filter-btn.active{color:var(--accent);border-color:var(--accent);background:rgba(240,165,0,.07)}
+.print-btn{font-family:'Share Tech Mono',monospace;font-size:11px;padding:6px 16px;background:transparent;border:1px solid var(--accent);color:var(--accent);cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
+.print-btn:hover{background:rgba(240,165,0,.1)}
+.fetch-btn{font-family:'Share Tech Mono',monospace;font-size:11px;padding:6px 14px;background:transparent;border:1px solid #2a9d8f;color:#2a9d8f;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s;letter-spacing:1px}
+.fetch-btn:hover{background:rgba(42,157,143,.1)}
+.fetch-btn:disabled{opacity:.4;cursor:not-allowed}
+.price-timestamp{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim)}
+.price-timestamp span{color:var(--text)}
+.price-bar{display:flex;align-items:center;gap:10px;padding:8px 0;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:24px}
+
+/* Section headers */
+.section-hdr{display:flex;align-items:center;gap:12px;margin:36px 0 18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-hdr h2{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--text-bright);letter-spacing:2px;text-transform:uppercase}
+.s-badge{font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px}
+
+/* Cards grid */
+.skins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;margin-bottom:8px}
+.skin-card{background:var(--surface);border:1px solid var(--border);transition:transform .2s,border-color .2s,box-shadow .2s;position:relative;overflow:hidden}
+.skin-card:hover{transform:translateY(-2px);border-color:var(--border2);box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.skin-card.is-owned{border-color:rgba(0,212,255,.4)}
+.rarity-bar{height:3px;width:100%}
+.rarity-covert .rarity-bar{background:var(--covert)}
+.rarity-classified .rarity-bar{background:var(--classified)}
+.rarity-restricted .rarity-bar{background:var(--restricted)}
+.rarity-milspec .rarity-bar{background:var(--milspec)}
+.rarity-industrial .rarity-bar{background:#5e98d9}
+.rarity-consumer .rarity-bar{background:#b0c3d9}
+.rarity-extraordinary .rarity-bar{background:var(--extraordinary)}
+.skin-img-wrap{background:linear-gradient(135deg,var(--surface2),#0d1520);display:flex;align-items:center;justify-content:center;height:155px;overflow:hidden;position:relative}
+.skin-img-wrap img{width:225px;max-height:145px;object-fit:contain;transition:transform .3s;filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
+.skin-card:hover .skin-img-wrap img{transform:scale(1.06)}
+.rarity-label{position:absolute;top:8px;right:8px;font-family:'Share Tech Mono',monospace;font-size:10px;padding:2px 7px}
+.rarity-covert .rarity-label{background:rgba(235,75,75,.2);color:var(--covert)}
+.rarity-classified .rarity-label{background:rgba(211,44,230,.2);color:var(--classified)}
+.rarity-restricted .rarity-label{background:rgba(136,71,255,.2);color:var(--restricted)}
+.rarity-milspec .rarity-label{background:rgba(75,105,255,.2);color:var(--milspec)}
+.rarity-industrial .rarity-label{background:rgba(94,152,217,.2);color:#5e98d9}
+.rarity-consumer .rarity-label{background:rgba(176,195,217,.2);color:#b0c3d9}
+.rarity-extraordinary .rarity-label{background:rgba(228,174,57,.2);color:var(--extraordinary)}
+.skin-body{padding:12px 14px}
+.skin-weapon{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:1px;margin-bottom:3px}
+.skin-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--text-bright);margin-bottom:10px;line-height:1.1}
+.skin-stats{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.stat-item{background:var(--surface2);padding:6px 9px}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:2px}
+.stat-value{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text)}
+.stat-value.highlight{color:var(--accent)}
+.wear-bar-wrap{margin-top:9px}
+.wear-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);margin-bottom:4px;letter-spacing:1px}
+.wear-track{height:4px;background:var(--border);position:relative;border-radius:2px}
+.wear-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--milspec),var(--accent));position:absolute}
+.knife-pattern-note{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);margin-top:8px;padding:6px 8px;background:rgba(228,174,57,.05);border-left:2px solid rgba(228,174,57,.3);line-height:1.5}
+
+/* Price strip */
+.price-strip{display:flex;align-items:stretch;border-top:1px solid var(--own-border);font-family:'Share Tech Mono',monospace;font-size:10px}
+.price-cell{flex:1;padding:7px 10px;display:flex;flex-direction:column;gap:2px}
+.price-cell:first-child{border-right:1px solid var(--own-border)}
+.price-source{font-size:8px;letter-spacing:1px;color:var(--text-dim);display:flex;align-items:center;gap:4px}
+.price-source-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.price-value{font-size:12px;font-weight:700;color:var(--text-bright);letter-spacing:.5px}
+.price-value.loading{color:var(--text-dim);font-size:10px;animation:pulse 1.2s infinite}
+.price-value.no-fn{color:#3a5070;font-size:10px}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* Ownership panel */
+.own-panel{border-top:1px solid var(--own-border)}
+.own-toggle{display:flex;align-items:center;gap:8px;padding:7px 14px;cursor:pointer;background:var(--own-bg);transition:background .15s;user-select:none}
+.own-toggle:hover{background:#101e32}
+.own-toggle-icon{font-size:9px;color:var(--own-accent);transition:transform .2s;width:10px;flex-shrink:0}
+.own-toggle-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--own-accent)}
+.own-badge{font-family:'Share Tech Mono',monospace;font-size:9px;margin-left:auto;background:rgba(0,212,255,.15);color:var(--own-accent);padding:1px 6px;display:none}
+.own-badge.visible{display:inline}
+.own-body{background:var(--own-bg);padding:8px 12px 10px;border-top:1px solid var(--own-border)}
+.own-entries{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.own-entry{background:var(--surface2);border:1px solid var(--own-border);padding:6px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.own-entry.is-st{border-color:rgba(240,165,0,.3)}
+.own-entry-type{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 6px;letter-spacing:.5px;flex-shrink:0;width:38px;text-align:center}
+.own-entry-type.std{background:rgba(0,212,255,.12);color:var(--own-accent)}
+.own-entry-type.st{background:rgba(240,165,0,.15);color:var(--st-color)}
+.own-input{background:var(--bg);border:1px solid var(--border);color:var(--text-bright);font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 7px;outline:none;transition:border-color .2s}
+.own-input:focus{border-color:var(--own-accent)}
+.own-input::placeholder{color:var(--text-dim);font-size:9px}
+.w-float{width:118px}.w-pattern{width:88px}
+.own-select{background:var(--bg);border:1px solid var(--border);color:var(--text-bright);font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 7px;outline:none;cursor:pointer;transition:border-color .2s}
+.own-select:focus{border-color:var(--own-accent)}
+.own-select option{background:var(--surface2)}
+.own-entry-del{margin-left:auto;background:transparent;border:none;color:#444;cursor:pointer;font-size:14px;padding:0 3px;transition:color .15s;line-height:1;flex-shrink:0}
+.own-entry-del:hover{color:#e74c3c}
+.own-add-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:5px 10px;background:transparent;border:1px solid var(--own-border);color:var(--own-accent);cursor:pointer;transition:all .15s;margin-right:6px}
+.own-add-btn:hover{border-color:var(--own-accent);background:rgba(0,212,255,.07)}
+.own-add-st{color:var(--st-color)}
+.own-add-st:hover{border-color:var(--st-color);background:rgba(240,165,0,.07)}
+
+/* Quick-ref */
+.knife-note{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:16px;padding:12px 16px;background:rgba(240,165,0,.06);border:1px solid rgba(240,165,0,.2)}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);margin-bottom:48px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--surface2);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text-dim);padding:11px 14px;text-align:left;border-bottom:1px solid var(--border2);white-space:nowrap;text-transform:uppercase}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+tbody tr:hover{background:rgba(59,158,255,.04)}
+tbody tr:last-child{border-bottom:none}
+td{padding:9px 14px;vertical-align:middle}
+.kname{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;color:var(--text-bright)}
+.mono{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim)}
+.qr-img{width:80px;padding:3px 8px}.qr-img img{width:76px;height:44px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.qr-num{width:36px;text-align:center;color:var(--border2)}.qr-weapon{font-weight:700;color:var(--text);white-space:nowrap}.qr-wear{white-space:nowrap}
+.qr-data-row:hover{background:rgba(59,158,255,.04) !important}
+.qr-knife-row td{border-top:1px solid rgba(228,174,57,.12)}
+.qr-divider td{padding:6px 14px;border:none;background:var(--surface)}
+.qr-inv-row{background:var(--own-bg) !important}.qr-inv-row:hover{background:var(--own-bg) !important}
+.qr-inv-cell{padding:0 !important;border-bottom:2px solid var(--own-border) !important}
+.qr-inv{padding:8px 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;min-height:36px}
+.qr-empty{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a5070;font-style:italic;padding:4px 0}
+.inv-chip{display:flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid var(--own-border);background:var(--surface2)}
+.inv-chip.chip-st{border-color:rgba(240,165,0,.25);background:#130f00}
+.chip-type{font-family:'Share Tech Mono',monospace;font-size:9px;padding:1px 5px;letter-spacing:.5px;flex-shrink:0}
+.chip-type.std{background:rgba(0,212,255,.12);color:var(--own-accent)}
+.chip-type.st{background:rgba(240,165,0,.15);color:var(--st-color)}
+.chip-detail{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text)}
+
+/* Footer */
+.footer-note{margin-top:48px;padding:20px;background:var(--surface);border:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);line-height:1.9}
+.footer-note a{color:var(--accent);text-decoration:none}
+.nav-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:8px}
+.nav-link{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;padding:5px 10px;border:1px solid rgba(240,165,0,.3);transition:all .2s}
+.nav-link:hover{background:rgba(240,165,0,.07);border-color:var(--accent)}
+
+/* Print */
+
+.skin-phase{font-family:'Share Tech Mono',monospace;font-size:10px;display:flex;align-items:center;gap:6px;margin:-4px 0 8px;letter-spacing:.5px}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.zoom-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:16px}
+.zoom-overlay.open{display:flex}
+.zoom-overlay img{max-width:88vw;max-height:78vh;object-fit:contain;filter:drop-shadow(0 8px 40px rgba(0,0,0,.8))}
+.zoom-label{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,.65);letter-spacing:1px;text-align:center;max-width:80vw}
+.zoom-close{position:absolute;top:20px;right:24px;font-size:32px;color:rgba(255,255,255,.55);cursor:pointer;line-height:1;transition:color .2s;background:none;border:none}
+.zoom-close:hover{color:#fff}
+
+.wish-btn-wrap{padding:6px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.wish-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:5px 12px;background:transparent;border:1px solid var(--border2);color:var(--text-dim);cursor:pointer;transition:all .2s;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;}
+.wish-btn:hover{border-color:#ff4d6d;color:#ff4d6d;background:rgba(255,77,109,.07);}
+.wish-btn.wishlisted{border-color:#ff4d6d;background:rgba(255,77,109,.1);color:var(--text-dim);}
+.wish-btn.wishlisted .wish-heart{color:#ff4d6d;}
+.skin-card.is-wishlisted{border-color:rgba(255,77,109,.5);}
+
+.toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 0 8px;border-bottom:1px solid var(--border);}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:8px 0 14px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+
+@media print{
+  @page{size:letter portrait;margin:.55in .5in .6in .5in}
+  body{background:#fff !important;color:#111 !important}
+  body::before{display:none !important}
+  header,.toolbar,.price-bar,.footer-note,#weapon-sections,#knife-section,#quick-ref{display:none !important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #print-panel{display:block !important}
+  #print-panel{font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;color:#111;background:#fff;width:100%}
+  .pp-header{border-bottom:2.5pt solid #c8830a;padding-bottom:6pt;margin-bottom:10pt;display:flex;align-items:center;gap:12pt}
+  .pp-header img.case-thumb{width:56pt;height:56pt;object-fit:contain}
+  .pp-title h1{font-size:18pt;font-weight:900;color:#111;letter-spacing:1pt;margin:0 0 3pt}
+  .pp-title h1 span{color:#c8830a}
+  .pp-meta{font-size:7.5pt;color:#555;display:flex;flex-wrap:wrap;gap:8pt}
+  .pp-meta span{white-space:nowrap}.pp-meta strong{color:#111}
+  .pp-section-title{font-size:9pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin:10pt 0 4pt;padding:3pt 6pt;border-left:4pt solid #c8830a;background:#f5f5f5;page-break-after:avoid}
+  body.print-owned .pp-section-title{border-left-color:#0077aa}
+  body.print-owned .pp-header{border-bottom-color:#0077aa}
+  body.print-owned .pp-owned-tag{display:inline !important}
+  .pp-owned-tag{display:none;color:#0077aa;font-size:14pt;margin-left:10pt}
+  .pp-table{width:100%;border-collapse:collapse;page-break-inside:auto}
+  .pp-table thead{display:table-header-group}
+  .pp-table thead tr{background:#222 !important}
+  .pp-table thead th{background:#222 !important;color:#fff !important;font-size:7pt;font-weight:700;letter-spacing:.8pt;padding:4pt 5pt;text-align:left;border:none}
+  .pp-table tbody tr{page-break-inside:avoid}
+  .pp-table tbody tr:nth-child(4n+1){background:#f9f8f5 !important}
+  .pp-table td{padding:3.5pt 5pt;vertical-align:middle;border-bottom:.5pt solid #ddd;font-size:7.8pt}
+  .img-cell{width:52pt;padding:2pt 4pt}.img-cell img{width:50pt;height:30pt;object-fit:contain}
+  .weapon-cell{font-weight:700;white-space:nowrap;width:62pt;color:#333}
+  .name-cell{font-weight:700}.rarity-cell{font-size:7pt;font-weight:700;white-space:nowrap}
+  .num-cell{font-family:"Courier New",monospace;font-size:7pt;white-space:nowrap;text-align:center;color:#444}
+  .wear-cell{font-family:"Courier New",monospace;font-size:7pt;white-space:nowrap;color:#444}
+  .st-cell{text-align:center;font-size:7pt}.note-cell{font-size:7pt;color:#555}
+  .print-inv-row td{padding:0;border-bottom:.5pt solid #e0e0e0}
+  .print-inv-cell{padding:0}
+  .print-inv-inner{display:flex;flex-wrap:wrap;gap:4pt;padding:3pt 5pt;background:#fafafa}
+  .pchip{display:flex;align-items:center;gap:4pt;border:1pt solid #ddd;padding:1.5pt 5pt;background:#fff}
+  .pchip.pchip-st{border-color:#c8830a;background:#fffaf0}
+  .pchip-type{font-size:6pt;font-weight:700;padding:0 3pt;color:#fff;background:#555}
+  .pchip-type.pst{background:#c8830a}
+  .pchip-detail{font-family:"Courier New",monospace;font-size:6.5pt;color:#333}
+  .print-inv-none{display:none}
+  body.print-owned .print-inv-none{display:table-row !important}
+  .print-none-cell{padding:2pt 5pt !important;border-bottom:.5pt solid #e8e8e8 !important;background:#fafafa}
+  .print-none-label{font-family:"Courier New",monospace;font-size:6.5pt;color:#bbb;letter-spacing:.5pt;font-style:italic}
+  .pp-key{margin-top:10pt;display:flex;gap:14pt;flex-wrap:wrap;font-size:7pt;page-break-inside:avoid}
+  .pp-key-item{display:flex;align-items:center;gap:4pt}
+  .pp-key-dot{width:8pt;height:8pt;border-radius:50%}
+  .pp-footer{margin-top:14pt;padding-top:5pt;border-top:.75pt solid #bbb;font-size:7pt;color:#888;display:flex;justify-content:space-between}
+}
+@media screen{#print-panel{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="cs2_master_index.html">&#8592; CS2 MASTER INDEX</a>
+      <span>/</span><span>The Sport & Field Collection</span>
+    </div>
+    <div class="header-flex">
+      <div class="case-img-wrap"><img src="" alt="The Sport & Field Collection"></div>
+      <div class="header-info">
+        <h1>Sport & <span>Field</span></h1>
+        <div class="header-meta">
+          <div class="meta-pill"><strong>Released:</strong> —</div>
+          <div class="meta-pill"><strong>Status:</strong> COLLECTION (DROP)</div>
+          <div class="meta-pill"><strong>Weapon Skins:</strong> 16</div>
+          <div class="meta-pill"><strong>Rare Items:</strong> 0</div>
+          <div class="meta-pill"><strong>Key Required:</strong> Yes ($2.49)</div>
+        </div>
+        <div class="case-price-strip">
+          <div class="case-price-cell">
+            <span class="price-source-dot" style="background:#4a90d9"></span>
+            <span class="price-source-label">STEAM MARKET</span>
+            <span class="case-price-value loading" id="case-steam-price">—</span>
+          </div>
+          <div class="case-price-cell">
+            <span class="price-source-dot" style="background:#e85d04"></span>
+            <span class="price-source-label">SKINPORT</span>
+            <span class="case-price-value loading" id="case-skinport-price">—</span>
+          </div>
+          <div class="case-price-cell" style="min-width:unset;background:transparent;border-color:transparent;padding-left:0">
+            <span class="price-source-label">CASE KEY</span>
+            <span class="case-price-value" style="color:var(--text-dim);font-size:12px">$2.49</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="zoom-overlay" id="zoom-overlay" onclick="closeZoom()">
+    <button class="zoom-close" onclick="closeZoom()">&#215;</button>
+    <img id="zoom-img" src="" alt="">
+    <div class="zoom-label" id="zoom-label"></div>
+  </div>
+
+  <!-- PRINT PANEL -->
+  <div id="print-panel">
+    <div class="pp-header">
+      <img class="case-thumb" src="" alt="The Sport & Field Collection">
+      <div class="pp-title">
+        <h1>Sport & <span>Field</span><span class="pp-owned-tag">&#8212; Owned Items</span></h1>
+        <div class="pp-meta">
+          <span><strong>Released:</strong> —</span>
+          <span><strong>Status:</strong> COLLECTION (DROP)</span>
+          <span><strong>Skins:</strong> 16 weapons + 0 rare items</span>
+          <span><strong>Key:</strong> $2.49</span>
+        </div>
+      </div>
+    </div>
+    <div class="pp-key">
+      <div class="pp-key-item"><div class="pp-key-dot" style="background:#cc2222"></div>Covert</div>
+      <div class="pp-key-item"><div class="pp-key-dot" style="background:#9b1fba"></div>Classified</div>
+      <div class="pp-key-item"><div class="pp-key-dot" style="background:#5533cc"></div>Restricted</div>
+      <div class="pp-key-item"><div class="pp-key-dot" style="background:#2244cc"></div>Mil-Spec</div>
+      <div class="pp-key-item"><div class="pp-key-dot" style="background:#996600"></div>Rare &#9733;</div>
+      <div class="pp-key-item" style="margin-left:auto;color:#888;font-size:7pt">FN 0&#8211;0.07 &middot; MW 0.07&#8211;0.15 &middot; FT 0.15&#8211;0.38 &middot; WW 0.38&#8211;0.45 &middot; BS 0.45&#8211;1.0</div>
+    </div>
+    <div class="pp-section-title">Weapon Skins (16)</div>
+    <table class="pp-table">
+      <thead><tr><th>IMG</th><th>WEAPON</th><th>SKIN NAME</th><th>RARITY</th><th>FL MIN</th><th>FL MAX</th><th>WEAR</th><th>PAT</th><th>ST</th></tr></thead>
+      <tbody><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_GSMWGRxetJvbVoHjqMmRQguynLm92pci2WagEkC5Z5Q7VetkbukIXjNrnm5QPbjt8WxS-vii4b5i5v4fFCD_TfxF4xWg"></td>
+      <td class="weapon-cell">M4A1-S</td><td class="name-cell" style="color:#cc2222">Fade</td>
+      <td class="rarity-cell" style="color:#cc2222">COVERT</td>
+      <td class="num-cell">0</td><td class="num-cell">0.08</td>
+      <td class="wear-cell">FN · MW</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-m4a1_s___fade"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PO_V7BkNPGdB3Kd_vx3ue9rQD6MkhwrujGEiLD1KCzPKhhxCMclQeAPtUK-xoWxPrvkslOKg4tHzXn-3Xsbvyo647sLVqoh_6XekUifZrx5Pjj5"></td>
+      <td class="weapon-cell">Galil AR</td><td class="name-cell" style="color:#9b1fba">Rainbow Spoon</td>
+      <td class="rarity-cell" style="color:#9b1fba">CLASSIFIED</td>
+      <td class="num-cell">0</td><td class="num-cell">0.554422</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-galil_ar___rainbow_spoon"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c_PGmV6V1KfGsCWufwuVJvOhuRz39lh93sDmDytj6InjCaQ52ApF1EeIMuxC9wNPmNe3k7wLfjIJGm32o2zQJsHgd3ZW3tg"></td>
+      <td class="weapon-cell">Glock-18</td><td class="name-cell" style="color:#9b1fba">AXIA</td>
+      <td class="rarity-cell" style="color:#9b1fba">CLASSIFIED</td>
+      <td class="num-cell">0</td><td class="num-cell">0.7</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-glock_18___axia"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRabVSI_GAC1iYwPxyte9sSxa1nAsioDiTn4HGLSLANkI-D5pxEbIDu0btkoXlNuO24wDZ2YhDmH7923tI7ClrsblWAqMj-KPRiBaBb-NawNZy0w"></td>
+      <td class="weapon-cell">Five-SeveN</td><td class="name-cell" style="color:#5533cc">Heat Treated</td>
+      <td class="rarity-cell" style="color:#5533cc">RESTRICTED</td>
+      <td class="num-cell">0</td><td class="num-cell">1</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-five_seven___heat_treated"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk7uCtfK1uH_2DV1icyOl-pK86HHrrwE5ztWSGydv_eCifOAF2DMB5Fu5etEK9lt3hMuLh5gWPitgX02yg2dKG9WA-"></td>
+      <td class="weapon-cell">MP9</td><td class="name-cell" style="color:#5533cc">Arctic Tri-Tone</td>
+      <td class="rarity-cell" style="color:#5533cc">RESTRICTED</td>
+      <td class="num-cell">0</td><td class="num-cell">0.6</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-mp9___arctic_tri_tone"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1c_PGmV7d9L-KHMXKd0bojj-1gSCGn20V2tm_Sn9irdX3EZwUkA5B1R-IL5Ebsk9O2MOni4AKIgogUmH333SlXrnE8E6oIYXY"></td>
+      <td class="weapon-cell">UMP-45</td><td class="name-cell" style="color:#5533cc">Crimson Foil</td>
+      <td class="rarity-cell" style="color:#5533cc">RESTRICTED</td>
+      <td class="num-cell">0</td><td class="num-cell">0.68</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-ump_45___crimson_foil"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiVI0OCneLRhJc-dAXGR_uJ_t-l9AXHqx0l0526Bwtz7IHzDaFJxDsAhRbQDuxPtltTiYe234g3fg4xEzH7gznQe4s_Y0gw"></td>
+      <td class="weapon-cell">Nova</td><td class="name-cell" style="color:#2244cc">Yorkshire</td>
+      <td class="rarity-cell" style="color:#2244cc">MIL-SPEC</td>
+      <td class="num-cell">0</td><td class="num-cell">1</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-nova___yorkshire"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhzMOwwjFU7PqRYLFjNPWBMWWcwPRzj_E7GnmMmRQguynLzdv4JCrGalRzCpZzQLUD5BG5wdPkZuqx51OLjt4Uyiv52CJL6ipssfFCD_QcHDx_gA"></td>
+      <td class="weapon-cell">P250</td><td class="name-cell" style="color:#2244cc">Small Game</td>
+      <td class="rarity-cell" style="color:#2244cc">MIL-SPEC</td>
+      <td class="num-cell">0</td><td class="num-cell">0.7</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-p250___small_game"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1c_PGmV75oLv-sHXSXkbZJvOhuRz39xhkitW-Hzduvc3zEPQJxWZMhR7NZ4xOwm9DjN7mx41GM2IoUzSmsijQJsHibvaeasA"></td>
+      <td class="weapon-cell">SSG 08</td><td class="name-cell" style="color:#2244cc">Zeno</td>
+      <td class="rarity-cell" style="color:#2244cc">MIL-SPEC</td>
+      <td class="num-cell">0</td><td class="num-cell">0.7</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-ssg_08___zeno"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSJ-OQBliS0-dxuPVWTCi-miIyoC26lob-KT-JaVIpXpRxFuIMtRe4x9PjYrni7wfejYpFnn3-jCNB6C4_5u4FU6It8rqX0V8gYmZtWA"></td>
+      <td class="weapon-cell">USP-S</td><td class="name-cell" style="color:#2244cc">Alpine Camo</td>
+      <td class="rarity-cell" style="color:#2244cc">MIL-SPEC</td>
+      <td class="num-cell">0</td><td class="num-cell">0.68</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-usp_s___alpine_camo"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wipP0OKhZL1SI_GeAViRyrohj-1gSCGn201-4G7dyo2oeXORaAIpCcFwTeEK4ELskNa0NeKxtVTXiItDySms3XxXrnE8JD9gyYo"></td>
+      <td class="weapon-cell">AK-47</td><td class="name-cell" style="color:#4477aa">Olive Polycam</td>
+      <td class="rarity-cell" style="color:#4477aa">INDUSTRIAL</td>
+      <td class="num-cell">0</td><td class="num-cell">0.5</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-ak_47___olive_polycam"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1I_825abxSMuWRMWWZ2-F4j-1gSCGn2x4i5G3Wytb6dH6RPAByA5tzFOQNsBK9m4K2Nrnm4lfW2t4Rny_53SNXrnE84jRZ-LA"></td>
+      <td class="weapon-cell">PP-Bizon</td><td class="name-cell" style="color:#4477aa">Cold Cell</td>
+      <td class="rarity-cell" style="color:#4477aa">INDUSTRIAL</td>
+      <td class="num-cell">0</td><td class="num-cell">0.4</td>
+      <td class="wear-cell">FN · MW · FT · WW</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-pp_bizon___cold_cell"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2paaloIuKWCliWwON3o95lRi67gVN35TyBy42pcS6ROAUkWJJ3FOMK50TswNzjPuPh71fYjYoWmX_33CtB8G81tAX5qatv"></td>
+      <td class="weapon-cell">FAMAS</td><td class="name-cell" style="color:#4477aa">Half Sleeve</td>
+      <td class="rarity-cell" style="color:#4477aa">INDUSTRIAL</td>
+      <td class="num-cell">0</td><td class="num-cell">1</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-famas___half_sleeve"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5G3wjFU7PqRf61hJOecAWOvzO9x595lRi67gVN36mzTw9v8cnyRaAZ1XMB2E7MPtkS-lYK2YuOx7gTd3dlDziSqjixB8G81tBJWeXuA"></td>
+      <td class="weapon-cell">MAG-7</td><td class="name-cell" style="color:#4477aa">Wildwood</td>
+      <td class="rarity-cell" style="color:#4477aa">INDUSTRIAL</td>
+      <td class="num-cell">0</td><td class="num-cell">0.7</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-mag_7___wildwood"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsPz-R1T-82sZLF_H_OSA2ivzP4jo-VWQiy3nAgq_TjTyN6qICqTPVRzCZN4Q7EKsES6xtDlMb7gsQXb3oxHzHj32HtJ73p1o7FV_MEGTHA"></td>
+      <td class="weapon-cell">MP5-SD</td><td class="name-cell" style="color:#4477aa">Savannah Halftone</td>
+      <td class="rarity-cell" style="color:#4477aa">INDUSTRIAL</td>
+      <td class="num-cell">0.25</td><td class="num-cell">0.75</td>
+      <td class="wear-cell">FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-mp5_sd___savannah_halftone"><td colspan="9" class="print-inv-cell"></td></tr><tr>
+      <td class="img-cell"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wjFU7PqRfK1qJeKsHXOVz-1_vN59SirqqhEutDWR1Nr9cHKVPwRzCJsmROMC5haxldLnMLjk51fdgthNxST4iiJJuis55uccEf1yksXdoWw"></td>
+      <td class="weapon-cell">Tec-9</td><td class="name-cell" style="color:#4477aa">Tiger Stencil</td>
+      <td class="rarity-cell" style="color:#4477aa">INDUSTRIAL</td>
+      <td class="num-cell">0</td><td class="num-cell">0.6</td>
+      <td class="wear-cell">FN · MW · FT · WW · BS</td><td class="num-cell">0–999</td><td class="st-cell">No</td>
+    </tr>
+    <tr class="print-inv-row" id="print-inv-tec_9___tiger_stencil"><td colspan="9" class="print-inv-cell"></td></tr></tbody>
+    </table>
+    
+    <div class="pp-footer">
+      <span>CS2 Master Index &#8212; The Sport & Field Collection &middot; Data: ByMykel CSGO-API (MIT) &middot; Images: Valve/Steam</span>
+      <span>CS2_COL_SPORT_FIELD.html</span>
+    </div>
+  </div>
+
+  <!-- TOOLBAR ACTIONS -->
+  <div class="toolbar-actions">
+    <button class="fetch-btn" id="fetch-prices-btn" onclick="fetchAllPrices()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+      FETCH CURRENT PRICES
+    </button>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      PRINT THIS CASE
+    </button>
+    <button class="print-btn" style="border-color:var(--own-accent);color:var(--own-accent)" onclick="printOwned()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      PRINT OWNED ITEMS
+    </button>
+    <div class="price-timestamp" style="margin-left:auto">PRICING: <span id="price-ts">NOT YET FETCHED</span></div>
+  </div>
+
+  <!-- TOOLBAR FILTERS -->
+  <div class="toolbar">
+    <button class="filter-btn active" onclick="filterSkins('all',this)">ALL SKINS</button>
+    <button class="filter-btn" onclick="filterSkins('covert',this)">COVERT</button>
+    <button class="filter-btn" onclick="filterSkins('classified',this)">CLASSIFIED</button>
+    <button class="filter-btn" onclick="filterSkins('restricted',this)">RESTRICTED</button>
+    <button class="filter-btn" onclick="filterSkins('milspec',this)">MIL-SPEC</button>
+    <button class="filter-btn" onclick="filterSkins('industrial',this)">INDUSTRIAL</button>
+    <button class="filter-btn" onclick="filterSkins('table',this)">QUICK REFERENCE</button>
+  </div>
+
+  <!-- WEAPON SECTIONS -->
+  <div id="weapon-sections">
+  <div class="section-hdr">
+    <h2>Covert</h2>
+    <span class="s-badge" style="color:#eb4b4b;border:1px solid #eb4b4b40;background:#eb4b4b12;font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px">1 SKIN</span>
+  </div>
+  <div class="skins-grid">
+    <div class="skin-card rarity-covert" data-rarity="covert" id="card-m4a1_s___fade">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-m4a1_s___fade"><button class="wish-btn" id="wish-btn-m4a1_s___fade" onclick="toggleWish('m4a1_s___fade')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'M4A1-S | Fade')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_GSMWGRxetJvbVoHjqMmRQguynLm92pci2WagEkC5Z5Q7VetkbukIXjNrnm5QPbjt8WxS-vii4b5i5v4fFCD_TfxF4xWg" alt="M4A1-S | Fade" loading="lazy">
+        <div class="rarity-label">COVERT</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">M4A1-S</div>
+        <div class="skin-name">Fade</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.08</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:8%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-m4a1_s___fade">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-m4a1_s___fade">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-m4a1_s___fade">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-m4a1_s___fade">
+        <div class="own-toggle" onclick="toggleOwn('m4a1_s___fade')">
+          <span class="own-toggle-icon" id="icon-m4a1_s___fade">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-m4a1_s___fade"></span>
+        </div>
+        <div class="own-body" id="body-m4a1_s___fade" style="display:none">
+          <div class="own-entries" id="entries-m4a1_s___fade"></div>
+          <button class="own-add-btn" onclick="addEntry('m4a1_s___fade',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-hdr">
+    <h2>Classified</h2>
+    <span class="s-badge" style="color:#d32ce6;border:1px solid #d32ce640;background:#d32ce612;font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px">2 SKINS</span>
+  </div>
+  <div class="skins-grid">
+    <div class="skin-card rarity-classified" data-rarity="classified" id="card-galil_ar___rainbow_spoon">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-galil_ar___rainbow_spoon"><button class="wish-btn" id="wish-btn-galil_ar___rainbow_spoon" onclick="toggleWish('galil_ar___rainbow_spoon')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Galil AR | Rainbow Spoon')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PO_V7BkNPGdB3Kd_vx3ue9rQD6MkhwrujGEiLD1KCzPKhhxCMclQeAPtUK-xoWxPrvkslOKg4tHzXn-3Xsbvyo647sLVqoh_6XekUifZrx5Pjj5" alt="Galil AR | Rainbow Spoon" loading="lazy">
+        <div class="rarity-label">CLASSIFIED</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">Galil AR</div>
+        <div class="skin-name">Rainbow Spoon</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.554422</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:55%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-galil_ar___rainbow_spoon">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-galil_ar___rainbow_spoon">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-galil_ar___rainbow_spoon">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-galil_ar___rainbow_spoon">
+        <div class="own-toggle" onclick="toggleOwn('galil_ar___rainbow_spoon')">
+          <span class="own-toggle-icon" id="icon-galil_ar___rainbow_spoon">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-galil_ar___rainbow_spoon"></span>
+        </div>
+        <div class="own-body" id="body-galil_ar___rainbow_spoon" style="display:none">
+          <div class="own-entries" id="entries-galil_ar___rainbow_spoon"></div>
+          <button class="own-add-btn" onclick="addEntry('galil_ar___rainbow_spoon',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-classified" data-rarity="classified" id="card-glock_18___axia">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-glock_18___axia"><button class="wish-btn" id="wish-btn-glock_18___axia" onclick="toggleWish('glock_18___axia')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Glock-18 | AXIA')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c_PGmV6V1KfGsCWufwuVJvOhuRz39lh93sDmDytj6InjCaQ52ApF1EeIMuxC9wNPmNe3k7wLfjIJGm32o2zQJsHgd3ZW3tg" alt="Glock-18 | AXIA" loading="lazy">
+        <div class="rarity-label">CLASSIFIED</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">Glock-18</div>
+        <div class="skin-name">AXIA</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.7</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:70%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-glock_18___axia">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-glock_18___axia">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-glock_18___axia">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-glock_18___axia">
+        <div class="own-toggle" onclick="toggleOwn('glock_18___axia')">
+          <span class="own-toggle-icon" id="icon-glock_18___axia">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-glock_18___axia"></span>
+        </div>
+        <div class="own-body" id="body-glock_18___axia" style="display:none">
+          <div class="own-entries" id="entries-glock_18___axia"></div>
+          <button class="own-add-btn" onclick="addEntry('glock_18___axia',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-hdr">
+    <h2>Restricted</h2>
+    <span class="s-badge" style="color:#8847ff;border:1px solid #8847ff40;background:#8847ff12;font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px">3 SKINS</span>
+  </div>
+  <div class="skins-grid">
+    <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-five_seven___heat_treated">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-five_seven___heat_treated"><button class="wish-btn" id="wish-btn-five_seven___heat_treated" onclick="toggleWish('five_seven___heat_treated')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Five-SeveN | Heat Treated')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRabVSI_GAC1iYwPxyte9sSxa1nAsioDiTn4HGLSLANkI-D5pxEbIDu0btkoXlNuO24wDZ2YhDmH7923tI7ClrsblWAqMj-KPRiBaBb-NawNZy0w" alt="Five-SeveN | Heat Treated" loading="lazy">
+        <div class="rarity-label">RESTRICTED</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">Five-SeveN</div>
+        <div class="skin-name">Heat Treated</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">1</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:100%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-five_seven___heat_treated">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-five_seven___heat_treated">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-five_seven___heat_treated">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-five_seven___heat_treated">
+        <div class="own-toggle" onclick="toggleOwn('five_seven___heat_treated')">
+          <span class="own-toggle-icon" id="icon-five_seven___heat_treated">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-five_seven___heat_treated"></span>
+        </div>
+        <div class="own-body" id="body-five_seven___heat_treated" style="display:none">
+          <div class="own-entries" id="entries-five_seven___heat_treated"></div>
+          <button class="own-add-btn" onclick="addEntry('five_seven___heat_treated',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-mp9___arctic_tri_tone">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-mp9___arctic_tri_tone"><button class="wish-btn" id="wish-btn-mp9___arctic_tri_tone" onclick="toggleWish('mp9___arctic_tri_tone')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'MP9 | Arctic Tri-Tone')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk7uCtfK1uH_2DV1icyOl-pK86HHrrwE5ztWSGydv_eCifOAF2DMB5Fu5etEK9lt3hMuLh5gWPitgX02yg2dKG9WA-" alt="MP9 | Arctic Tri-Tone" loading="lazy">
+        <div class="rarity-label">RESTRICTED</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">MP9</div>
+        <div class="skin-name">Arctic Tri-Tone</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.6</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:60%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-mp9___arctic_tri_tone">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-mp9___arctic_tri_tone">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-mp9___arctic_tri_tone">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-mp9___arctic_tri_tone">
+        <div class="own-toggle" onclick="toggleOwn('mp9___arctic_tri_tone')">
+          <span class="own-toggle-icon" id="icon-mp9___arctic_tri_tone">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-mp9___arctic_tri_tone"></span>
+        </div>
+        <div class="own-body" id="body-mp9___arctic_tri_tone" style="display:none">
+          <div class="own-entries" id="entries-mp9___arctic_tri_tone"></div>
+          <button class="own-add-btn" onclick="addEntry('mp9___arctic_tri_tone',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-ump_45___crimson_foil">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ump_45___crimson_foil"><button class="wish-btn" id="wish-btn-ump_45___crimson_foil" onclick="toggleWish('ump_45___crimson_foil')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'UMP-45 | Crimson Foil')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1c_PGmV7d9L-KHMXKd0bojj-1gSCGn20V2tm_Sn9irdX3EZwUkA5B1R-IL5Ebsk9O2MOni4AKIgogUmH333SlXrnE8E6oIYXY" alt="UMP-45 | Crimson Foil" loading="lazy">
+        <div class="rarity-label">RESTRICTED</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">UMP-45</div>
+        <div class="skin-name">Crimson Foil</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.68</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:68%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-ump_45___crimson_foil">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-ump_45___crimson_foil">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-ump_45___crimson_foil">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-ump_45___crimson_foil">
+        <div class="own-toggle" onclick="toggleOwn('ump_45___crimson_foil')">
+          <span class="own-toggle-icon" id="icon-ump_45___crimson_foil">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-ump_45___crimson_foil"></span>
+        </div>
+        <div class="own-body" id="body-ump_45___crimson_foil" style="display:none">
+          <div class="own-entries" id="entries-ump_45___crimson_foil"></div>
+          <button class="own-add-btn" onclick="addEntry('ump_45___crimson_foil',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-hdr">
+    <h2>Mil-Spec</h2>
+    <span class="s-badge" style="color:#4b69ff;border:1px solid #4b69ff40;background:#4b69ff12;font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px">4 SKINS</span>
+  </div>
+  <div class="skins-grid">
+    <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-nova___yorkshire">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-nova___yorkshire"><button class="wish-btn" id="wish-btn-nova___yorkshire" onclick="toggleWish('nova___yorkshire')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Nova | Yorkshire')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiVI0OCneLRhJc-dAXGR_uJ_t-l9AXHqx0l0526Bwtz7IHzDaFJxDsAhRbQDuxPtltTiYe234g3fg4xEzH7gznQe4s_Y0gw" alt="Nova | Yorkshire" loading="lazy">
+        <div class="rarity-label">MIL-SPEC</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">Nova</div>
+        <div class="skin-name">Yorkshire</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">1</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:100%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-nova___yorkshire">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-nova___yorkshire">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-nova___yorkshire">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-nova___yorkshire">
+        <div class="own-toggle" onclick="toggleOwn('nova___yorkshire')">
+          <span class="own-toggle-icon" id="icon-nova___yorkshire">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-nova___yorkshire"></span>
+        </div>
+        <div class="own-body" id="body-nova___yorkshire" style="display:none">
+          <div class="own-entries" id="entries-nova___yorkshire"></div>
+          <button class="own-add-btn" onclick="addEntry('nova___yorkshire',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-p250___small_game">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-p250___small_game"><button class="wish-btn" id="wish-btn-p250___small_game" onclick="toggleWish('p250___small_game')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'P250 | Small Game')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhzMOwwjFU7PqRYLFjNPWBMWWcwPRzj_E7GnmMmRQguynLzdv4JCrGalRzCpZzQLUD5BG5wdPkZuqx51OLjt4Uyiv52CJL6ipssfFCD_QcHDx_gA" alt="P250 | Small Game" loading="lazy">
+        <div class="rarity-label">MIL-SPEC</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">P250</div>
+        <div class="skin-name">Small Game</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.7</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:70%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-p250___small_game">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-p250___small_game">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-p250___small_game">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-p250___small_game">
+        <div class="own-toggle" onclick="toggleOwn('p250___small_game')">
+          <span class="own-toggle-icon" id="icon-p250___small_game">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-p250___small_game"></span>
+        </div>
+        <div class="own-body" id="body-p250___small_game" style="display:none">
+          <div class="own-entries" id="entries-p250___small_game"></div>
+          <button class="own-add-btn" onclick="addEntry('p250___small_game',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-ssg_08___zeno">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ssg_08___zeno"><button class="wish-btn" id="wish-btn-ssg_08___zeno" onclick="toggleWish('ssg_08___zeno')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'SSG 08 | Zeno')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1c_PGmV75oLv-sHXSXkbZJvOhuRz39xhkitW-Hzduvc3zEPQJxWZMhR7NZ4xOwm9DjN7mx41GM2IoUzSmsijQJsHibvaeasA" alt="SSG 08 | Zeno" loading="lazy">
+        <div class="rarity-label">MIL-SPEC</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">SSG 08</div>
+        <div class="skin-name">Zeno</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.7</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:70%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-ssg_08___zeno">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-ssg_08___zeno">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-ssg_08___zeno">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-ssg_08___zeno">
+        <div class="own-toggle" onclick="toggleOwn('ssg_08___zeno')">
+          <span class="own-toggle-icon" id="icon-ssg_08___zeno">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-ssg_08___zeno"></span>
+        </div>
+        <div class="own-body" id="body-ssg_08___zeno" style="display:none">
+          <div class="own-entries" id="entries-ssg_08___zeno"></div>
+          <button class="own-add-btn" onclick="addEntry('ssg_08___zeno',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-usp_s___alpine_camo">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-usp_s___alpine_camo"><button class="wish-btn" id="wish-btn-usp_s___alpine_camo" onclick="toggleWish('usp_s___alpine_camo')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'USP-S | Alpine Camo')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSJ-OQBliS0-dxuPVWTCi-miIyoC26lob-KT-JaVIpXpRxFuIMtRe4x9PjYrni7wfejYpFnn3-jCNB6C4_5u4FU6It8rqX0V8gYmZtWA" alt="USP-S | Alpine Camo" loading="lazy">
+        <div class="rarity-label">MIL-SPEC</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">USP-S</div>
+        <div class="skin-name">Alpine Camo</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.68</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:68%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-usp_s___alpine_camo">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-usp_s___alpine_camo">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-usp_s___alpine_camo">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-usp_s___alpine_camo">
+        <div class="own-toggle" onclick="toggleOwn('usp_s___alpine_camo')">
+          <span class="own-toggle-icon" id="icon-usp_s___alpine_camo">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-usp_s___alpine_camo"></span>
+        </div>
+        <div class="own-body" id="body-usp_s___alpine_camo" style="display:none">
+          <div class="own-entries" id="entries-usp_s___alpine_camo"></div>
+          <button class="own-add-btn" onclick="addEntry('usp_s___alpine_camo',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-hdr">
+    <h2>Industrial</h2>
+    <span class="s-badge" style="color:#5e98d9;border:1px solid #5e98d940;background:#5e98d912;font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px">6 SKINS</span>
+  </div>
+  <div class="skins-grid">
+    <div class="skin-card rarity-industrial" data-rarity="industrial" id="card-ak_47___olive_polycam">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-ak_47___olive_polycam"><button class="wish-btn" id="wish-btn-ak_47___olive_polycam" onclick="toggleWish('ak_47___olive_polycam')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'AK-47 | Olive Polycam')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wipP0OKhZL1SI_GeAViRyrohj-1gSCGn201-4G7dyo2oeXORaAIpCcFwTeEK4ELskNa0NeKxtVTXiItDySms3XxXrnE8JD9gyYo" alt="AK-47 | Olive Polycam" loading="lazy">
+        <div class="rarity-label">INDUSTRIAL</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">AK-47</div>
+        <div class="skin-name">Olive Polycam</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.5</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:50%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-ak_47___olive_polycam">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-ak_47___olive_polycam">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-ak_47___olive_polycam">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-ak_47___olive_polycam">
+        <div class="own-toggle" onclick="toggleOwn('ak_47___olive_polycam')">
+          <span class="own-toggle-icon" id="icon-ak_47___olive_polycam">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-ak_47___olive_polycam"></span>
+        </div>
+        <div class="own-body" id="body-ak_47___olive_polycam" style="display:none">
+          <div class="own-entries" id="entries-ak_47___olive_polycam"></div>
+          <button class="own-add-btn" onclick="addEntry('ak_47___olive_polycam',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-industrial" data-rarity="industrial" id="card-pp_bizon___cold_cell">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-pp_bizon___cold_cell"><button class="wish-btn" id="wish-btn-pp_bizon___cold_cell" onclick="toggleWish('pp_bizon___cold_cell')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'PP-Bizon | Cold Cell')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1I_825abxSMuWRMWWZ2-F4j-1gSCGn2x4i5G3Wytb6dH6RPAByA5tzFOQNsBK9m4K2Nrnm4lfW2t4Rny_53SNXrnE84jRZ-LA" alt="PP-Bizon | Cold Cell" loading="lazy">
+        <div class="rarity-label">INDUSTRIAL</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">PP-Bizon</div>
+        <div class="skin-name">Cold Cell</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.4</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:40%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-pp_bizon___cold_cell">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-pp_bizon___cold_cell">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-pp_bizon___cold_cell">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-pp_bizon___cold_cell">
+        <div class="own-toggle" onclick="toggleOwn('pp_bizon___cold_cell')">
+          <span class="own-toggle-icon" id="icon-pp_bizon___cold_cell">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-pp_bizon___cold_cell"></span>
+        </div>
+        <div class="own-body" id="body-pp_bizon___cold_cell" style="display:none">
+          <div class="own-entries" id="entries-pp_bizon___cold_cell"></div>
+          <button class="own-add-btn" onclick="addEntry('pp_bizon___cold_cell',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-industrial" data-rarity="industrial" id="card-famas___half_sleeve">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-famas___half_sleeve"><button class="wish-btn" id="wish-btn-famas___half_sleeve" onclick="toggleWish('famas___half_sleeve')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'FAMAS | Half Sleeve')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2paaloIuKWCliWwON3o95lRi67gVN35TyBy42pcS6ROAUkWJJ3FOMK50TswNzjPuPh71fYjYoWmX_33CtB8G81tAX5qatv" alt="FAMAS | Half Sleeve" loading="lazy">
+        <div class="rarity-label">INDUSTRIAL</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">FAMAS</div>
+        <div class="skin-name">Half Sleeve</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">1</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:100%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-famas___half_sleeve">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-famas___half_sleeve">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-famas___half_sleeve">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-famas___half_sleeve">
+        <div class="own-toggle" onclick="toggleOwn('famas___half_sleeve')">
+          <span class="own-toggle-icon" id="icon-famas___half_sleeve">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-famas___half_sleeve"></span>
+        </div>
+        <div class="own-body" id="body-famas___half_sleeve" style="display:none">
+          <div class="own-entries" id="entries-famas___half_sleeve"></div>
+          <button class="own-add-btn" onclick="addEntry('famas___half_sleeve',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-industrial" data-rarity="industrial" id="card-mag_7___wildwood">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-mag_7___wildwood"><button class="wish-btn" id="wish-btn-mag_7___wildwood" onclick="toggleWish('mag_7___wildwood')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'MAG-7 | Wildwood')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5G3wjFU7PqRf61hJOecAWOvzO9x595lRi67gVN36mzTw9v8cnyRaAZ1XMB2E7MPtkS-lYK2YuOx7gTd3dlDziSqjixB8G81tBJWeXuA" alt="MAG-7 | Wildwood" loading="lazy">
+        <div class="rarity-label">INDUSTRIAL</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">MAG-7</div>
+        <div class="skin-name">Wildwood</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.7</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:70%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-mag_7___wildwood">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-mag_7___wildwood">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-mag_7___wildwood">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-mag_7___wildwood">
+        <div class="own-toggle" onclick="toggleOwn('mag_7___wildwood')">
+          <span class="own-toggle-icon" id="icon-mag_7___wildwood">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-mag_7___wildwood"></span>
+        </div>
+        <div class="own-body" id="body-mag_7___wildwood" style="display:none">
+          <div class="own-entries" id="entries-mag_7___wildwood"></div>
+          <button class="own-add-btn" onclick="addEntry('mag_7___wildwood',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-industrial" data-rarity="industrial" id="card-mp5_sd___savannah_halftone">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-mp5_sd___savannah_halftone"><button class="wish-btn" id="wish-btn-mp5_sd___savannah_halftone" onclick="toggleWish('mp5_sd___savannah_halftone')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'MP5-SD | Savannah Halftone')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsPz-R1T-82sZLF_H_OSA2ivzP4jo-VWQiy3nAgq_TjTyN6qICqTPVRzCZN4Q7EKsES6xtDlMb7gsQXb3oxHzHj32HtJ73p1o7FV_MEGTHA" alt="MP5-SD | Savannah Halftone" loading="lazy">
+        <div class="rarity-label">INDUSTRIAL</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">MP5-SD</div>
+        <div class="skin-name">Savannah Halftone</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.25</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.75</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:25%;width:50%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-mp5_sd___savannah_halftone">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-mp5_sd___savannah_halftone">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-mp5_sd___savannah_halftone">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-mp5_sd___savannah_halftone">
+        <div class="own-toggle" onclick="toggleOwn('mp5_sd___savannah_halftone')">
+          <span class="own-toggle-icon" id="icon-mp5_sd___savannah_halftone">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-mp5_sd___savannah_halftone"></span>
+        </div>
+        <div class="own-body" id="body-mp5_sd___savannah_halftone" style="display:none">
+          <div class="own-entries" id="entries-mp5_sd___savannah_halftone"></div>
+          <button class="own-add-btn" onclick="addEntry('mp5_sd___savannah_halftone',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+    <div class="skin-card rarity-industrial" data-rarity="industrial" id="card-tec_9___tiger_stencil">
+      <div class="rarity-bar"></div>
+      <div class="wish-btn-wrap" id="wish-wrap-tec_9___tiger_stencil"><button class="wish-btn" id="wish-btn-tec_9___tiger_stencil" onclick="toggleWish('tec_9___tiger_stencil')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Tec-9 | Tiger Stencil')" style="cursor:zoom-in">
+        <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wjFU7PqRfK1qJeKsHXOVz-1_vN59SirqqhEutDWR1Nr9cHKVPwRzCJsmROMC5haxldLnMLjk51fdgthNxST4iiJJuis55uccEf1yksXdoWw" alt="Tec-9 | Tiger Stencil" loading="lazy">
+        <div class="rarity-label">INDUSTRIAL</div>
+      </div>
+      <div class="skin-body">
+        <div class="skin-weapon">Tec-9</div>
+        <div class="skin-name">Tiger Stencil</div>
+        <div class="skin-stats">
+          <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0</div></div>
+          <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.6</div></div>
+          <div class="stat-item"><div class="stat-label">PATTERN</div><div class="stat-value">0 – 999</div></div>
+          <div class="stat-item"><div class="stat-label">STATTRAK</div><div class="stat-value" style="color:#555">NO</div></div>
+        </div>
+        <div class="wear-bar-wrap"><div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
+          <div class="wear-track"><div class="wear-fill" style="left:0%;width:60%"></div></div></div>
+      </div>
+      <div class="price-strip" id="prices-tec_9___tiger_stencil">
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#4a90d9"></span>STEAM</div>
+        <div class="price-value loading" id="steam-price-tec_9___tiger_stencil">—</div>
+      </div>
+      <div class="price-cell">
+        <div class="price-source"><span class="price-source-dot" style="background:#e85d04"></span>SKINPORT</div>
+        <div class="price-value loading" id="skinport-price-tec_9___tiger_stencil">—</div>
+      </div>
+    </div>
+      <div class="own-panel" id="own-panel-tec_9___tiger_stencil">
+        <div class="own-toggle" onclick="toggleOwn('tec_9___tiger_stencil')">
+          <span class="own-toggle-icon" id="icon-tec_9___tiger_stencil">&#9658;</span>
+          <span class="own-toggle-label">MY INVENTORY</span>
+          <span class="own-badge" id="badge-tec_9___tiger_stencil"></span>
+        </div>
+        <div class="own-body" id="body-tec_9___tiger_stencil" style="display:none">
+          <div class="own-entries" id="entries-tec_9___tiger_stencil"></div>
+          <button class="own-add-btn" onclick="addEntry('tec_9___tiger_stencil',false)">+ ADD STANDARD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="knife-section" style="display:none"></div>
+
+  <!-- QUICK REF -->
+  <div id="quick-ref" style="display:none">
+    <div class="section-hdr">
+      <h2>Quick Reference &#8212; All Skins &amp; Rare Items</h2>
+      <span class="s-badge" style="background:rgba(240,165,0,.12);color:var(--accent);border:1px solid rgba(240,165,0,.3)">16 WEAPONS + 0 RARE</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>IMG</th><th>WEAPON</th><th>SKIN NAME</th><th>RARITY</th><th>FLOAT MIN</th><th>FLOAT MAX</th><th>WEAR</th><th>PATTERN</th><th>ST/NOTES</th></tr></thead>
+        <tbody><tr class="qr-data-row">
+      <td class="mono qr-num">01</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_GSMWGRxetJvbVoHjqMmRQguynLm92pci2WagEkC5Z5Q7VetkbukIXjNrnm5QPbjt8WxS-vii4b5i5v4fFCD_TfxF4xWg" loading="lazy"></td>
+      <td class="mono qr-weapon">M4A1-S</td><td class="kname" style="color:#eb4b4b">Fade</td>
+      <td class="mono" style="color:#eb4b4b">COVERT</td>
+      <td class="mono">0</td><td class="mono">0.08</td>
+      <td class="mono">FN · MW</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-m4a1_s___fade"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">02</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PO_V7BkNPGdB3Kd_vx3ue9rQD6MkhwrujGEiLD1KCzPKhhxCMclQeAPtUK-xoWxPrvkslOKg4tHzXn-3Xsbvyo647sLVqoh_6XekUifZrx5Pjj5" loading="lazy"></td>
+      <td class="mono qr-weapon">Galil AR</td><td class="kname" style="color:#d32ce6">Rainbow Spoon</td>
+      <td class="mono" style="color:#d32ce6">CLASSIFIED</td>
+      <td class="mono">0</td><td class="mono">0.554422</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-galil_ar___rainbow_spoon"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">03</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c_PGmV6V1KfGsCWufwuVJvOhuRz39lh93sDmDytj6InjCaQ52ApF1EeIMuxC9wNPmNe3k7wLfjIJGm32o2zQJsHgd3ZW3tg" loading="lazy"></td>
+      <td class="mono qr-weapon">Glock-18</td><td class="kname" style="color:#d32ce6">AXIA</td>
+      <td class="mono" style="color:#d32ce6">CLASSIFIED</td>
+      <td class="mono">0</td><td class="mono">0.7</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-glock_18___axia"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">04</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRabVSI_GAC1iYwPxyte9sSxa1nAsioDiTn4HGLSLANkI-D5pxEbIDu0btkoXlNuO24wDZ2YhDmH7923tI7ClrsblWAqMj-KPRiBaBb-NawNZy0w" loading="lazy"></td>
+      <td class="mono qr-weapon">Five-SeveN</td><td class="kname" style="color:#8847ff">Heat Treated</td>
+      <td class="mono" style="color:#8847ff">RESTRICTED</td>
+      <td class="mono">0</td><td class="mono">1</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-five_seven___heat_treated"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">05</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk7uCtfK1uH_2DV1icyOl-pK86HHrrwE5ztWSGydv_eCifOAF2DMB5Fu5etEK9lt3hMuLh5gWPitgX02yg2dKG9WA-" loading="lazy"></td>
+      <td class="mono qr-weapon">MP9</td><td class="kname" style="color:#8847ff">Arctic Tri-Tone</td>
+      <td class="mono" style="color:#8847ff">RESTRICTED</td>
+      <td class="mono">0</td><td class="mono">0.6</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-mp9___arctic_tri_tone"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">06</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1c_PGmV7d9L-KHMXKd0bojj-1gSCGn20V2tm_Sn9irdX3EZwUkA5B1R-IL5Ebsk9O2MOni4AKIgogUmH333SlXrnE8E6oIYXY" loading="lazy"></td>
+      <td class="mono qr-weapon">UMP-45</td><td class="kname" style="color:#8847ff">Crimson Foil</td>
+      <td class="mono" style="color:#8847ff">RESTRICTED</td>
+      <td class="mono">0</td><td class="mono">0.68</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-ump_45___crimson_foil"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">07</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiVI0OCneLRhJc-dAXGR_uJ_t-l9AXHqx0l0526Bwtz7IHzDaFJxDsAhRbQDuxPtltTiYe234g3fg4xEzH7gznQe4s_Y0gw" loading="lazy"></td>
+      <td class="mono qr-weapon">Nova</td><td class="kname" style="color:#4b69ff">Yorkshire</td>
+      <td class="mono" style="color:#4b69ff">MIL-SPEC</td>
+      <td class="mono">0</td><td class="mono">1</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-nova___yorkshire"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">08</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhzMOwwjFU7PqRYLFjNPWBMWWcwPRzj_E7GnmMmRQguynLzdv4JCrGalRzCpZzQLUD5BG5wdPkZuqx51OLjt4Uyiv52CJL6ipssfFCD_QcHDx_gA" loading="lazy"></td>
+      <td class="mono qr-weapon">P250</td><td class="kname" style="color:#4b69ff">Small Game</td>
+      <td class="mono" style="color:#4b69ff">MIL-SPEC</td>
+      <td class="mono">0</td><td class="mono">0.7</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-p250___small_game"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">09</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1c_PGmV75oLv-sHXSXkbZJvOhuRz39xhkitW-Hzduvc3zEPQJxWZMhR7NZ4xOwm9DjN7mx41GM2IoUzSmsijQJsHibvaeasA" loading="lazy"></td>
+      <td class="mono qr-weapon">SSG 08</td><td class="kname" style="color:#4b69ff">Zeno</td>
+      <td class="mono" style="color:#4b69ff">MIL-SPEC</td>
+      <td class="mono">0</td><td class="mono">0.7</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-ssg_08___zeno"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">10</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSJ-OQBliS0-dxuPVWTCi-miIyoC26lob-KT-JaVIpXpRxFuIMtRe4x9PjYrni7wfejYpFnn3-jCNB6C4_5u4FU6It8rqX0V8gYmZtWA" loading="lazy"></td>
+      <td class="mono qr-weapon">USP-S</td><td class="kname" style="color:#4b69ff">Alpine Camo</td>
+      <td class="mono" style="color:#4b69ff">MIL-SPEC</td>
+      <td class="mono">0</td><td class="mono">0.68</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-usp_s___alpine_camo"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">11</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wipP0OKhZL1SI_GeAViRyrohj-1gSCGn201-4G7dyo2oeXORaAIpCcFwTeEK4ELskNa0NeKxtVTXiItDySms3XxXrnE8JD9gyYo" loading="lazy"></td>
+      <td class="mono qr-weapon">AK-47</td><td class="kname" style="color:#5e98d9">Olive Polycam</td>
+      <td class="mono" style="color:#5e98d9">INDUSTRIAL</td>
+      <td class="mono">0</td><td class="mono">0.5</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-ak_47___olive_polycam"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">12</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1I_825abxSMuWRMWWZ2-F4j-1gSCGn2x4i5G3Wytb6dH6RPAByA5tzFOQNsBK9m4K2Nrnm4lfW2t4Rny_53SNXrnE84jRZ-LA" loading="lazy"></td>
+      <td class="mono qr-weapon">PP-Bizon</td><td class="kname" style="color:#5e98d9">Cold Cell</td>
+      <td class="mono" style="color:#5e98d9">INDUSTRIAL</td>
+      <td class="mono">0</td><td class="mono">0.4</td>
+      <td class="mono">FN · MW · FT · WW</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-pp_bizon___cold_cell"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">13</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2paaloIuKWCliWwON3o95lRi67gVN35TyBy42pcS6ROAUkWJJ3FOMK50TswNzjPuPh71fYjYoWmX_33CtB8G81tAX5qatv" loading="lazy"></td>
+      <td class="mono qr-weapon">FAMAS</td><td class="kname" style="color:#5e98d9">Half Sleeve</td>
+      <td class="mono" style="color:#5e98d9">INDUSTRIAL</td>
+      <td class="mono">0</td><td class="mono">1</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-famas___half_sleeve"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">14</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5G3wjFU7PqRf61hJOecAWOvzO9x595lRi67gVN36mzTw9v8cnyRaAZ1XMB2E7MPtkS-lYK2YuOx7gTd3dlDziSqjixB8G81tBJWeXuA" loading="lazy"></td>
+      <td class="mono qr-weapon">MAG-7</td><td class="kname" style="color:#5e98d9">Wildwood</td>
+      <td class="mono" style="color:#5e98d9">INDUSTRIAL</td>
+      <td class="mono">0</td><td class="mono">0.7</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-mag_7___wildwood"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">15</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsPz-R1T-82sZLF_H_OSA2ivzP4jo-VWQiy3nAgq_TjTyN6qICqTPVRzCZN4Q7EKsES6xtDlMb7gsQXb3oxHzHj32HtJ73p1o7FV_MEGTHA" loading="lazy"></td>
+      <td class="mono qr-weapon">MP5-SD</td><td class="kname" style="color:#5e98d9">Savannah Halftone</td>
+      <td class="mono" style="color:#5e98d9">INDUSTRIAL</td>
+      <td class="mono">0.25</td><td class="mono">0.75</td>
+      <td class="mono">FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-mp5_sd___savannah_halftone"><span class="qr-empty">No entries</span></div></td></tr><tr class="qr-data-row">
+      <td class="mono qr-num">16</td><td class="qr-img"><img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wjFU7PqRfK1qJeKsHXOVz-1_vN59SirqqhEutDWR1Nr9cHKVPwRzCJsmROMC5haxldLnMLjk51fdgthNxST4iiJJuis55uccEf1yksXdoWw" loading="lazy"></td>
+      <td class="mono qr-weapon">Tec-9</td><td class="kname" style="color:#5e98d9">Tiger Stencil</td>
+      <td class="mono" style="color:#5e98d9">INDUSTRIAL</td>
+      <td class="mono">0</td><td class="mono">0.6</td>
+      <td class="mono">FN · MW · FT · WW · BS</td><td class="mono">0–999</td>
+      <td class="mono" style="color:#555">No</td>
+    </tr>
+    <tr class="qr-inv-row"><td colspan="10" class="qr-inv-cell"><div class="qr-inv" id="qr-inv-tec_9___tiger_stencil"><span class="qr-empty">No entries</span></div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong style="color:var(--accent)">The Sport & Field Collection &#8212; CS2 SKIN REFERENCE</strong> &nbsp;|&nbsp; Part of the CS2 Master Index<br>
+    Data: ByMykel CSGO-API (MIT). Images: community.akamai.steamstatic.com (Valve).<br>
+    Inventory saved locally in your browser (localStorage).<br>
+    <div class="nav-row">
+      <a class="nav-link" href="cs2_master_index.html">&#8592; Master Index</a>
+      <a class="nav-link" href="cs2_master_index.html">&#8593; MASTER INDEX</a>
+      <a class="nav-link" href="cs2_master_index.html">Master Index &#8594;</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORE_KEY   = 'cs2_CS2_COL_SPORT_FIELD_inventory';
+const PRICE_KEY   = 'cs2_CS2_COL_SPORT_FIELD_prices';
+const SKIN_IDS    = [["m4a1_s___fade", false], ["galil_ar___rainbow_spoon", false], ["glock_18___axia", false], ["five_seven___heat_treated", false], ["mp9___arctic_tri_tone", false], ["ump_45___crimson_foil", false], ["nova___yorkshire", false], ["p250___small_game", false], ["ssg_08___zeno", false], ["usp_s___alpine_camo", false], ["ak_47___olive_polycam", false], ["pp_bizon___cold_cell", false], ["famas___half_sleeve", false], ["mag_7___wildwood", false], ["mp5_sd___savannah_halftone", false], ["tec_9___tiger_stencil", false]];
+const PRICE_MAP   = [{"id": "m4a1_s___fade", "steam_hash": "M4A1-S | Fade (Factory New)", "skinport_hash": "M4A1-S | Fade (Factory New)"}, {"id": "galil_ar___rainbow_spoon", "steam_hash": "Galil AR | Rainbow Spoon (Factory New)", "skinport_hash": "Galil AR | Rainbow Spoon (Factory New)"}, {"id": "glock_18___axia", "steam_hash": "Glock-18 | AXIA (Factory New)", "skinport_hash": "Glock-18 | AXIA (Factory New)"}, {"id": "five_seven___heat_treated", "steam_hash": "Five-SeveN | Heat Treated (Factory New)", "skinport_hash": "Five-SeveN | Heat Treated (Factory New)"}, {"id": "mp9___arctic_tri_tone", "steam_hash": "MP9 | Arctic Tri-Tone (Factory New)", "skinport_hash": "MP9 | Arctic Tri-Tone (Factory New)"}, {"id": "ump_45___crimson_foil", "steam_hash": "UMP-45 | Crimson Foil (Factory New)", "skinport_hash": "UMP-45 | Crimson Foil (Factory New)"}, {"id": "nova___yorkshire", "steam_hash": "Nova | Yorkshire (Factory New)", "skinport_hash": "Nova | Yorkshire (Factory New)"}, {"id": "p250___small_game", "steam_hash": "P250 | Small Game (Factory New)", "skinport_hash": "P250 | Small Game (Factory New)"}, {"id": "ssg_08___zeno", "steam_hash": "SSG 08 | Zeno (Factory New)", "skinport_hash": "SSG 08 | Zeno (Factory New)"}, {"id": "usp_s___alpine_camo", "steam_hash": "USP-S | Alpine Camo (Factory New)", "skinport_hash": "USP-S | Alpine Camo (Factory New)"}, {"id": "ak_47___olive_polycam", "steam_hash": "AK-47 | Olive Polycam (Factory New)", "skinport_hash": "AK-47 | Olive Polycam (Factory New)"}, {"id": "pp_bizon___cold_cell", "steam_hash": "PP-Bizon | Cold Cell (Factory New)", "skinport_hash": "PP-Bizon | Cold Cell (Factory New)"}, {"id": "famas___half_sleeve", "steam_hash": "FAMAS | Half Sleeve (Factory New)", "skinport_hash": "FAMAS | Half Sleeve (Factory New)"}, {"id": "mag_7___wildwood", "steam_hash": "MAG-7 | Wildwood (Factory New)", "skinport_hash": "MAG-7 | Wildwood (Factory New)"}, {"id": "mp5_sd___savannah_halftone", "steam_hash": "MP5-SD | Savannah Halftone (Field-Tested)", "skinport_hash": "MP5-SD | Savannah Halftone (Factory New)"}, {"id": "tec_9___tiger_stencil", "steam_hash": "Tec-9 | Tiger Stencil (Factory New)", "skinport_hash": "Tec-9 | Tiger Stencil (Factory New)"}];
+const CASE_HASH   = 'The Sport & Field Collection';
+
+function getStore(k){try{return JSON.parse(localStorage.getItem(k)||'{}')}catch{return{}}}
+function setStore(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+
+/* Filter */
+function filterSkins(type,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const ws=document.getElementById('weapon-sections'),ks=document.getElementById('knife-section'),qs=document.getElementById('quick-ref');
+  if(type==='knife'){ws.style.display='none';ks.style.display='';qs.style.display='none';}
+  else if(type==='table'){ws.style.display='none';if(ks)ks.style.display='none';qs.style.display='';}
+  else if(type==='all'){ws.style.display='';if(ks)ks.style.display='';qs.style.display='none';document.querySelectorAll('.skin-card').forEach(c=>c.style.display='');}
+  else{ws.style.display='';if(ks)ks.style.display='none';qs.style.display='none';document.querySelectorAll('.skin-card').forEach(c=>{c.style.display=c.dataset.rarity===type?'':'none';});}
+}
+
+/* Ownership */
+function toggleOwn(id){
+  const body=document.getElementById('body-'+id),icon=document.getElementById('icon-'+id);
+  const open=body.style.display==='';
+  body.style.display=open?'none':'';
+  icon.style.transform=open?'':'rotate(90deg)';
+  if(!open)renderCardEntries(id);
+}
+function addEntry(id,isSt){
+  const store=getStore(STORE_KEY);
+  if(!store[id])store[id]=[];
+  store[id].push({st:isSt,wear:'',float:'',pattern:''});
+  setStore(STORE_KEY,store);
+  renderCardEntries(id);renderQrChips(id);renderPrintRow(id);updateBadge(id);updateCardOwned(id);
+}
+function deleteEntry(id,idx){
+  const store=getStore(STORE_KEY);
+  if(!store[id])return;
+  store[id].splice(idx,1);
+  setStore(STORE_KEY,store);
+  renderCardEntries(id);renderQrChips(id);renderPrintRow(id);updateBadge(id);updateCardOwned(id);
+}
+function saveEntry(id,idx,field,value){
+  const store=getStore(STORE_KEY);
+  if(!store[id]||!store[id][idx])return;
+  store[id][idx][field]=value;
+  setStore(STORE_KEY,store);
+  renderQrChips(id);renderPrintRow(id);
+}
+function renderCardEntries(id){
+  const container=document.getElementById('entries-'+id);
+  if(!container)return;
+  const entries=(getStore(STORE_KEY)[id]||[]);
+  if(!entries.length){container.innerHTML='';return;}
+  container.innerHTML=entries.map((e,i)=>`
+    <div class="own-entry${e.st?' is-st':''}">
+      <span class="own-entry-type ${e.st?'st':'std'}">${e.st?'ST&#x2122;':'STD'}</span>
+      <input class="own-input w-float" type="number" min="0" max="1" step="0.000001" placeholder="Float" value="${e.float||''}" oninput="saveEntry('${id}',${i},'float',this.value)">
+      <select class="own-select" onchange="saveEntry('${id}',${i},'wear',this.value)">
+        <option value="">-- Wear --</option>
+        ${['Factory New','Minimal Wear','Field-Tested','Well-Worn','Battle-Scarred'].map(w=>`<option${e.wear===w?' selected':''}>${w}</option>`).join('')}
+      </select>
+      <input class="own-input w-pattern" type="number" min="0" max="999" step="1" placeholder="Pattern" value="${e.pattern||''}" oninput="saveEntry('${id}',${i},'pattern',this.value)">
+      <button class="own-entry-del" onclick="deleteEntry('${id}',${i})" title="Remove">&#215;</button>
+    </div>`).join('');
+}
+function renderQrChips(id){
+  const el=document.getElementById('qr-inv-'+id);if(!el)return;
+  const entries=(getStore(STORE_KEY)[id]||[]);
+  if(!entries.length){el.innerHTML='<span class="qr-empty">No entries</span>';return;}
+  function abbr(w){return(w||'').replace('Factory New','FN').replace('Minimal Wear','MW').replace('Field-Tested','FT').replace('Well-Worn','WW').replace('Battle-Scarred','BS');}
+  el.innerHTML=entries.map(e=>{
+    const parts=[];
+    if(e.wear)parts.push(`<span>${abbr(e.wear)}</span>`);
+    if(e.float)parts.push(`<span>fl ${parseFloat(e.float).toFixed(4)}</span>`);
+    if(e.pattern)parts.push(`<span>P${e.pattern}</span>`);
+    const detail=parts.length?parts.join('<span style="color:#2a4060;margin:0 2px">&middot;</span>'):'<span style="color:#3a5070">&mdash;</span>';
+    return `<div class="inv-chip${e.st?' chip-st':''}"><span class="chip-type ${e.st?'st':'std'}">${e.st?'ST&#x2122;':'STD'}</span><span class="chip-detail">${detail}</span></div>`;
+  }).join('');
+}
+function renderPrintRow(id){
+  const invRow=document.getElementById('print-inv-'+id);
+  const cell=invRow?invRow.querySelector('.print-inv-cell'):null;
+  if(!cell)return;
+  const entries=(getStore(STORE_KEY)[id]||[]);
+  function abbr(w){return(w||'').replace('Factory New','FN').replace('Minimal Wear','MW').replace('Field-Tested','FT').replace('Well-Worn','WW').replace('Battle-Scarred','BS');}
+  if(!entries.length){
+    cell.innerHTML='';invRow.classList.add('no-entries');
+    const prev=invRow.previousElementSibling;
+    let noneRow=document.getElementById('print-none-'+id);
+    if(!noneRow){noneRow=document.createElement('tr');noneRow.id='print-none-'+id;noneRow.className='print-inv-none';noneRow.innerHTML=`<td colspan="9" class="print-none-cell"><span class="print-none-label">&#9634; NOT IN INVENTORY</span></td>`;invRow.after(noneRow);}
+  } else {
+    cell.innerHTML='<div class="print-inv-inner">'+entries.map(e=>{
+      const parts=[];
+      if(e.wear)parts.push(abbr(e.wear));
+      if(e.float)parts.push('fl '+parseFloat(e.float).toFixed(4));
+      if(e.pattern)parts.push('P'+e.pattern);
+      return `<div class="pchip${e.st?' pchip-st':''}"><span class="pchip-type${e.st?' pst':''}">${e.st?'ST&#x2122;':'STD'}</span><span class="pchip-detail">${parts.join(' &middot; ')||'&mdash;'}</span></div>`;
+    }).join('')+'</div>';
+    invRow.classList.remove('no-entries');
+    const noneRow=document.getElementById('print-none-'+id);if(noneRow)noneRow.remove();
+  }
+}
+function updateBadge(id){
+  const badge=document.getElementById('badge-'+id);if(!badge)return;
+  const n=(getStore(STORE_KEY)[id]||[]).length;
+  badge.textContent=n?n+' OWNED':'';badge.classList.toggle('visible',n>0);
+}
+function updateCardOwned(id){
+  const card=document.getElementById('card-'+id);
+  if(card)card.classList.toggle('is-owned',(getStore(STORE_KEY)[id]||[]).length>0);
+}
+function printOwned(){
+  SKIN_IDS.forEach(([id])=>renderPrintRow(id));
+  document.body.classList.add('print-owned');window.print();document.body.classList.remove('print-owned');
+}
+
+/* Pricing */
+function fmtPrice(raw){if(!raw)return null;const n=parseFloat(String(raw).replace(/[^0-9.]/g,''));return isNaN(n)?null:'$'+n.toFixed(2);}
+async function fetchSteamPrice(hash){
+  try{const r=await fetch(`https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hash)}`);if(!r.ok)return null;const d=await r.json();return d.success?fmtPrice(d.lowest_price||d.median_price):null;}catch{return null;}
+}
+async function fetchSkinportBulk(){
+  try{const r=await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{headers:{'Accept-Encoding':'br'}});if(!r.ok)return{};const data=await r.json();const map={};data.forEach(i=>{map[i.market_hash_name]=i;});return map;}catch{return{};}
+}
+async function fetchAllPrices(){
+  const btn=document.getElementById('fetch-prices-btn'),ts=document.getElementById('price-ts');
+  btn.disabled=true;btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');ts.textContent='Fetching...';
+  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
+  if(csEl){csEl.textContent='...';csEl.className='case-price-value loading';}
+  if(cpEl){cpEl.textContent='...';cpEl.className='case-price-value loading';}
+  PRICE_MAP.forEach(s=>{
+    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){sel.textContent='...';sel.className='price-value loading';}
+    if(spl){spl.textContent='...';spl.className='price-value loading';}
+  });
+  const spMap=await fetchSkinportBulk();
+  function getSp(hash){const item=spMap[hash];if(!item)return null;return fmtPrice((item.min_price??item.suggested_price??0)/100);}
+  const cache={},now=new Date().toISOString();
+  const casesteam=await fetchSteamPrice(CASE_HASH),caseSp=getSp(CASE_HASH);
+  if(csEl){csEl.textContent=casesteam||'N/A';csEl.className='case-price-value'+(casesteam?'':' no-fn');}
+  if(cpEl){cpEl.textContent=caseSp||'N/A';cpEl.className='case-price-value'+(caseSp?'':' no-fn');}
+  cache['_case']={steam:casesteam,skinport:caseSp};
+  for(let i=0;i<PRICE_MAP.length;i++){
+    const s=PRICE_MAP[i];
+    const spPrice=getSp(s.skinport_hash);
+    await new Promise(r=>setTimeout(r,280));
+    const steam=await fetchSteamPrice(s.steam_hash);
+    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){sel.textContent=steam||'N/A';sel.className='price-value'+(steam?'':' no-fn');}
+    if(spl){spl.textContent=spPrice||'N/A';spl.className='price-value'+(spPrice?'':' no-fn');}
+    cache[s.id]={steam,skinport:spPrice};
+  }
+  cache['_ts']=now;setStore(PRICE_KEY,cache);
+  ts.textContent=new Date(now).toLocaleString();
+  btn.disabled=false;btn.innerHTML=btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
+}
+function loadCachedPrices(){
+  const cache=getStore(PRICE_KEY);if(!cache['_ts'])return;
+  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
+  const cc=cache['_case'];
+  if(cc&&csEl){csEl.textContent=cc.steam||'N/A';csEl.className='case-price-value'+(cc.steam?'':' no-fn');}
+  if(cc&&cpEl){cpEl.textContent=cc.skinport||'N/A';cpEl.className='case-price-value'+(cc.skinport?'':' no-fn');}
+  PRICE_MAP.forEach(s=>{
+    const c=cache[s.id];if(!c)return;
+    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){sel.textContent=c.steam||'N/A';sel.className='price-value'+(c.steam?'':' no-fn');}
+    if(spl){spl.textContent=c.skinport||'N/A';spl.className='price-value'+(c.skinport?'':' no-fn');}
+  });
+  const ts=document.getElementById('price-ts');
+  if(ts)ts.textContent=new Date(cache['_ts']).toLocaleString()+' (cached)';
+}
+
+/* Init */
+document.addEventListener('DOMContentLoaded',()=>{
+  initWishlist();
+  SKIN_IDS.forEach(([id])=>{updateBadge(id);updateCardOwned(id);renderQrChips(id);renderPrintRow(id);});
+  loadCachedPrices();
+});
+function openZoom(src,label){var o=document.getElementById('zoom-overlay');var i=document.getElementById('zoom-img');var l=document.getElementById('zoom-label');i.src=src;if(l)l.textContent=label||'';o.classList.add('open');}
+function closeZoom(){document.getElementById('zoom-overlay').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+const WISH_KEY_GLOBAL="cs2_global_wishlist";
+const CASE_NAME_WL="The Sport & Field Collection";
+const SKIN_DATA_WL=[{"id": "m4a1_s___fade", "weapon": "M4A1-S", "skinName": "Fade", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_GSMWGRxetJvbVoHjqMmRQguynLm92pci2WagEkC5Z5Q7VetkbukIXjNrnm5QPbjt8WxS-vii4b5i5v4fFCD_TfxF4xWg", "floatMin": "0", "floatMax": "0.08", "caseName": "The Sport & Field Collection"}, {"id": "galil_ar___rainbow_spoon", "weapon": "Galil AR", "skinName": "Rainbow Spoon", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PO_V7BkNPGdB3Kd_vx3ue9rQD6MkhwrujGEiLD1KCzPKhhxCMclQeAPtUK-xoWxPrvkslOKg4tHzXn-3Xsbvyo647sLVqoh_6XekUifZrx5Pjj5", "floatMin": "0", "floatMax": "0.554422", "caseName": "The Sport & Field Collection"}, {"id": "glock_18___axia", "weapon": "Glock-18", "skinName": "AXIA", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c_PGmV6V1KfGsCWufwuVJvOhuRz39lh93sDmDytj6InjCaQ52ApF1EeIMuxC9wNPmNe3k7wLfjIJGm32o2zQJsHgd3ZW3tg", "floatMin": "0", "floatMax": "0.7", "caseName": "The Sport & Field Collection"}, {"id": "five_seven___heat_treated", "weapon": "Five-SeveN", "skinName": "Heat Treated", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRabVSI_GAC1iYwPxyte9sSxa1nAsioDiTn4HGLSLANkI-D5pxEbIDu0btkoXlNuO24wDZ2YhDmH7923tI7ClrsblWAqMj-KPRiBaBb-NawNZy0w", "floatMin": "0", "floatMax": "1", "caseName": "The Sport & Field Collection"}, {"id": "mp9___arctic_tri_tone", "weapon": "MP9", "skinName": "Arctic Tri-Tone", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f-jFk7uCtfK1uH_2DV1icyOl-pK86HHrrwE5ztWSGydv_eCifOAF2DMB5Fu5etEK9lt3hMuLh5gWPitgX02yg2dKG9WA-", "floatMin": "0", "floatMax": "0.6", "caseName": "The Sport & Field Collection"}, {"id": "ump_45___crimson_foil", "weapon": "UMP-45", "skinName": "Crimson Foil", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1c_PGmV7d9L-KHMXKd0bojj-1gSCGn20V2tm_Sn9irdX3EZwUkA5B1R-IL5Ebsk9O2MOni4AKIgogUmH333SlXrnE8E6oIYXY", "floatMin": "0", "floatMax": "0.68", "caseName": "The Sport & Field Collection"}, {"id": "nova___yorkshire", "weapon": "Nova", "skinName": "Yorkshire", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL_kYDhwiVI0OCneLRhJc-dAXGR_uJ_t-l9AXHqx0l0526Bwtz7IHzDaFJxDsAhRbQDuxPtltTiYe234g3fg4xEzH7gznQe4s_Y0gw", "floatMin": "0", "floatMax": "1", "caseName": "The Sport & Field Collection"}, {"id": "p250___small_game", "weapon": "P250", "skinName": "Small Game", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhzMOwwjFU7PqRYLFjNPWBMWWcwPRzj_E7GnmMmRQguynLzdv4JCrGalRzCpZzQLUD5BG5wdPkZuqx51OLjt4Uyiv52CJL6ipssfFCD_QcHDx_gA", "floatMin": "0", "floatMax": "0.7", "caseName": "The Sport & Field Collection"}, {"id": "ssg_08___zeno", "weapon": "SSG 08", "skinName": "Zeno", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLijZGwpR1c_PGmV75oLv-sHXSXkbZJvOhuRz39xhkitW-Hzduvc3zEPQJxWZMhR7NZ4xOwm9DjN7mx41GM2IoUzSmsijQJsHibvaeasA", "floatMin": "0", "floatMax": "0.7", "caseName": "The Sport & Field Collection"}, {"id": "usp_s___alpine_camo", "weapon": "USP-S", "skinName": "Alpine Camo", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSJ-OQBliS0-dxuPVWTCi-miIyoC26lob-KT-JaVIpXpRxFuIMtRe4x9PjYrni7wfejYpFnn3-jCNB6C4_5u4FU6It8rqX0V8gYmZtWA", "floatMin": "0", "floatMax": "0.68", "caseName": "The Sport & Field Collection"}, {"id": "ak_47___olive_polycam", "weapon": "AK-47", "skinName": "Olive Polycam", "rarity": "Industrial Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wipP0OKhZL1SI_GeAViRyrohj-1gSCGn201-4G7dyo2oeXORaAIpCcFwTeEK4ELskNa0NeKxtVTXiItDySms3XxXrnE8JD9gyYo", "floatMin": "0", "floatMax": "0.5", "caseName": "The Sport & Field Collection"}, {"id": "pp_bizon___cold_cell", "weapon": "PP-Bizon", "skinName": "Cold Cell", "rarity": "Industrial Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1I_825abxSMuWRMWWZ2-F4j-1gSCGn2x4i5G3Wytb6dH6RPAByA5tzFOQNsBK9m4K2Nrnm4lfW2t4Rny_53SNXrnE84jRZ-LA", "floatMin": "0", "floatMax": "0.4", "caseName": "The Sport & Field Collection"}, {"id": "famas___half_sleeve", "weapon": "FAMAS", "skinName": "Half Sleeve", "rarity": "Industrial Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3n5vh7h1c_M2paaloIuKWCliWwON3o95lRi67gVN35TyBy42pcS6ROAUkWJJ3FOMK50TswNzjPuPh71fYjYoWmX_33CtB8G81tAX5qatv", "floatMin": "0", "floatMax": "1", "caseName": "The Sport & Field Collection"}, {"id": "mag_7___wildwood", "weapon": "MAG-7", "skinName": "Wildwood", "rarity": "Industrial Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8n5G3wjFU7PqRf61hJOecAWOvzO9x595lRi67gVN36mzTw9v8cnyRaAZ1XMB2E7MPtkS-lYK2YuOx7gTd3dlDziSqjixB8G81tBJWeXuA", "floatMin": "0", "floatMax": "0.7", "caseName": "The Sport & Field Collection"}, {"id": "mp5_sd___savannah_halftone", "weapon": "MP5-SD", "skinName": "Savannah Halftone", "rarity": "Industrial Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsPz-R1T-82sZLF_H_OSA2ivzP4jo-VWQiy3nAgq_TjTyN6qICqTPVRzCZN4Q7EKsES6xtDlMb7gsQXb3oxHzHj32HtJ73p1o7FV_MEGTHA", "floatMin": "0.25", "floatMax": "0.75", "caseName": "The Sport & Field Collection"}, {"id": "tec_9___tiger_stencil", "weapon": "Tec-9", "skinName": "Tiger Stencil", "rarity": "Industrial Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLlm5W5wjFU7PqRfK1qJeKsHXOVz-1_vN59SirqqhEutDWR1Nr9cHKVPwRzCJsmROMC5haxldLnMLjk51fdgthNxST4iiJJuis55uccEf1yksXdoWw", "floatMin": "0", "floatMax": "0.6", "caseName": "The Sport & Field Collection"}];
+function getWL(){try{return JSON.parse(localStorage.getItem(WISH_KEY_GLOBAL)||'[]');}catch{return[];}}
+function setWL(a){try{localStorage.setItem(WISH_KEY_GLOBAL,JSON.stringify(a));}catch{}}
+function toggleWish(skinId){var list=getWL();var idx=list.findIndex(function(i){return i.id===skinId;});if(idx>=0)list.splice(idx,1);else{var meta=SKIN_DATA_WL.find(function(s){return s.id===skinId;})||{};var item=Object.assign({id:skinId,caseName:CASE_NAME_WL},meta);list.push(item);}setWL(list);updateWishCard(skinId);}
+function updateWishCard(skinId){var on=getWL().some(function(i){return i.id===skinId;});var btn=document.getElementById('wish-btn-'+skinId);if(btn){btn.classList.toggle('wishlisted',on);btn.innerHTML=on?'<span class="wish-heart">&#9829;</span> WISHLISTED':'<span class="wish-heart">&#9825;</span> WISHLIST';}var card=document.getElementById('card-'+skinId);if(card)card.classList.toggle('is-wishlisted',on);}
+function initWishlist(){SKIN_DATA_WL.forEach(function(s){updateWishCard(s.id);});}
+</script>
+</body>
+</html>

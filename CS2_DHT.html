@@ -176,16 +176,25 @@ td{padding:9px 14px;vertical-align:middle}
 .nav-link:hover{background:rgba(240,165,0,.07);border-color:var(--accent)}
 
 /* Print */
-
+.skin-phase{font-family:'Share Tech Mono',monospace;font-size:10px;display:flex;align-items:center;gap:6px;margin:-4px 0 8px;letter-spacing:.5px}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.zoom-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;flex-direction:column;gap:16px}
+.zoom-overlay.open{display:flex}
+.zoom-overlay img{max-width:88vw;max-height:78vh;object-fit:contain;filter:drop-shadow(0 8px 40px rgba(0,0,0,.8))}
+.zoom-label{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,.65);letter-spacing:1px;text-align:center;max-width:80vw}
+.zoom-close{position:absolute;top:20px;right:24px;font-size:32px;color:rgba(255,255,255,.55);cursor:pointer;line-height:1;transition:color .2s;background:none;border:none}
+.zoom-close:hover{color:#fff}
 .wish-btn-wrap{padding:6px 14px;background:var(--surface2);border-bottom:1px solid var(--border);}
-.wish-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;
-  padding:5px 12px;background:transparent;border:1px solid var(--border2);
-  color:var(--text-dim);cursor:pointer;transition:all .2s;width:100%;
-  display:flex;align-items:center;justify-content:center;gap:6px;}
+.wish-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:5px 12px;background:transparent;border:1px solid var(--border2);color:var(--text-dim);cursor:pointer;transition:all .2s;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;}
 .wish-btn:hover{border-color:#ff4d6d;color:#ff4d6d;background:rgba(255,77,109,.07);}
 .wish-btn.wishlisted{border-color:#ff4d6d;background:rgba(255,77,109,.1);color:var(--text-dim);}
 .wish-btn.wishlisted .wish-heart{color:#ff4d6d;}
 .skin-card.is-wishlisted{border-color:rgba(255,77,109,.5);}
+
+
+.toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 0 8px;border-bottom:1px solid var(--border);}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:8px 0 14px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+
 @media print{
   @page{size:letter portrait;margin:.55in .5in .6in .5in}
   body{background:#fff !important;color:#111 !important}
@@ -278,6 +287,11 @@ td{padding:9px 14px;vertical-align:middle}
 </header>
 
 <div class="container">
+  <div class="zoom-overlay" id="zoom-overlay" onclick="closeZoom()">
+    <button class="zoom-close" onclick="closeZoom()">&#215;</button>
+    <img id="zoom-img" src="" alt="">
+    <div class="zoom-label" id="zoom-label"></div>
+  </div>
 
   <!-- PRINT PANEL -->
   <div id="print-panel">
@@ -613,24 +627,12 @@ td{padding:9px 14px;vertical-align:middle}
     </div>
   </div>
 
-  <!-- PRICE BAR -->
-  <div class="price-bar">
+  <!-- TOOLBAR ACTIONS -->
+  <div class="toolbar-actions">
     <button class="fetch-btn" id="fetch-prices-btn" onclick="fetchAllPrices()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
       FETCH CURRENT PRICES
     </button>
-    <div class="price-timestamp">PRICING: <span id="price-ts">NOT YET FETCHED</span></div>
-  </div>
-
-  <!-- TOOLBAR -->
-  <div class="toolbar">
-    <button class="filter-btn active" onclick="filterSkins('all',this)">ALL SKINS</button>
-    <button class="filter-btn" onclick="filterSkins('covert',this)">COVERT</button>
-    <button class="filter-btn" onclick="filterSkins('classified',this)">CLASSIFIED</button>
-    <button class="filter-btn" onclick="filterSkins('restricted',this)">RESTRICTED</button>
-    <button class="filter-btn" onclick="filterSkins('milspec',this)">MIL-SPEC</button>
-    <button class="filter-btn" style="" onclick="filterSkins('knife',this)">&#9733; RARE ITEMS</button>
-    <button class="filter-btn" onclick="filterSkins('table',this)">QUICK REFERENCE</button>
     <button class="print-btn" onclick="window.print()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       PRINT THIS CASE
@@ -639,6 +641,18 @@ td{padding:9px 14px;vertical-align:middle}
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       PRINT OWNED ITEMS
     </button>
+    <div class="price-timestamp" style="margin-left:auto">PRICING: <span id="price-ts">NOT YET FETCHED</span></div>
+  </div>
+
+  <!-- TOOLBAR FILTERS -->
+  <div class="toolbar">
+    <button class="filter-btn active" onclick="filterSkins('all',this)">ALL SKINS</button>
+    <button class="filter-btn" onclick="filterSkins('covert',this)">COVERT</button>
+    <button class="filter-btn" onclick="filterSkins('classified',this)">CLASSIFIED</button>
+    <button class="filter-btn" onclick="filterSkins('restricted',this)">RESTRICTED</button>
+    <button class="filter-btn" onclick="filterSkins('milspec',this)">MIL-SPEC</button>
+    <button class="filter-btn" onclick="filterSkins('knife',this)">&#9733; RARE ITEMS</button>
+    <button class="filter-btn" onclick="filterSkins('table',this)">QUICK REFERENCE</button>
   </div>
 
   <!-- WEAPON SECTIONS -->
@@ -652,7 +666,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-awp___queen_s_gambit">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-awp___queen_s_gambit"><button class="wish-btn" id="wish-btn-awp___queen_s_gambit" onclick="toggleWish('awp___queen_s_gambit')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'AWP | Queen\'s Gambit')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_DVL0OO7baFjM8-UD2qSyPpJvOhuRz39kUpw42zWntiteSiVaQYhCJJzEeIOukSwl4XmPrmw4VHXjtpExC_33zQJsHjNnJgjQA" alt="AWP | Queen's Gambit" loading="lazy">
         <div class="rarity-label">COVERT</div>
       </div>
@@ -696,7 +710,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-covert" data-rarity="covert" id="card-glock_18___fully_tuned">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-glock_18___fully_tuned"><button class="wish-btn" id="wish-btn-glock_18___fully_tuned" onclick="toggleWish('glock_18___fully_tuned')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Glock-18 | Fully Tuned')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c4_2tY5tnJOCWC2yvzedxuPUnS3HqzR9152_UyNigeSqWa1BxW8ElRLJfshfpkNHuZO_n4ADd2IxBxDK-0H3ID5Y8zA" alt="Glock-18 | Fully Tuned" loading="lazy">
         <div class="rarity-label">COVERT</div>
       </div>
@@ -747,7 +761,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-ak_47___crane_flight">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-ak_47___crane_flight"><button class="wish-btn" id="wish-btn-ak_47___crane_flight" onclick="toggleWish('ak_47___crane_flight')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'AK-47 | Crane Flight')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiNQu6WRa7ZsLvWsCGuZxuZij-1gSCGn20wksT7Xzo6ueX6VOgUmWZQiTO5btxDrldbmNru05QLfiN5EmHmsj3hXrnE8mi375M8" alt="AK-47 | Crane Flight" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
       </div>
@@ -791,7 +805,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-p250___kintsugi">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-p250___kintsugi"><button class="wish-btn" id="wish-btn-p250___kintsugi" onclick="toggleWish('p250___kintsugi')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'P250 | Kintsugi')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhzMOwwjIJuqKRY61jNOOGCW6vzedxuPUnHXrikBkh4jjXzd76I36VPQF2CJV2FOYLthC5k9DiNuOwswKLj4JHxTK-0H3jhNNozg" alt="P250 | Kintsugi" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
       </div>
@@ -835,7 +849,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-classified" data-rarity="classified" id="card-p90___deathgaze">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-p90___deathgaze"><button class="wish-btn" id="wish-btn-p90___deathgaze" onclick="toggleWish('p90___deathgaze')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'P90 | Deathgaze')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhx8bf7XsL0ParabBlJ_GJC1icyOl-pK85GHy1kEh3627Tntn6dC-SOgFyXJR3RO8Jt0a7lIG1M-PksgLZjNoT02yg2XMB6aCz" alt="P90 | Deathgaze" loading="lazy">
         <div class="rarity-label">CLASSIFIED</div>
       </div>
@@ -886,7 +900,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-desert_eagle___firebreathing">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-desert_eagle___firebreathing"><button class="wish-btn" id="wish-btn-desert_eagle___firebreathing" onclick="toggleWish('desert_eagle___firebreathing')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Desert Eagle | Firebreathing')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk6_evb6hoH_aaHGKS0-t3pOlgQS6MmRQguynLn9ircSiTPFUgCJAkQbELsxXtktDkMurk4lTZ39hEyn_-3HsbvXxj4fFCD_RcNNN-xQ" alt="Desert Eagle | Firebreathing" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
       </div>
@@ -930,7 +944,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-galil_ar___galigator">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-galil_ar___galigator"><button class="wish-btn" id="wish-btn-galil_ar___galigator" onclick="toggleWish('galil_ar___galigator')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Galil AR | Galigator')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PWvZK1hH_eSAm6XwPp5ot5lRi67gVN_42_VydytcX3BbQ8pCsB0ReMCtEG_lYLuNuji4AGPjt8Qynj4jXlI8G81tMQ6bFYi" alt="Galil AR | Galigator" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
       </div>
@@ -974,7 +988,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-m4a1_s___electrum">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-m4a1_s___electrum"><button class="wish-btn" id="wish-btn-m4a1_s___electrum" onclick="toggleWish('m4a1_s___electrum')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'M4A1-S | Electrum')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_3HDzaD_ut6teJ9XTy-qhEutDWR1Iz4cnjCag51DZQlEOIMtEa7k9TiNbmw51OP3tlBxCr8iCsY6C5t6uwcEf1y--utkZE" alt="M4A1-S | Electrum" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
       </div>
@@ -1018,7 +1032,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-mp7___amberline">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-mp7___amberline"><button class="wish-btn" id="wish-btn-mp7___amberline" onclick="toggleWish('mp7___amberline')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'MP7 | Amberline')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsHf8DIM0POjaqF_LPmdC1icyOl-pK9rTCzlzBx14m-AyNupdXqfaQElXsN0QLICsxSxw4HjZuzm4gePjY5C02yg2Z3LgsMw" alt="MP7 | Amberline" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
       </div>
@@ -1062,7 +1076,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-restricted" data-rarity="restricted" id="card-mp9___urban_sovereign">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-mp9___urban_sovereign"><button class="wish-btn" id="wish-btn-mp9___urban_sovereign" onclick="toggleWish('mp9___urban_sovereign')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'MP9 | Urban Sovereign')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f8DIC0Oe8aqVjH-OcGGKCxOdxvt5lRi67gVMi4m6DmY2hcXLFPAMiA8NxQ-9cshK_m9yyYem04ACLg9hAzH6q239I8G81tD9Ib4M_" alt="MP9 | Urban Sovereign" loading="lazy">
         <div class="rarity-label">RESTRICTED</div>
       </div>
@@ -1113,7 +1127,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-pp_bizon___rmx">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-pp_bizon___rmx"><button class="wish-btn" id="wish-btn-pp_bizon___rmx" onclick="toggleWish('pp_bizon___rmx')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'PP-Bizon | RMX')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1Z5uihZpt_LeisAm6Xyfo45OI7S37gwEhx4WiGnt_8eS2RPw4nX8AkTeNftkS8ltLkNePj5gyI3ZUFk3vfJ75LcA" alt="PP-Bizon | RMX" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1157,7 +1171,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-five_seven___dark_polymer">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-five_seven___dark_polymer"><button class="wish-btn" id="wish-btn-five_seven___dark_polymer" onclick="toggleWish('five_seven___dark_polymer')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Five-SeveN | Dark Polymer')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRbq17JeOWGGKe_v55vPhkSjuMkRw1uAKJk4jxNWWVaw9yAsF3R-cItkTqx9HiY-23tFeN3oNFyS_9jn4a5i5o5b0AB6B35OSJ2MsRWanJ" alt="Five-SeveN | Dark Polymer" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1201,7 +1215,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-m249___bock_blocks">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-m249___bock_blocks"><button class="wish-btn" id="wish-btn-m249___bock_blocks" onclick="toggleWish('m249___bock_blocks')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'M249 | Bock Blocks')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8zMK5wi8Ju6uRaqhiI_uAMXeF0_56td5lRi67gVNw4juHnIr_JSmeOwQnXsd1RbZYtkTpkoDjY7nm5Vfci4NDxS__jyoY8G81tOB68LmM" alt="M249 | Bock Blocks" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1245,7 +1259,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-m4a4___zubastick">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-m4a4___zubastick"><button class="wish-btn" id="wish-btn-m4a4___zubastick" onclick="toggleWish('m4a4___zubastick')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'M4A4 | Zubastick')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwi8P7qaRcrFvIeOHB2Sb_uxhj-1gSCGn208j5WqDw9ascn6VOlQoCJV0RbVb5xO5l4fgY-Pk5waMitpHzS79jiJXrnE8cY5TeGQ" alt="M4A4 | Zubastick" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1289,7 +1303,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-sawed_off___fusion">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-sawed_off___fusion"><button class="wish-btn" id="wish-btn-sawed_off___fusion" onclick="toggleWish('sawed_off___fusion')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'Sawed-Off | Fusion')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiW1P1_v-9WQyC0nQlp4WiHyY79eHmXOw4mW5JwQ-Jc5hO7koXjML_jsgSK2oJHmyz82ilB7DErvbjU0C2wDw" alt="Sawed-Off | Fusion" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1333,7 +1347,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-ump_45___fragment">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-ump_45___fragment"><button class="wish-btn" id="wish-btn-ump_45___fragment" onclick="toggleWish('ump_45___fragment')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'UMP-45 | Fragment')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1O4uKRbrZsJ_2WAHOvzedxuPUnGH3qwxtzsjzczN-odXqePQN0C5EiFrUK50G7lYXkP7jh71bXjdlEyDK-0H3tn7dQwA" alt="UMP-45 | Fragment" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1377,7 +1391,7 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-milspec" data-rarity="milspec" id="card-usp_s___silent_shot">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-usp_s___silent_shot"><button class="wish-btn" id="wish-btn-usp_s___silent_shot" onclick="toggleWish('usp_s___silent_shot')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'USP-S | Silent Shot')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViDyOJzvvVWTSaqqhEutDWR1Nf8cn_CPAQmW8Z5Ee8P4UbuxILmMLu3tAXYj4hByyWsjCscvy89sOYcEf1yCvXTIoM" alt="USP-S | Silent Shot" loading="lazy">
         <div class="rarity-label">MIL-SPEC</div>
       </div>
@@ -1433,13 +1447,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___brocade_crane">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___brocade_crane"><button class="wish-btn" id="wish-btn-__driver_gloves___brocade_crane" onclick="toggleWish('__driver_gloves___brocade_crane')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Brocade Crane')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvw_x5s-BtShawhxwptgKXn4vGLSLANkI-XMN2Qu4OsEG6lYK2M-OwtgPf2IMRzXio3yMY7yhptbxRAKIkq_bVhhaBb-OYO4AFQA" alt="★ Driver Gloves | Brocade Crane" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Brocade Crane</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1450,6 +1465,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___brocade_crane">
       <div class="price-cell">
@@ -1476,13 +1492,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___brocade_flowers">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___brocade_flowers"><button class="wish-btn" id="wish-btn-__driver_gloves___brocade_flowers" onclick="toggleWish('__driver_gloves___brocade_flowers')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Brocade Flowers')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvw_x5s-BtSha1mRIwti-6iIr9HifOOV5kFJJ5TeMK5xTsltSyM-m07wLW2Y4Uy32ohiJKuy9r4L1UWKAj-qGF3gzfcepq2gO2jDs" alt="★ Driver Gloves | Brocade Flowers" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Brocade Flowers</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1493,6 +1510,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___brocade_flowers">
       <div class="price-cell">
@@ -1519,13 +1537,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___dragon_fists">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___dragon_fists"><button class="wish-btn" id="wish-btn-__driver_gloves___dragon_fists" onclick="toggleWish('__driver_gloves___dragon_fists')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Dragon Fists')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvxfx3t-5ncDqwlBEijC-AnrD1KCzPKhgkCZdwTeIL4ES5wdXjPrm251Pdi98QzST3jy0d6nxp4e5QAKsk_q3RkUifZohUdPsK" alt="★ Driver Gloves | Dragon Fists" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Dragon Fists</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1536,6 +1555,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___dragon_fists">
       <div class="price-cell">
@@ -1562,13 +1582,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___garden">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___garden"><button class="wish-btn" id="wish-btn-__driver_gloves___garden" onclick="toggleWish('__driver_gloves___garden')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Garden')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3WvxON0ou5gSyyhkBkYtTGKjYrrMhTTO1d8Zc4pEr9OrES-w9exZuzrsgyLi4lEzij2in9KvHpj6u9XU6J2_aGDjwzCY709t8YdZKHwRXCqB8U" alt="★ Driver Gloves | Garden" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Garden</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1579,6 +1600,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___garden">
       <div class="price-cell">
@@ -1605,13 +1627,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___hand_sweaters">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___hand_sweaters"><button class="wish-btn" id="wish-btn-__driver_gloves___hand_sweaters" onclick="toggleWish('__driver_gloves___hand_sweaters')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Hand Sweaters')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3WvyuB_pN5oXS6qmRgYtC-An4HGLSLANkI-CZJzROEM4xa7lYbgM7i07lOP3okXmCn4iypM7idt4udXU6p0rqHS3haBb-PCGCVNWw" alt="★ Driver Gloves | Hand Sweaters" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Hand Sweaters</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1622,6 +1645,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___hand_sweaters">
       <div class="price-cell">
@@ -1648,13 +1672,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___plum_quill">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___plum_quill"><button class="wish-btn" id="wish-btn-__driver_gloves___plum_quill" onclick="toggleWish('__driver_gloves___plum_quill')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Plum Quill')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvzv1iouhqRxajgA83vzi6lob-KT-JawEjXMZyQuQMs0Xpl4fvMrvn4FOI2N5Dnn78jnxI5yZj5-tXWfEs8rqX0V_DSgKUxA" alt="★ Driver Gloves | Plum Quill" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Plum Quill</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1665,6 +1690,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___plum_quill">
       <div class="price-cell">
@@ -1691,13 +1717,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___seigaiha">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___seigaiha"><button class="wish-btn" id="wish-btn-__driver_gloves___seigaiha" onclick="toggleWish('__driver_gloves___seigaiha')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Seigaiha')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wv0u13vO1mXxa-kAkmvzGMmbD7LT7CAVp5Xco0W-dZuhe6wNDuP-q05g2NiYlFmSn5iS1N7yxj4LxUWPJx-6yCiFqUNOIjoc5UtEcI9GU" alt="★ Driver Gloves | Seigaiha" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Seigaiha</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1708,6 +1735,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___seigaiha">
       <div class="price-cell">
@@ -1734,13 +1762,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__driver_gloves___wave_chaser">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__driver_gloves___wave_chaser"><button class="wish-btn" id="wish-btn-__driver_gloves___wave_chaser" onclick="toggleWish('__driver_gloves___wave_chaser')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Driver Gloves | Wave Chaser')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wv0ud6u95tXSi0mhMYpDWMjorGLSLANkI-ApsmQrFbtkPux4bgMuvg7gzWjI0Xnyz-23lI6i5s4bpWUqMl-6PQ2xaBb-Mdlpgj5g" alt="★ Driver Gloves | Wave Chaser" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Driver Gloves</div>
+        <div class="skin-weapon">★ Driver Gloves</div>
         <div class="skin-name">Wave Chaser</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1751,6 +1780,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__driver_gloves___wave_chaser">
       <div class="price-cell">
@@ -1777,13 +1807,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___lime_polycam">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___lime_polycam"><button class="wish-btn" id="wish-btn-__specialist_gloves___lime_polycam" onclick="toggleWish('__specialist_gloves___lime_polycam')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Lime Polycam')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MlB80py-EmZvGJjnCO1hPVssnHaMUtRTqwNK2Nrzr71aLi4sUzS_8iCJMuic54eoFVvVw-fGGiwySY7Q1t45DeqjW0uKN1w" alt="★ Specialist Gloves | Lime Polycam" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Lime Polycam</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1794,6 +1825,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___lime_polycam">
       <div class="price-cell">
@@ -1820,13 +1852,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___cloud_chaser">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___cloud_chaser"><button class="wish-btn" id="wish-btn-__specialist_gloves___cloud_chaser" onclick="toggleWish('__specialist_gloves___cloud_chaser')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Cloud Chaser')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MkQ8mtDKLpY31NC74Ml93UtZuQe4L40bsl9HgM-Lr5lffgtgWnCT63H5O6XxqtehUVaIl-vCDjwiXMKp9v8dT8uAEag" alt="★ Specialist Gloves | Cloud Chaser" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Cloud Chaser</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1837,6 +1870,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___cloud_chaser">
       <div class="price-cell">
@@ -1863,13 +1897,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___blackbook">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___blackbook"><button class="wish-btn" id="wish-btn-__specialist_gloves___blackbook" onclick="toggleWish('__specialist_gloves___blackbook')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Blackbook')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2Mkg8mtTuMjobGIyfGPV1PVssnHaMUthC9l9e2Mei25wTajN5EziT_2CodvSxs5ugBWKp2rvDX2Q6QMOc8tI5DeqjzpbB7FA" alt="★ Specialist Gloves | Blackbook" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Blackbook</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1880,6 +1915,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___blackbook">
       <div class="price-cell">
@@ -1906,13 +1942,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___chocolate_chesterfield">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___chocolate_chesterfield"><button class="wish-btn" id="wish-btn-__specialist_gloves___chocolate_chesterfield" onclick="toggleWish('__specialist_gloves___chocolate_chesterfield')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Chocolate Chesterfield')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MhAguvymAnrD7LSrENWl8U8UoAfkNu0Ttx4CxP-zr4wDbjN4XmX79j3xM7SdisbkLBPB0q6LWiwnHM7Zs_9Bdc2KEwswI" alt="★ Specialist Gloves | Chocolate Chesterfield" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Chocolate Chesterfield</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1923,6 +1960,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___chocolate_chesterfield">
       <div class="price-cell">
@@ -1949,13 +1987,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___pillow_punchers">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___pillow_punchers"><button class="wish-btn" id="wish-btn-__specialist_gloves___pillow_punchers" onclick="toggleWish('__specialist_gloves___pillow_punchers')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Pillow Punchers')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MhAguvymAnrDuKSLTO2l8U8UoAfkK5BKxkNyyZu7r4VGP3Y8UzSX_iC4av3trtbtWV_Vxq6SEh1mVN7c9_9Bdc6ulT-fJ" alt="★ Specialist Gloves | Pillow Punchers" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Pillow Punchers</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -1966,6 +2005,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___pillow_punchers">
       <div class="price-cell">
@@ -1992,13 +2032,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___sunburst">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___sunburst"><button class="wish-btn" id="wish-btn-__specialist_gloves___sunburst" onclick="toggleWish('__specialist_gloves___sunburst')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Sunburst')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MhggpsSiXiZvGMy7DAVp5Xco0W-VesRKwxtLvMbm07gLbiI1GmX33hywd7Hk45ewEAPIiqfXW2Q7FMLIjoc5U0NHpGGE" alt="★ Specialist Gloves | Sunburst" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Sunburst</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2009,6 +2050,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___sunburst">
       <div class="price-cell">
@@ -2035,13 +2077,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__specialist_gloves___big_swell">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__specialist_gloves___big_swell"><button class="wish-btn" id="wish-btn-__specialist_gloves___big_swell" onclick="toggleWish('__specialist_gloves___big_swell')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Specialist Gloves | Big Swell')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MghwxtgKHlpr8HifOOV5kFJJyFOVZuhC8l9XjNL-3tgHcg41HzHr4hntBuntpse0LUvZwr_bX3QjfcepqIIhMOUI" alt="★ Specialist Gloves | Big Swell" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Specialist Gloves</div>
+        <div class="skin-weapon">★ Specialist Gloves</div>
         <div class="skin-name">Big Swell</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2052,6 +2095,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__specialist_gloves___big_swell">
       <div class="price-cell">
@@ -2078,13 +2122,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___violet_beadwork">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___violet_beadwork"><button class="wish-btn" id="wish-btn-__sport_gloves___violet_beadwork" onclick="toggleWish('__sport_gloves___violet_beadwork')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Violet Beadwork')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOvw-t3tPZmXSKMkRQmvjKLnpzGMT7VLlp1Zc4pEr9OrBWxxofvNOLitQKPid5Hznr-3C9JvHtu4uxTVKMlqaPQilrAM7Fr6cQdZKHwBJ-GjQo" alt="★ Sport Gloves | Violet Beadwork" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Violet Beadwork</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2095,6 +2140,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___violet_beadwork">
       <div class="price-cell">
@@ -2121,13 +2167,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___frosty">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___frosty"><button class="wish-btn" id="wish-btn-__sport_gloves___frosty" onclick="toggleWish('__sport_gloves___frosty')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Frosty')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOvwu97v95-RienkA8YvzSCkpu3dXqfbA5zW5N0F-dcu0K8ldDnMuPk4wHdjN9EniWthn4av31v4eoHWL1lpPOyBkNpPQ" alt="★ Sport Gloves | Frosty" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Frosty</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2138,6 +2185,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___frosty">
       <div class="price-cell">
@@ -2164,13 +2212,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___blaze">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___blaze"><button class="wish-btn" id="wish-btn-__sport_gloves___blaze" onclick="toggleWish('__sport_gloves___blaze')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Blaze')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOvx-J3veR6cCahlBMgtgKJk4jxNWWXblAgDJUiTeJZtBHpktDuY7m2sQPf2YNAxXn5iysf6Cc_67oGA6Ah5OSJ2AmILwG6" alt="★ Sport Gloves | Blaze" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Blaze</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2181,6 +2230,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___blaze">
       <div class="price-cell">
@@ -2207,13 +2257,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___creme_pinstripe">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___creme_pinstripe"><button class="wish-btn" id="wish-btn-__sport_gloves___creme_pinstripe" onclick="toggleWish('__sport_gloves___creme_pinstripe')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Creme Pinstripe')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv0ed4o_V7Rjm2qh8rsj6OpYPwJiPTcAdzW5V2E-4IsBnswNHuZbznsQfXg4NCny_4hnhOvS04suoDVvZx86zJz1aWnYsnB-o" alt="★ Sport Gloves | Creme Pinstripe" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Creme Pinstripe</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2224,6 +2275,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___creme_pinstripe">
       <div class="price-cell">
@@ -2250,13 +2302,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___red_racer">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___red_racer"><button class="wish-btn" id="wish-btn-__sport_gloves___red_racer" onclick="toggleWish('__sport_gloves___red_racer')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Red Racer')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv0-91tfNWXSy3qhEutDWR1I77dC7GbQ4kWZNwEOJY5xLtwYHuN7yz7lPe2YgTniz2jn5Nv3lj5O0cEf1yHxfMKhM" alt="★ Sport Gloves | Red Racer" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Red Racer</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2267,6 +2320,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___red_racer">
       <div class="price-cell">
@@ -2293,13 +2347,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___ultra_violent">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___ultra_violent"><button class="wish-btn" id="wish-btn-__sport_gloves___ultra_violent" onclick="toggleWish('__sport_gloves___ultra_violent')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Ultra Violent')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv1et1uN5uXSi3nBgppwKHiIb-KT_4Ml93UtZuTOcLtUW8lNDvZL634FfYi4pCyiX5iXka6Htr4uhQVqt3_vfRiAzDZap9v8fuC2Vr0A" alt="★ Sport Gloves | Ultra Violent" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Ultra Violent</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2310,6 +2365,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___ultra_violent">
       <div class="price-cell">
@@ -2336,13 +2392,14 @@ td{padding:9px 14px;vertical-align:middle}
     <div class="skin-card rarity-extraordinary" data-rarity="knife" id="card-__sport_gloves___occult">
       <div class="rarity-bar"></div>
       <div class="wish-btn-wrap" id="wish-wrap-__sport_gloves___occult"><button class="wish-btn" id="wish-btn-__sport_gloves___occult" onclick="toggleWish('__sport_gloves___occult')"><span class="wish-heart">&#9825;</span> WISHLIST</button></div>
-      <div class="skin-img-wrap">
+      <div class="skin-img-wrap" onclick="openZoom(this.querySelector('img').src,'★ Sport Gloves | Occult')" style="cursor:zoom-in">
         <img src="https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv1-t6puR9cDu2kSIrujqNjsGody2XPQVzWZslEe5euxS_lYC0Yu7l4wLfj99MmCv4jXka6Slp6-4ET-N7rUuG7GIq" alt="★ Sport Gloves | Occult" loading="lazy">
-        <div class="rarity-label">GLOVES &#9733;</div>
+        <div class="rarity-label">GLOVES ★</div>
       </div>
       <div class="skin-body">
-        <div class="skin-weapon">&#9733; Sport Gloves</div>
+        <div class="skin-weapon">★ Sport Gloves</div>
         <div class="skin-name">Occult</div>
+        
         <div class="skin-stats">
           <div class="stat-item"><div class="stat-label">FLOAT MIN</div><div class="stat-value highlight">0.06</div></div>
           <div class="stat-item"><div class="stat-label">FLOAT MAX</div><div class="stat-value">0.8</div></div>
@@ -2353,6 +2410,7 @@ td{padding:9px 14px;vertical-align:middle}
           <div class="wear-label">WEAR: FN · MW · FT · WW · BS</div>
           <div class="wear-track"><div class="wear-fill" style="left:6%;width:74%;background:linear-gradient(90deg,#e4ae39,#f0a500)"></div></div>
         </div>
+        <div class="knife-pattern-note">No significant pattern variation</div>
       </div>
       <div class="price-strip" id="prices-__sport_gloves___occult">
       <div class="price-cell">
@@ -2770,7 +2828,7 @@ function renderQrChips(id){
   el.innerHTML=entries.map(e=>{
     const parts=[];
     if(e.wear)parts.push(`<span>${abbr(e.wear)}</span>`);
-    if(e.float)parts.push(`<span>FL ${parseFloat(e.float).toFixed(4)}</span>`);
+    if(e.float)parts.push(`<span>fl ${parseFloat(e.float).toFixed(4)}</span>`);
     if(e.pattern)parts.push(`<span>P${e.pattern}</span>`);
     const detail=parts.length?parts.join('<span style="color:#2a4060;margin:0 2px">&middot;</span>'):'<span style="color:#3a5070">&mdash;</span>';
     return `<div class="inv-chip${e.st?' chip-st':''}"><span class="chip-type ${e.st?'st':'std'}">${e.st?'ST&#x2122;':'STD'}</span><span class="chip-detail">${detail}</span></div>`;
@@ -2791,7 +2849,7 @@ function renderPrintRow(id){
     cell.innerHTML='<div class="print-inv-inner">'+entries.map(e=>{
       const parts=[];
       if(e.wear)parts.push(abbr(e.wear));
-      if(e.float)parts.push('FL '+parseFloat(e.float).toFixed(4));
+      if(e.float)parts.push('fl '+parseFloat(e.float).toFixed(4));
       if(e.pattern)parts.push('P'+e.pattern);
       return `<div class="pchip${e.st?' pchip-st':''}"><span class="pchip-type${e.st?' pst':''}">${e.st?'ST&#x2122;':'STD'}</span><span class="pchip-detail">${parts.join(' &middot; ')||'&mdash;'}</span></div>`;
     }).join('')+'</div>';
@@ -2814,66 +2872,60 @@ function printOwned(){
 }
 
 /* Pricing */
-
-/* -- Pricing: reads from hosted prices.json -- */
-const PRICES_JSON_URL = 'https://csdad67.github.io/CS2SkinIndex/prices.json';
-let _priceData = null;
-
-async function loadPriceJSON(){
-  if(_priceData) return _priceData;
-  try{
-    const r = await fetch(PRICES_JSON_URL);
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    _priceData = await r.json();
-    return _priceData;
-  }catch(e){ console.warn('prices.json:', e.message); return null; }
+function fmtPrice(raw){if(!raw)return null;const n=parseFloat(String(raw).replace(/[^0-9.]/g,''));return isNaN(n)?null:'$'+n.toFixed(2);}
+async function fetchSteamPrice(hash){
+  try{const r=await fetch(`https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(hash)}`);if(!r.ok)return null;const d=await r.json();return d.success?fmtPrice(d.lowest_price||d.median_price):null;}catch{return null;}
 }
-
-function getPriceFromData(data, hash){
-  if(!data||!data.prices) return null;
-  const entry = data.prices[hash];
-  return (entry && entry.steam) ? entry.steam : null;
+async function fetchSkinportBulk(){
+  try{const r=await fetch('https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0',{headers:{'Accept-Encoding':'br'}});if(!r.ok)return{};const data=await r.json();const map={};data.forEach(i=>{map[i.market_hash_name]=i;});return map;}catch{return{};}
 }
-
 async function fetchAllPrices(){
-  const btn=document.getElementById('fetch-prices-btn');
-  const ts=document.getElementById('price-ts');
-  if(btn){ btn.disabled=true; btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','LOADING...'); }
-  if(ts) ts.textContent='Loading prices.json...';
-
-  const csEl=document.getElementById('case-steam-price');
-  const cpEl=document.getElementById('case-skinport-price');
-  if(csEl){ csEl.textContent='...'; csEl.className='case-price-value loading'; }
-  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value loading'; }
+  const btn=document.getElementById('fetch-prices-btn'),ts=document.getElementById('price-ts');
+  btn.disabled=true;btn.innerHTML=btn.innerHTML.replace('FETCH CURRENT PRICES','FETCHING...');ts.textContent='Fetching...';
+  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
+  if(csEl){csEl.textContent='...';csEl.className='case-price-value loading';}
+  if(cpEl){cpEl.textContent='...';cpEl.className='case-price-value loading';}
   PRICE_MAP.forEach(s=>{
-    const sel=document.getElementById('steam-price-'+s.id);
-    const spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){ sel.textContent='...'; sel.className='price-value loading'; }
-    if(spl){ spl.textContent='--'; spl.className='price-value'; }
+    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){sel.textContent='...';sel.className='price-value loading';}
+    if(spl){spl.textContent='...';spl.className='price-value loading';}
   });
-
-  const data = await loadPriceJSON();
-
-  const casePrice = getPriceFromData(data, CASE_HASH);
-  if(csEl){ csEl.textContent=casePrice||'N/A'; csEl.className='case-price-value'+(casePrice?'':' no-fn'); }
-  if(cpEl){ cpEl.textContent='--'; cpEl.className='case-price-value no-fn'; }
-
-  PRICE_MAP.forEach(s=>{
-    const steam = getPriceFromData(data, s.steam_hash);
-    const sel=document.getElementById('steam-price-'+s.id);
-    const spl=document.getElementById('skinport-price-'+s.id);
-    if(sel){ sel.textContent=steam||'N/A'; sel.className='price-value'+(steam?'':' no-fn'); }
-    if(spl){ spl.textContent='--'; spl.className='price-value no-fn'; }
-  });
-
-  let updated = 'Error loading prices.json';
-  if(data) updated = data.updated ? new Date(data.updated).toLocaleString()+' (prices.json)' : 'prices.json loaded';
-  if(ts) ts.textContent=updated;
-  if(btn){ btn.disabled=false; btn.innerHTML=btn.innerHTML.replace('LOADING...','FETCH CURRENT PRICES'); }
+  const spMap=await fetchSkinportBulk();
+  function getSp(hash){const item=spMap[hash];if(!item)return null;return fmtPrice((item.min_price??item.suggested_price??0)/100);}
+  const cache={},now=new Date().toISOString();
+  const casesteam=await fetchSteamPrice(CASE_HASH),caseSp=getSp(CASE_HASH);
+  if(csEl){csEl.textContent=casesteam||'N/A';csEl.className='case-price-value'+(casesteam?'':' no-fn');}
+  if(cpEl){cpEl.textContent=caseSp||'N/A';cpEl.className='case-price-value'+(caseSp?'':' no-fn');}
+  cache['_case']={steam:casesteam,skinport:caseSp};
+  for(let i=0;i<PRICE_MAP.length;i++){
+    const s=PRICE_MAP[i];
+    const spPrice=getSp(s.skinport_hash);
+    await new Promise(r=>setTimeout(r,280));
+    const steam=await fetchSteamPrice(s.steam_hash);
+    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){sel.textContent=steam||'N/A';sel.className='price-value'+(steam?'':' no-fn');}
+    if(spl){spl.textContent=spPrice||'N/A';spl.className='price-value'+(spPrice?'':' no-fn');}
+    cache[s.id]={steam,skinport:spPrice};
+  }
+  cache['_ts']=now;setStore(PRICE_KEY,cache);
+  ts.textContent=new Date(now).toLocaleString();
+  btn.disabled=false;btn.innerHTML=btn.innerHTML.replace('FETCHING...','FETCH CURRENT PRICES');
 }
-
-function loadCachedPrices(){ fetchAllPrices(); }
-
+function loadCachedPrices(){
+  const cache=getStore(PRICE_KEY);if(!cache['_ts'])return;
+  const csEl=document.getElementById('case-steam-price'),cpEl=document.getElementById('case-skinport-price');
+  const cc=cache['_case'];
+  if(cc&&csEl){csEl.textContent=cc.steam||'N/A';csEl.className='case-price-value'+(cc.steam?'':' no-fn');}
+  if(cc&&cpEl){cpEl.textContent=cc.skinport||'N/A';cpEl.className='case-price-value'+(cc.skinport?'':' no-fn');}
+  PRICE_MAP.forEach(s=>{
+    const c=cache[s.id];if(!c)return;
+    const sel=document.getElementById('steam-price-'+s.id),spl=document.getElementById('skinport-price-'+s.id);
+    if(sel){sel.textContent=c.steam||'N/A';sel.className='price-value'+(c.steam?'':' no-fn');}
+    if(spl){spl.textContent=c.skinport||'N/A';spl.className='price-value'+(c.skinport?'':' no-fn');}
+  });
+  const ts=document.getElementById('price-ts');
+  if(ts)ts.textContent=new Date(cache['_ts']).toLocaleString()+' (cached)';
+}
 
 /* Init */
 document.addEventListener('DOMContentLoaded',()=>{
@@ -2881,33 +2933,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   SKIN_IDS.forEach(([id])=>{updateBadge(id);updateCardOwned(id);renderQrChips(id);renderPrintRow(id);});
   loadCachedPrices();
 });
-
+function openZoom(src,label){var o=document.getElementById('zoom-overlay');var i=document.getElementById('zoom-img');var l=document.getElementById('zoom-label');i.src=src;if(l)l.textContent=label||'';o.classList.add('open');}
+function closeZoom(){document.getElementById('zoom-overlay').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
 const WISH_KEY_GLOBAL="cs2_global_wishlist";
 const CASE_NAME_WL="Sealed Dead Hand Terminal";
 const SKIN_DATA_WL=[{"id": "awp___queen_s_gambit", "weapon": "AWP", "skinName": "Queen's Gambit", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwiYbf_DVL0OO7baFjM8-UD2qSyPpJvOhuRz39kUpw42zWntiteSiVaQYhCJJzEeIOukSwl4XmPrmw4VHXjtpExC_33zQJsHjNnJgjQA", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "glock_18___fully_tuned", "weapon": "Glock-18", "skinName": "Fully Tuned", "rarity": "Covert", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2kpnj9h1c4_2tY5tnJOCWC2yvzedxuPUnS3HqzR9152_UyNigeSqWa1BxW8ElRLJfshfpkNHuZO_n4ADd2IxBxDK-0H3ID5Y8zA", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "ak_47___crane_flight", "weapon": "AK-47", "skinName": "Crane Flight", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLwlcK3wiNQu6WRa7ZsLvWsCGuZxuZij-1gSCGn20wksT7Xzo6ueX6VOgUmWZQiTO5btxDrldbmNru05QLfiN5EmHmsj3hXrnE8mi375M8", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "p250___kintsugi", "weapon": "P250", "skinName": "Kintsugi", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhzMOwwjIJuqKRY61jNOOGCW6vzedxuPUnHXrikBkh4jjXzd76I36VPQF2CJV2FOYLthC5k9DiNuOwswKLj4JHxTK-0H3jhNNozg", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "p90___deathgaze", "weapon": "P90", "skinName": "Deathgaze", "rarity": "Classified", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLhx8bf7XsL0ParabBlJ_GJC1icyOl-pK85GHy1kEh3627Tntn6dC-SOgFyXJR3RO8Jt0a7lIG1M-PksgLZjNoT02yg2XMB6aCz", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "desert_eagle___firebreathing", "weapon": "Desert Eagle", "skinName": "Firebreathing", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL1m5fn8Sdk6_evb6hoH_aaHGKS0-t3pOlgQS6MmRQguynLn9ircSiTPFUgCJAkQbELsxXtktDkMurk4lTZ39hEyn_-3HsbvXxj4fFCD_RcNNN-xQ", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "galil_ar___galigator", "weapon": "Galil AR", "skinName": "Galigator", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL2n5rp8SNJ0PWvZK1hH_eSAm6XwPp5ot5lRi67gVN_42_VydytcX3BbQ8pCsB0ReMCtEG_lYLuNuji4AGPjt8Qynj4jXlI8G81tMQ6bFYi", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "m4a1_s___electrum", "weapon": "M4A1-S", "skinName": "Electrum", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwjFS4_ega6F_H_3HDzaD_ut6teJ9XTy-qhEutDWR1Iz4cnjCag51DZQlEOIMtEa7k9TiNbmw51OP3tlBxCr8iCsY6C5t6uwcEf1y--utkZE", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "mp7___amberline", "weapon": "MP7", "skinName": "Amberline", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsHf8DIM0POjaqF_LPmdC1icyOl-pK9rTCzlzBx14m-AyNupdXqfaQElXsN0QLICsxSxw4HjZuzm4gePjY5C02yg2Z3LgsMw", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "mp9___urban_sovereign", "weapon": "MP9", "skinName": "Urban Sovereign", "rarity": "Restricted", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8js_f8DIC0Oe8aqVjH-OcGGKCxOdxvt5lRi67gVMi4m6DmY2hcXLFPAMiA8NxQ-9cshK_m9yyYem04ACLg9hAzH6q239I8G81tD9Ib4M_", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "pp_bizon___rmx", "weapon": "PP-Bizon", "skinName": "RMX", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLzl4zv8x1Z5uihZpt_LeisAm6Xyfo45OI7S37gwEhx4WiGnt_8eS2RPw4nX8AkTeNftkS8ltLkNePj5gyI3ZUFk3vfJ75LcA", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "five_seven___dark_polymer", "weapon": "Five-SeveN", "skinName": "Dark Polymer", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL3l4Dl7idN6vyRbq17JeOWGGKe_v55vPhkSjuMkRw1uAKJk4jxNWWVaw9yAsF3R-cItkTqx9HiY-23tFeN3oNFyS_9jn4a5i5o5b0AB6B35OSJ2MsRWanJ", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "m249___bock_blocks", "weapon": "M249", "skinName": "Bock Blocks", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8zMK5wi8Ju6uRaqhiI_uAMXeF0_56td5lRi67gVNw4juHnIr_JSmeOwQnXsd1RbZYtkTpkoDjY7nm5Vfci4NDxS__jyoY8G81tOB68LmM", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "m4a4___zubastick", "weapon": "M4A4", "skinName": "Zubastick", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8ypexwi8P7qaRcrFvIeOHB2Sb_uxhj-1gSCGn208j5WqDw9ascn6VOlQoCJV0RbVb5xO5l4fgY-Pk5waMitpHzS79jiJXrnE8cY5TeGQ", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "sawed_off___fusion", "weapon": "Sawed-Off", "skinName": "Fusion", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLin4Hl-S1d6c29abNoJP-VCFiW1P1_v-9WQyC0nQlp4WiHyY79eHmXOw4mW5JwQ-Jc5hO7koXjML_jsgSK2oJHmyz82ilB7DErvbjU0C2wDw", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "ump_45___fragment", "weapon": "UMP-45", "skinName": "Fragment", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkk4a0qB1O4uKRbrZsJ_2WAHOvzedxuPUnGH3qwxtzsjzczN-odXqePQN0C5EiFrUK50G7lYXkP7jh71bXjdlEyDK-0H3tn7dQwA", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "usp_s___silent_shot", "weapon": "USP-S", "skinName": "Silent Shot", "rarity": "Mil-Spec Grade", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyLkjYbf7itX6vytbbZSNeODHViDyOJzvvVWTSaqqhEutDWR1Nf8cn_CPAQmW8Z5Ee8P4UbuxILmMLu3tAXYj4hByyWsjCscvy89sOYcEf1yCvXTIoM", "floatMin": "0", "floatMax": "1", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___brocade_crane", "weapon": "Driver Gloves", "skinName": "Brocade Crane", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvw_x5s-BtShawhxwptgKXn4vGLSLANkI-XMN2Qu4OsEG6lYK2M-OwtgPf2IMRzXio3yMY7yhptbxRAKIkq_bVhhaBb-OYO4AFQA", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___brocade_flowers", "weapon": "Driver Gloves", "skinName": "Brocade Flowers", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvw_x5s-BtSha1mRIwti-6iIr9HifOOV5kFJJ5TeMK5xTsltSyM-m07wLW2Y4Uy32ohiJKuy9r4L1UWKAj-qGF3gzfcepq2gO2jDs", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___dragon_fists", "weapon": "Driver Gloves", "skinName": "Dragon Fists", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvxfx3t-5ncDqwlBEijC-AnrD1KCzPKhgkCZdwTeIL4ES5wdXjPrm251Pdi98QzST3jy0d6nxp4e5QAKsk_q3RkUifZohUdPsK", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___garden", "weapon": "Driver Gloves", "skinName": "Garden", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3WvxON0ou5gSyyhkBkYtTGKjYrrMhTTO1d8Zc4pEr9OrES-w9exZuzrsgyLi4lEzij2in9KvHpj6u9XU6J2_aGDjwzCY709t8YdZKHwRXCqB8U", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___hand_sweaters", "weapon": "Driver Gloves", "skinName": "Hand Sweaters", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3WvyuB_pN5oXS6qmRgYtC-An4HGLSLANkI-CZJzROEM4xa7lYbgM7i07lOP3okXmCn4iypM7idt4udXU6p0rqHS3haBb-PCGCVNWw", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___plum_quill", "weapon": "Driver Gloves", "skinName": "Plum Quill", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wvzv1iouhqRxajgA83vzi6lob-KT-JawEjXMZyQuQMs0Xpl4fvMrvn4FOI2N5Dnn78jnxI5yZj5-tXWfEs8rqX0V_DSgKUxA", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___seigaiha", "weapon": "Driver Gloves", "skinName": "Seigaiha", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wv0u13vO1mXxa-kAkmvzGMmbD7LT7CAVp5Xco0W-dZuhe6wNDuP-q05g2NiYlFmSn5iS1N7yxj4LxUWPJx-6yCiFqUNOIjoc5UtEcI9GU", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__driver_gloves___wave_chaser", "weapon": "Driver Gloves", "skinName": "Wave Chaser", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5T441rsfhr9kYDl7h1c4_24bZtpMvmFC3Wv0ud6u95tXSi0mhMYpDWMjorGLSLANkI-ApsmQrFbtkPux4bgMuvg7gzWjI0Xnyz-23lI6i5s4bpWUqMl-6PQ2xaBb-Mdlpgj5g", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___lime_polycam", "weapon": "Specialist Gloves", "skinName": "Lime Polycam", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MlB80py-EmZvGJjnCO1hPVssnHaMUtRTqwNK2Nrzr71aLi4sUzS_8iCJMuic54eoFVvVw-fGGiwySY7Q1t45DeqjW0uKN1w", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___cloud_chaser", "weapon": "Specialist Gloves", "skinName": "Cloud Chaser", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MkQ8mtDKLpY31NC74Ml93UtZuQe4L40bsl9HgM-Lr5lffgtgWnCT63H5O6XxqtehUVaIl-vCDjwiXMKp9v8dT8uAEag", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___blackbook", "weapon": "Specialist Gloves", "skinName": "Blackbook", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2Mkg8mtTuMjobGIyfGPV1PVssnHaMUthC9l9e2Mei25wTajN5EziT_2CodvSxs5ugBWKp2rvDX2Q6QMOc8tI5DeqjzpbB7FA", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___chocolate_chesterfield", "weapon": "Specialist Gloves", "skinName": "Chocolate Chesterfield", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MhAguvymAnrD7LSrENWl8U8UoAfkNu0Ttx4CxP-zr4wDbjN4XmX79j3xM7SdisbkLBPB0q6LWiwnHM7Zs_9Bdc2KEwswI", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___pillow_punchers", "weapon": "Specialist Gloves", "skinName": "Pillow Punchers", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MhAguvymAnrDuKSLTO2l8U8UoAfkK5BKxkNyyZu7r4VGP3Y8UzSX_iC4av3trtbtWV_Vxq6SEh1mVN7c9_9Bdc6ulT-fJ", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___sunburst", "weapon": "Specialist Gloves", "skinName": "Sunburst", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MhggpsSiXiZvGMy7DAVp5Xco0W-VesRKwxtLvMbm07gLbiI1GmX33hywd7Hk45ewEAPIiqfXW2Q7FMLIjoc5U0NHpGGE", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__specialist_gloves___big_swell", "weapon": "Specialist Gloves", "skinName": "Big Swell", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk71ruQBH4jYLf-i5U-fe9V6NhL-aWMXSAxO1_se1gXD2MghwxtgKHlpr8HifOOV5kFJJyFOVZuhC8l9XjNL-3tgHcg41HzHr4hntBuntpse0LUvZwr_bX3QjfcepqIIhMOUI", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___violet_beadwork", "weapon": "Sport Gloves", "skinName": "Violet Beadwork", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOvw-t3tPZmXSKMkRQmvjKLnpzGMT7VLlp1Zc4pEr9OrBWxxofvNOLitQKPid5Hznr-3C9JvHtu4uxTVKMlqaPQilrAM7Fr6cQdZKHwBJ-GjQo", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___frosty", "weapon": "Sport Gloves", "skinName": "Frosty", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOvwu97v95-RienkA8YvzSCkpu3dXqfbA5zW5N0F-dcu0K8ldDnMuPk4wHdjN9EniWthn4av31v4eoHWL1lpPOyBkNpPQ", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___blaze", "weapon": "Sport Gloves", "skinName": "Blaze", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOvx-J3veR6cCahlBMgtgKJk4jxNWWXblAgDJUiTeJZtBHpktDuY7m2sQPf2YNAxXn5iysf6Cc_67oGA6Ah5OSJ2AmILwG6", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___creme_pinstripe", "weapon": "Sport Gloves", "skinName": "Creme Pinstripe", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv0ed4o_V7Rjm2qh8rsj6OpYPwJiPTcAdzW5V2E-4IsBnswNHuZbznsQfXg4NCny_4hnhOvS04suoDVvZx86zJz1aWnYsnB-o", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___red_racer", "weapon": "Sport Gloves", "skinName": "Red Racer", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv0-91tfNWXSy3qhEutDWR1I77dC7GbQ4kWZNwEOJY5xLtwYHuN7yz7lPe2YgTniz2jn5Nv3lj5O0cEf1yHxfMKhM", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___ultra_violent", "weapon": "Sport Gloves", "skinName": "Ultra Violent", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv1et1uN5uXSi3nBgppwKHiIb-KT_4Ml93UtZuTOcLtUW8lNDvZL634FfYi4pCyiX5iXka6Htr4uhQVqt3_vfRiAzDZap9v8fuC2Vr0A", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}, {"id": "__sport_gloves___occult", "weapon": "Sport Gloves", "skinName": "Occult", "rarity": "Extraordinary", "img": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Tk5UvzWCL2kpn2-DFk6P6hfqFSM-CcHHOv1-t6puR9cDu2kSIrujqNjsGody2XPQVzWZslEe5euxS_lYC0Yu7l4wLfj99MmCv4jXka6Slp6-4ET-N7rUuG7GIq", "floatMin": "0.06", "floatMax": "0.8", "caseName": "Sealed Dead Hand Terminal"}];
 function getWL(){try{return JSON.parse(localStorage.getItem(WISH_KEY_GLOBAL)||'[]');}catch{return[];}}
 function setWL(a){try{localStorage.setItem(WISH_KEY_GLOBAL,JSON.stringify(a));}catch{}}
-function toggleWish(skinId){
-  let list=getWL();
-  const idx=list.findIndex(i=>i.id===skinId);
-  if(idx>=0)list.splice(idx,1);
-  else{const meta=SKIN_DATA_WL.find(s=>s.id===skinId)||{};list.push({id:skinId,caseName:CASE_NAME_WL,...meta});}
-  setWL(list);updateWishCard(skinId);
-}
-function updateWishCard(skinId){
-  const on=getWL().some(i=>i.id===skinId);
-  const btn=document.getElementById('wish-btn-'+skinId);
-  if(btn){
-    btn.classList.toggle('wishlisted',on);
-    btn.innerHTML=on
-      ?'<span class="wish-heart">&#9829;</span> WISHLISTED'
-      :'<span class="wish-heart">&#9825;</span> WISHLIST';
-  }
-  const card=document.getElementById('card-'+skinId);
-  if(card)card.classList.toggle('is-wishlisted',on);
-}
-function initWishlist(){SKIN_DATA_WL.forEach(s=>updateWishCard(s.id));}
-
+function toggleWish(skinId){var list=getWL();var idx=list.findIndex(function(i){return i.id===skinId;});if(idx>=0)list.splice(idx,1);else{var meta=SKIN_DATA_WL.find(function(s){return s.id===skinId;})||{};var item=Object.assign({id:skinId,caseName:CASE_NAME_WL},meta);list.push(item);}setWL(list);updateWishCard(skinId);}
+function updateWishCard(skinId){var on=getWL().some(function(i){return i.id===skinId;});var btn=document.getElementById('wish-btn-'+skinId);if(btn){btn.classList.toggle('wishlisted',on);btn.innerHTML=on?'<span class="wish-heart">&#9829;</span> WISHLISTED':'<span class="wish-heart">&#9825;</span> WISHLIST';}var card=document.getElementById('card-'+skinId);if(card)card.classList.toggle('is-wishlisted',on);}
+function initWishlist(){SKIN_DATA_WL.forEach(function(s){updateWishCard(s.id);});}
 </script>
 </body>
 </html>
