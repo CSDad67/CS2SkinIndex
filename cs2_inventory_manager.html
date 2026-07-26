@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CS2 Inventory Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&family=Share+Tech+Mono&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c10;--s:#0f1318;--s2:#161b24;--bd:#1e2836;--a:#f0a500;--t:#c8d8e8;--td:#6a8098;--tb:#eaf2ff;--g:#2ecc71;--r:#e74c3c;--c:#00d4ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:"Exo 2",sans-serif;min-height:100vh;padding:32px 20px 80px}
+.wrap{max-width:920px;margin:0 auto}
+a{color:var(--a);text-decoration:none}
+h1{font-family:"Rajdhani",sans-serif;font-size:30px;color:var(--tb);letter-spacing:2px;margin:8px 0 4px}
+h1 span{color:var(--a)}
+.sub{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);letter-spacing:1px;margin-bottom:28px}
+.mono{font-family:"Share Tech Mono",monospace}
+/* domain warning */
+#dw{display:none;background:#2a0000;border:2px solid var(--r);padding:20px;margin-bottom:20px}
+#dw .t{font-size:15px;color:var(--r);font-weight:700;margin-bottom:10px}
+#dw p{font-family:"Share Tech Mono",monospace;font-size:11px;color:#ffaaaa;line-height:2}
+#dw code{color:#ff8888}
+/* diag box */
+.diag{background:#0d1520;border:1px solid var(--c);padding:16px;margin-bottom:20px}
+.diag-title{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--c);letter-spacing:1px;margin-bottom:10px}
+.diag-row{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td);padding:2px 0;display:flex;gap:8px}
+.diag-row span{color:var(--tb)}
+.diag-keys{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td);margin-top:6px;line-height:1.8}
+.diag-keys b{color:var(--a)}
+/* stats */
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:var(--s);border:1px solid var(--bd);padding:10px 16px;font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td)}
+.sv{font-size:20px;font-weight:700;color:var(--a);display:block;margin-top:3px}
+/* cards */
+.card{background:var(--s);border:1px solid var(--bd);padding:20px;margin-bottom:14px}
+.ct{font-family:"Rajdhani",sans-serif;font-size:17px;font-weight:700;color:var(--tb);margin-bottom:6px}
+.cd{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);margin-bottom:14px;line-height:1.8}
+.brow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.btn{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 16px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px}
+.bg{background:var(--a);color:#000}.bg:hover{opacity:.85}
+.br{background:transparent;border:1px solid var(--r);color:var(--r)}.br:hover{background:rgba(231,76,60,.1)}
+.bc{background:transparent;border:1px solid var(--c);color:var(--c)}.bc:hover{background:rgba(0,212,255,.1)}
+/* export */
+.eout{display:none;margin-top:14px}
+.esteps{background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.12);padding:14px;margin-bottom:10px;font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--td);line-height:2.1}
+.esteps strong{color:var(--tb)}
+.efn{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--c);margin-bottom:8px}
+.eta{width:100%;background:var(--s2);border:2px solid var(--c);color:var(--tb);font-family:"Share Tech Mono",monospace;font-size:10px;padding:10px;resize:vertical;outline:none;min-height:160px;line-height:1.5;cursor:text}
+.hint{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td);margin-top:6px}
+/* import */
+input[type=file]{display:none}
+.fl{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 16px;background:transparent;border:1px solid var(--c);color:var(--c);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.fl:hover{background:rgba(0,212,255,.1)}
+.imta{margin-top:10px;width:100%;background:var(--s2);border:1px solid var(--bd);color:var(--tb);font-family:"Share Tech Mono",monospace;font-size:11px;padding:10px;resize:vertical;outline:none;min-height:100px}
+.imta:focus{border-color:var(--c)}
+.msg{font-family:"Share Tech Mono",monospace;font-size:11px;padding:8px 12px;margin-top:8px;display:none;border:1px solid}
+.ok{background:rgba(46,204,113,.1);border-color:rgba(46,204,113,.3);color:var(--g)}
+.er{background:rgba(231,76,60,.1);border-color:rgba(231,76,60,.3);color:var(--r)}
+.inf{background:rgba(240,165,0,.1);border-color:rgba(240,165,0,.3);color:var(--a)}
+/* preview table */
+.sh{font-family:"Rajdhani",sans-serif;font-size:16px;font-weight:700;color:var(--tb);margin:24px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+th{background:var(--s2);font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:1.5px;color:var(--td);padding:8px 10px;text-align:left;border-bottom:1px solid var(--bd)}
+td{padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
+tr:hover td{background:rgba(59,158,255,.03)}
+.tn{font-family:"Rajdhani",sans-serif;font-weight:600;color:var(--tb);font-size:13px}
+.tc{font-family:"Share Tech Mono",monospace;font-size:9px;color:var(--a)}
+.tm{font-family:"Share Tech Mono",monospace;font-size:10px;color:var(--td)}
+.chip{font-family:"Share Tech Mono",monospace;font-size:9px;padding:2px 5px;border:1px solid var(--bd);background:var(--s2);display:inline-block;margin:1px}
+.cst{border-color:rgba(240,165,0,.3);color:var(--a)}
+
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--c),var(--g));border-radius:2px;transition:width .3s}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono" style="font-size:11px;color:var(--td);margin-bottom:16px"><a href="cs2_master_index.html">&#8592; CS2 MASTER INDEX</a></p>
+  <h1>Inventory <span>Manager</span></h1>
+  <p class="sub">// EXPORT &middot; IMPORT &middot; BACKUP &middot; RESTORE //</p>
+
+  <!-- Wrong domain warning -->
+  <div id="dw">
+    <div class="t">&#9888; THIS PAGE CANNOT SEE YOUR DATA FROM HERE</div>
+    <p>
+      You are accessing this page from: <code id="cur-origin"></code><br>
+      Your inventory is stored on: <code style="color:var(--c)">csdad67.github.io</code><br><br>
+      <strong style="color:#fff">&#10148; Open this page at:</strong><br>
+      <a href="https://csdad67.github.io/CS2SkinIndex/cs2_inventory_manager.html" style="color:var(--c);font-size:12px">
+        https://csdad67.github.io/CS2SkinIndex/cs2_inventory_manager.html
+      </a><br><br>
+      Make sure you have also uploaded this file to your GitHub repo first.
+    </p>
+  </div>
+
+  <!-- Diagnostic panel — always visible so you can confirm data is found -->
+  <div class="diag" id="diag">
+    <div class="diag-title">&#9632; STORAGE DIAGNOSTIC</div>
+    <div class="diag-row">Domain: <span id="d-domain"></span></div>
+    <div class="diag-row">Total localStorage keys: <span id="d-total"></span></div>
+    <div class="diag-row">Inventory keys found: <span id="d-invkeys"></span></div>
+    <div class="diag-row">Wishlist key found: <span id="d-wl"></span></div>
+    <div class="diag-keys" id="d-keylist"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">OWNED SKINS<span class="sv" id="s1">—</span></div>
+    <div class="stat">ENTRIES<span class="sv" id="s2">—</span></div>
+    <div class="stat">WISHLISTED<span class="sv" id="s3">—</span></div>
+    <div class="stat">CASES<span class="sv" id="s4">—</span></div>
+  </div>
+
+
+  <!-- STEAM INVENTORY IMPORT -->
+  <div class="steam-card">
+    <div class="ct">IMPORT FROM STEAM INVENTORY</div>
+    <div class="cd">
+      Automatically populate your collection from your live CS2 Steam inventory.<br>
+      Uses your browser session — no API key required, nothing is stored or transmitted.
+    </div>
+    <a href="cs2_steam_importer.html" class="btn bg" style="display:inline-flex;text-decoration:none">
+      &#9670; OPEN STEAM IMPORTER
+    </a>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--td);margin-top:10px;line-height:1.8">
+      The importer runs a bookmarklet on your Steam inventory page, or lets you paste the raw inventory JSON directly.
+      No GitHub Actions or API keys needed.
+    </div>
+  </div>
+
+    <!-- EXPORT -->
+  <div class="card">
+    <div class="ct">EXPORT INVENTORY</div>
+    <div class="cd">
+      Click a button &#8594; your data appears in the text box below &#8594;
+      <strong style="color:var(--tb)">click the box &#8594; Ctrl+A &#8594; Ctrl+C</strong> &#8594;
+      open Notepad &#8594; Ctrl+V &#8594; File &#8594; Save As &#8594; name it <strong style="color:var(--c)">.json</strong> &#8594; set type to <strong style="color:var(--tb)">All Files</strong> &#8594; Save
+    </div>
+    <div class="brow">
+      <button class="btn bg" onclick="doExport('all')">FULL BACKUP (owned + wishlist)</button>
+      <button class="btn bg" style="background:#ff4d6d" onclick="doExport('wishlist')">&#9829; WISHLIST ONLY</button>
+      <button class="btn bg" style="background:var(--c);color:#000" onclick="doExport('owned')">OWNED ONLY</button>
+    </div>
+    <div class="eout" id="eout">
+      <div class="efn" id="efn"></div>
+      <div class="esteps">
+        <strong>STEPS TO SAVE THE FILE:</strong><br>
+        1. Click anywhere inside the yellow-bordered box below<br>
+        2. Press <strong>Ctrl+A</strong> (select all) then <strong>Ctrl+C</strong> (copy)<br>
+        3. Open <strong>Notepad</strong> &#8594; <strong>Ctrl+V</strong> to paste<br>
+        4. File &#8594; Save As &#8594; enter filename: <strong id="efn2" style="color:var(--c)"></strong><br>
+        5. Change "Save as type" to <strong>All Files</strong> &#8594; choose Desktop &#8594; Save
+      </div>
+      <textarea class="eta" id="eta" readonly
+        onclick="this.focus();this.select();this.setSelectionRange(0,99999);"
+        onfocus="this.select();this.setSelectionRange(0,99999);"
+        onmouseup="return false;"></textarea>
+      <div class="hint">&#9651; Click inside the box, then <strong>Ctrl+A</strong> then <strong>Ctrl+C</strong> &nbsp;|&nbsp; Mac: <strong>Cmd+A</strong> then <strong>Cmd+C</strong></div>
+    </div>
+    <div class="msg" id="em"></div>
+  </div>
+
+  <!-- IMPORT -->
+  <div class="card">
+    <div class="ct">IMPORT INVENTORY</div>
+    <div class="cd">Upload a previously exported .json file or paste the JSON. MERGE adds without overwriting. REPLACE overwrites all existing data.</div>
+    <div class="brow">
+      <label class="fl" for="ifile">&#128193; UPLOAD .JSON FILE</label>
+      <input type="file" id="ifile" accept=".json" onchange="loadFile(event)">
+    </div>
+    <textarea class="imta" id="ita" placeholder="Or paste your exported JSON here..."></textarea>
+    <div class="brow" style="margin-top:8px">
+      <button class="btn bc" onclick="doImport(false)">MERGE IMPORT</button>
+      <button class="btn" style="background:transparent;border:1px solid var(--a);color:var(--a)" onclick="doImport(true)">REPLACE IMPORT</button>
+    </div>
+    <div class="msg" id="im"></div>
+  </div>
+
+  <!-- CLEAR -->
+  <div class="card">
+    <div class="ct">CLEAR DATA</div>
+    <div class="cd">Permanently deletes data from this browser. <strong style="color:var(--r)">Export a backup first — this cannot be undone.</strong></div>
+    <div class="brow">
+      <button class="btn br" onclick="doClear('owned')">CLEAR OWNED SKINS</button>
+      <button class="btn br" onclick="doClear('wishlist')">CLEAR WISHLIST</button>
+      <button class="btn br" onclick="doClear('all')">CLEAR ALL</button>
+    </div>
+    <div class="msg" id="cm"></div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="sh">Current Inventory Preview</div>
+  <div id="pv"><p class="mono" style="font-size:11px;color:var(--td)">Loading...</p></div>
+</div>
+
+<script>
+var WK='cs2_global_wishlist';
+
+function invKeys(){
+  var r=[];
+  for(var i=0;i<localStorage.length;i++){
+    var k=localStorage.key(i);
+    if(k&&k.indexOf('cs2_')===0&&k.slice(-10)==='_inventory')r.push(k);
+  }
+  return r;
+}
+function gs(k){try{return JSON.parse(localStorage.getItem(k)||'{}');}catch(e){return{};}}
+function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function gwl(){try{return JSON.parse(localStorage.getItem(WK)||'[]');}catch(e){return[];}}
+
+function runDiag(){
+  var host=window.location.hostname;
+  var isGH=(host==='csdad67.github.io');
+
+  document.getElementById('d-domain').textContent=window.location.origin;
+  document.getElementById('d-total').textContent=localStorage.length;
+
+  var iks=invKeys();
+  document.getElementById('d-invkeys').textContent=iks.length+' found';
+  document.getElementById('d-wl').textContent=localStorage.getItem(WK)?'YES ('+gwl().length+' items)':'NO';
+
+  // Show all keys
+  var allKeys=[];
+  for(var i=0;i<localStorage.length;i++)allKeys.push(localStorage.key(i));
+  var kl=document.getElementById('d-keylist');
+  if(allKeys.length===0){
+    kl.innerHTML='<span style="color:var(--r)">No localStorage keys found on this domain.</span>';
+  } else {
+    kl.innerHTML='<b>All keys on this domain:</b><br>'+allKeys.map(function(k){
+      var isInv=k.indexOf('cs2_')===0&&k.slice(-10)==='_inventory';
+      var isWL=k===WK;
+      var col=isInv?'var(--c)':isWL?'#ff4d6d':'var(--td)';
+      return '<span style="color:'+col+'">'+k+'</span>';
+    }).join('<br>');
+  }
+
+  if(!isGH){
+    document.getElementById('dw').style.display='block';
+    document.getElementById('cur-origin').textContent=window.location.origin||'file://';
+  }
+}
+
+function build(){
+  var inv={},ts=0,te=0,tc=0;
+  invKeys().forEach(function(k){
+    var d=gs(k);
+    var ids=Object.keys(d).filter(function(id){return Array.isArray(d[id])&&d[id].length>0;});
+    if(ids.length){
+      inv[k]={};
+      ids.forEach(function(id){inv[k][id]=d[id];ts++;te+=d[id].length;});
+      tc++;
+    }
+  });
+  var wl=gwl();
+  return{version:2,exported:new Date().toISOString(),
+    source:'CS2 Master Skin Index - csdad67.github.io/CS2SkinIndex',
+    summary:{totalSkins:ts,totalEntries:te,wishlisted:wl.length,cases:tc},
+    inventory:inv,wishlist:wl};
+}
+
+function doExport(mode){
+  var f=build(),p,fn,lbl;
+  var dt=new Date().toISOString().slice(0,10);
+  if(mode==='wishlist'){
+    p={version:2,exported:f.exported,source:f.source,
+       summary:{wishlisted:f.summary.wishlisted},wishlist:f.wishlist};
+    fn='cs2_wishlist_'+dt+'.json';
+    lbl='Wishlist: '+f.summary.wishlisted+' items';
+  }else if(mode==='owned'){
+    p={version:2,exported:f.exported,source:f.source,
+       summary:{totalSkins:f.summary.totalSkins,totalEntries:f.summary.totalEntries},
+       inventory:f.inventory};
+    fn='cs2_owned_'+dt+'.json';
+    lbl='Owned: '+f.summary.totalSkins+' skins ('+f.summary.totalEntries+' entries)';
+  }else{
+    p=f;fn='cs2_full_backup_'+dt+'.json';
+    lbl='Full backup: '+f.summary.totalSkins+' owned + '+f.summary.wishlisted+' wishlisted';
+  }
+  var j=JSON.stringify(p,null,2);
+  var ta=document.getElementById('eta');
+  document.getElementById('efn').textContent='File: '+fn+' — '+lbl;
+  document.getElementById('efn2').textContent=fn;
+  document.getElementById('eout').style.display='block';
+  ta.value=j;
+  document.getElementById('eout').scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(function(){
+    ta.focus();
+    ta.select();
+    try{ta.setSelectionRange(0,ta.value.length);}catch(e){}
+  },600);
+  showMsg('em','\u2713 '+lbl+' ready in the box below. Click box \u2192 Ctrl+A \u2192 Ctrl+C','ok');
+}
+
+function loadFile(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    document.getElementById('ita').value=ev.target.result;
+    showMsg('im','File loaded \u2014 click MERGE or REPLACE to import','inf');
+  };
+  r.readAsText(f);
+}
+
+function doImport(rep){
+  var raw=document.getElementById('ita').value.trim();
+  if(!raw){showMsg('im','Nothing to import','er');return;}
+  var d;try{d=JSON.parse(raw);}catch(e){showMsg('im','Invalid JSON: '+e.message,'er');return;}
+  var inv=d.inventory||d,wl=d.wishlist||[];
+  if(typeof inv!=='object'||Array.isArray(inv)){showMsg('im','Unrecognised format','er');return;}
+  var sc=0,ec=0;
+  if(rep){invKeys().forEach(function(k){localStorage.removeItem(k);});localStorage.removeItem(WK);}
+  Object.keys(inv).forEach(function(sk){
+    if(sk.indexOf('cs2_')!==0||sk.slice(-10)!=='_inventory')return;
+    var ex=rep?{}:gs(sk);
+    Object.keys(inv[sk]).forEach(function(id){
+      var ens=inv[sk][id];if(!Array.isArray(ens))return;
+      if(rep||!ex[id]||!ex[id].length){ex[id]=ens;}
+      else{
+        ens.forEach(function(en){
+          var dup=ex[id].some(function(x){
+            return x.float===en.float&&x.wear===en.wear&&x.pattern===en.pattern&&x.st===en.st;
+          });
+          if(!dup)ex[id].push(en);
+        });
+      }
+      sc++;ec+=(ex[id]||[]).length;
+    });
+    ss(sk,ex);
+  });
+  if(wl.length){
+    if(rep){ss(WK,wl);}
+    else{
+      var ex2=gwl();
+      var ids=new Set(ex2.map(function(i){return i.id;}));
+      wl.forEach(function(it){if(!ids.has(it.id))ex2.push(it);});
+      ss(WK,ex2);
+    }
+  }
+  showMsg('im','\u2713 '+(rep?'REPLACE':'MERGE')+': '+sc+' skins ('+ec+' entries) + '+wl.length+' wishlist items','ok');
+  rStats();rPreview();runDiag();
+  document.getElementById('ita').value='';
+}
+
+function doClear(w){
+  if(!confirm('Delete '+(w==='all'?'ALL data':w==='owned'?'all owned entries':'wishlist')+'? Cannot be undone.'))return;
+  if(w==='all'||w==='owned')invKeys().forEach(function(k){localStorage.removeItem(k);});
+  if(w==='all'||w==='wishlist')localStorage.removeItem(WK);
+  showMsg('cm','\u2713 Cleared','ok');
+  rStats();rPreview();runDiag();
+}
+
+function rStats(){
+  var d=build();
+  document.getElementById('s1').textContent=d.summary.totalSkins;
+  document.getElementById('s2').textContent=d.summary.totalEntries;
+  document.getElementById('s3').textContent=d.summary.wishlisted;
+  document.getElementById('s4').textContent=d.summary.cases;
+}
+
+function ab(w){
+  return(w||'').replace('Factory New','FN').replace('Minimal Wear','MW')
+    .replace('Field-Tested','FT').replace('Well-Worn','WW').replace('Battle-Scarred','BS');
+}
+
+function rPreview(){
+  var c=document.getElementById('pv'),all=[];
+  invKeys().forEach(function(k){
+    var d=gs(k);
+    Object.keys(d).forEach(function(id){
+      if(Array.isArray(d[id])&&d[id].length>0)
+        all.push({id:id,k:k,ens:d[id],m:d[id][0]||{}});
+    });
+  });
+  var wl=gwl();
+  if(!all.length&&!wl.length){
+    c.innerHTML='<p class="mono" style="font-size:11px;color:var(--td)">No inventory data found. Check the diagnostic panel above.</p>';
+    return;
+  }
+  var h='';
+  if(all.length){
+    h+='<p class="mono" style="font-size:11px;color:var(--td);margin-bottom:8px">'+all.length+' skin'+(all.length!==1?'s':'')+' with owned entries</p>';
+    h+='<table><thead><tr><th>SKIN</th><th>CASE</th><th>ENTRIES</th></tr></thead><tbody>';
+    all.forEach(function(s){
+      var cn=s.m.caseName||s.k.replace('cs2_','').replace('_inventory','').replace(/_/g,' ');
+      var nm=s.m.skinName?(s.m.weapon+' | '+s.m.skinName):s.id.replace(/_+/g,' ');
+      var chips=s.ens.map(function(e){
+        var pts=[e.st?'ST\u2122':'STD'];
+        if(e.wear)pts.push(ab(e.wear));
+        if(e.float)pts.push('FL '+parseFloat(e.float).toFixed(4));
+        if(e.pattern)pts.push('P'+e.pattern);
+        return'<span class="chip'+(e.st?' cst':'')+'">'+pts.join(' \u00b7 ')+'</span>';
+      }).join(' ');
+      h+='<tr><td class="tn">'+nm+'</td><td class="tc">'+cn+'</td><td>'+chips+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  if(wl.length){
+    h+='<div class="sh" style="margin-top:16px">Wishlist ('+wl.length+')</div>';
+    h+='<table><thead><tr><th>SKIN</th><th>CASE</th><th>RARITY</th></tr></thead><tbody>';
+    wl.forEach(function(it){
+      var nm=it.skinName?(it.weapon+' | '+it.skinName):it.id.replace(/_+/g,' ');
+      h+='<tr><td class="tn"><span style="color:#ff4d6d">\u2665</span> '+nm+'</td>'
+        +'<td class="tc">'+(it.caseName||'?')+'</td>'
+        +'<td class="tm">'+((it.rarity||'').replace(' Grade',''))+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  c.innerHTML=h;
+}
+
+
+function showMsg(id,t,tp){
+  var e=document.getElementById(id);if(!e)return;
+  e.textContent=t;e.className='msg '+tp;e.style.display='block';
+  setTimeout(function(){e.style.display='none';},9000);
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  runDiag();
+  rStats();
+  rPreview();
+});
+</script>
+</body>
+</html>
