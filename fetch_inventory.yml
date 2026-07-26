@@ -1,0 +1,199 @@
+name: Fetch Steam Inventory
+
+on:
+  workflow_dispatch:
+    inputs:
+      steam_id:
+        description: 'Your 17-digit Steam ID (from steamidfinder.com)'
+        required: true
+        type: string
+      steam_api_key:
+        description: 'Your Steam Web API key (from steamcommunity.com/dev/apikey)'
+        required: false
+        type: string
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  fetch-inventory:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch and save inventory
+        if: always()
+        shell: python
+        run: |
+          import json, sys, os, time, datetime, re
+          import urllib.request, urllib.error
+
+          steam_id  = "${{ github.event.inputs.steam_id }}".strip()
+          api_key   = "${{ github.event.inputs.steam_api_key }}".strip()
+          out_file  = "steam_inventory.json"
+
+          def save(data):
+              with open(out_file, "w") as f:
+                  json.dump(data, f, indent=2)
+              print("Saved " + out_file + " (" + str(os.path.getsize(out_file)) + " bytes)")
+
+          def save_error(msg):
+              save({"type":"error","steam_id":steam_id,
+                    "error":msg,"fetched":datetime.datetime.utcnow().isoformat()+"Z",
+                    "total_items":0,"skin_entries":{}})
+
+          print("Steam ID:  " + repr(steam_id))
+          print("API key:   " + ("provided (" + str(len(api_key)) + " chars)" if api_key else "not provided"))
+          print("Python:    " + sys.version.split()[0])
+
+          if not steam_id or not steam_id.isdigit() or len(steam_id) != 17:
+              save_error("Invalid Steam ID: '" + steam_id + "'. Need 17 digits from steamidfinder.com")
+              sys.exit(0)
+
+          # Build URL — use API key if provided (more reliable), else try public endpoint
+          if api_key:
+              # Official authenticated Steam API endpoint
+              url = ("https://api.steampowered.com/IEconService/GetInventoryItemsWithDescriptions/v1/"
+                     "?key=" + api_key +
+                     "&steamid=" + steam_id +
+                     "&appid=730&contextid=2&get_descriptions=1&count=5000")
+              url_display = url.replace(api_key, "***API_KEY***")
+          else:
+              # Public unauthenticated endpoint
+              url = ("https://steamcommunity.com/inventory/" + steam_id +
+                     "/730/2?l=english&count=5000")
+              url_display = url
+
+          print("URL: " + url_display)
+
+          headers = {
+              "User-Agent": "Mozilla/5.0 (compatible; SteamInventoryFetch/1.0)",
+              "Accept": "application/json",
+          }
+
+          raw = None
+          for attempt in range(3):
+              try:
+                  req = urllib.request.Request(url, headers=headers)
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      data = r.read()
+                      raw = json.loads(data.decode())
+                  print("Fetch OK — response size: " + str(len(data)) + " bytes")
+                  break
+              except urllib.error.HTTPError as e:
+                  body = ""
+                  try: body = e.read().decode()[:300]
+                  except: pass
+                  print("HTTP " + str(e.code) + ": " + str(e.reason) + " | " + body[:100])
+                  if e.code in (400, 403):
+                      msg = ("HTTP " + str(e.code) + " from Steam. ")
+                      if not api_key:
+                          msg += ("Try again with a Steam API key: "
+                                  "go to steamcommunity.com/dev/apikey, "
+                                  "register a free key, then re-run this workflow "
+                                  "and paste the key in the 'steam_api_key' field.")
+                      else:
+                          msg += ("API key may be invalid, or inventory privacy may be set to Private. "
+                                  "Set inventory to Public in Steam Privacy Settings.")
+                      save_error(msg)
+                      sys.exit(0)
+                  if e.code == 429:
+                      print("Rate limited, waiting 15s...")
+                      time.sleep(15)
+                      continue
+                  if attempt == 2:
+                      save_error("HTTP " + str(e.code) + " after 3 attempts: " + body[:200])
+                      sys.exit(0)
+              except Exception as e:
+                  print("Error attempt " + str(attempt+1) + ": " + str(e))
+                  if attempt == 2:
+                      save_error("Connection error: " + str(e))
+                      sys.exit(0)
+                  time.sleep(4)
+
+          if not raw:
+              save_error("No response received from Steam")
+              sys.exit(0)
+
+          # Handle both API formats
+          # Public endpoint:  {"assets":[...], "descriptions":[...]}
+          # API key endpoint: {"response":{"assets":[...], "descriptions":[...]}}
+          if "response" in raw:
+              raw = raw["response"]
+
+          assets = raw.get("assets", [])
+          descs  = raw.get("descriptions", [])
+          print("Assets: " + str(len(assets)) + "  Descriptions: " + str(len(descs)))
+
+          if not assets:
+              save_error("No items found. Response keys: " + str(list(raw.keys())) +
+                         ". Make sure your inventory is set to Public in Steam Privacy Settings.")
+              sys.exit(0)
+
+          dm = {}
+          for d in descs:
+              dm[str(d.get("classid","")) + "_" + str(d.get("instanceid",""))] = d
+
+          entries = {}
+          n_skins = 0
+          n_skip  = 0
+          for a in assets:
+              k   = str(a.get("classid","")) + "_" + str(a.get("instanceid",""))
+              d   = dm.get(k, {})
+              mhn = d.get("market_hash_name","")
+              if not mhn or " | " not in mhn:
+                  n_skip += 1
+                  continue
+              n_skins += 1
+              wear = ""
+              for w in ["Factory New","Minimal Wear","Field-Tested","Well-Worn","Battle-Scarred"]:
+                  if "("+w+")" in mhn:
+                      wear = w; break
+              st = "StatTrak" in mhn
+              base = mhn
+              if wear: base = base.replace(" ("+wear+")","").strip()
+              base = base.replace("StatTrak\u2122 ","").replace("StatTrak ","")
+              base = base.replace("Souvenir ","").strip()
+              sid = re.sub(r"[^a-z0-9]","_",base.lower())
+              if sid not in entries:
+                  entries[sid] = {"name":base,"entries":[]}
+              entries[sid]["entries"].append({
+                  "st":st,"wear":wear,"float":"","pattern":"",
+                  "assetid":a.get("assetid","")
+              })
+          print("Weapon skins: " + str(n_skins) + "  Other items skipped: " + str(n_skip))
+
+          save({
+              "version":3,"type":"steam_inventory_import",
+              "steam_id":steam_id,
+              "fetched":datetime.datetime.utcnow().isoformat()+"Z",
+              "total_items":len(entries),
+              "skin_entries":entries,
+              "note":"Float values not available via Steam API. Add manually on case pages."
+          })
+          print("SUCCESS: " + str(len(entries)) + " unique skins saved to " + out_file)
+
+      - name: Show result
+        if: always()
+        run: |
+          echo "=== Output file check ==="
+          ls -la steam_inventory.json 2>/dev/null || echo "FILE MISSING"
+          echo ""
+          echo "=== First 30 lines ==="
+          cat steam_inventory.json 2>/dev/null | head -30 || echo "Cannot read file"
+
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ ! -f steam_inventory.json ]; then
+            echo '{"type":"error","error":"Python step did not produce a file"}' > steam_inventory.json
+          fi
+          git add steam_inventory.json
+          git commit -m "Steam inventory fetch $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing changed"
+          git push
